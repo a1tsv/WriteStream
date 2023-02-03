@@ -1,5 +1,3 @@
-const { compilerOptions } = require("./tsconfig.json");
-
 const jestConfig = {
   preset: "ts-jest",
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
