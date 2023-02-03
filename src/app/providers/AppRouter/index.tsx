@@ -1,8 +1,8 @@
 import { routes } from './model'
 import { RoutesEnum } from './types'
-import { BlogsPage } from '@pages/Blogs'
 import { FC, PropsWithChildren } from 'react'
 import { Route, Routes } from 'react-router'
+import { Navigate } from 'react-router-dom'
 
 export const AppRouter: FC<PropsWithChildren> = ({ children }) => {
 	return (
@@ -12,7 +12,7 @@ export const AppRouter: FC<PropsWithChildren> = ({ children }) => {
 				{routes.map(route => (
 					<Route key={route.path} path={route.path} element={route.component} />
 				))}
-				<Route path={RoutesEnum.BLOGS} element={<BlogsPage />} />
+				<Route path={'/*'} element={<Navigate to={RoutesEnum.BLOGS} />} />
 			</Routes>
 		</>
 	)

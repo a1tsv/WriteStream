@@ -1,0 +1,14 @@
+:root {
+	// Colors
+	--color-purple: #5e548e;
+}
+
+[data-theme='light'] {
+	--color-primary: #000;
+	--color-secondary: #fff;
+}
+
+[data-theme='dark'] {
+	--color-primary: #fff;
+	--color-secondary: #08090a;
+}
