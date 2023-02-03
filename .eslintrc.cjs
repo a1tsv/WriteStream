@@ -11,6 +11,7 @@ module.exports = {
     "plugin:jest/recommended",
     "plugin:jest/style",
     "plugin:testing-library/react",
+    "plugin:storybook/recommended",
   ],
   overrides: [],
   parserOptions: {
