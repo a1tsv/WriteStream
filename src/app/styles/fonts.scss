@@ -1,7 +1,6 @@
 @font-face {
 	font-family: 'Inter';
-	src: local('Inter Regular'), local('Inter-Regular'),
-		url(../../../public/fonts/Inter-Regular.woff2) format('woff2'),
+	src: url(../../../public/fonts/Inter-Regular.woff2) format('woff2'),
 		url(../../../public/fonts/Inter-Regular.woff) format('woff'),
 		url(../../../public/fonts/Inter-Regular.ttf) format('truetype');
 	font-weight: 400;
@@ -10,8 +9,7 @@
 
 @font-face {
 	font-family: 'Inter';
-	src: local('Inter Semi Bold'), local('Inter-Semi-Bold'),
-		url(../../../public/fonts/Inter-SemiBold.woff2) format('woff2'),
+	src: url(../../../public/fonts/Inter-SemiBold.woff2) format('woff2'),
 		url(../../../public/fonts/Inter-SemiBold.woff) format('woff'),
 		url(../../../public/fonts/Inter-SemiBold.ttf) format('truetype');
 	font-weight: 600;
@@ -20,8 +18,7 @@
 
 @font-face {
 	font-family: 'Inter';
-	src: local('Inter Bold'), local('Inter-Bold'),
-		url(../../../public/fonts/Inter-Bold.woff2) format('woff2'),
+	src: url(../../../public/fonts/Inter-Bold.woff2) format('woff2'),
 		url(../../../public/fonts/Inter-Bold.woff) format('woff'),
 		url(../../../public/fonts/Inter-Bold.ttf) format('truetype');
 	font-weight: 700;
