@@ -6,9 +6,11 @@
 [data-theme='light'] {
 	--color-primary: #000;
 	--color-secondary: #fff;
+	--shadow-primary: 11px 4px 8px 0px rgba(57, 61, 65, 0.2);
 }
 
 [data-theme='dark'] {
 	--color-primary: #fff;
 	--color-secondary: #08090a;
+	--shadow-primary: 11px 4px 8px 0px rgba(29, 29, 30, 0.2);
 }

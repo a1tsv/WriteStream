@@ -8,17 +8,19 @@ export const MenuLink = styled(NavLink)`
 	align-items: center;
 	gap: 0.3125rem;
 
+	border-right: 0.125rem solid transparent;
+
 	&.active {
 		color: var(--color-purple);
 		fill: var(--color-purple);
-		border-right: 0.125rem solid var(--color-purple);
+		border-color: var(--color-purple);
 	}
 
 	@media (any-hover: hover) {
 		&:hover {
 			color: var(--color-purple);
 			fill: var(--color-purple);
-			border-right: 0.125rem solid var(--color-purple);
+			border-color: var(--color-purple);
 		}
 	}
 

@@ -8,5 +8,6 @@ export enum RoutesEnum {
 export interface IRoute {
 	path: string
 	component: ReactNode
-	isPage: boolean
+	title: string
+	icon?: ReactNode
 }
