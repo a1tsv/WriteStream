@@ -17,7 +17,6 @@ export const SideBar: FC<ISideBarProps> = ({ isOpen }) => {
 
 	return (
 		<>
-			-
 			<SideBarWrapper isOpen={isOpen}>
 				<SideBarNav>
 					<SideBarMenu>

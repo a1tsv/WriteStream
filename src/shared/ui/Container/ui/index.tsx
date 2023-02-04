@@ -6,7 +6,7 @@ interface IContainer {
 }
 
 export const Container = styled.div<IContainer>`
-	max-width: ${({ big }) => (big ? '68rem' : '75rem')};
+	max-width: ${({ big }) => (big ? '75rem' : '68rem')};
 	padding: ${({ padding }) => padding};
 	margin: 0 auto;
 	width: 100%;

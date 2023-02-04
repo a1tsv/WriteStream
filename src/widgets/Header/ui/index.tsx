@@ -15,7 +15,7 @@ interface IHeaderProps {
 }
 
 export const Header: FC<IHeaderProps> = ({ sideBarStateChanger }) => {
-	const savedThemeInLC = getItemFromLC('theme')
+	const savedThemeInLC = getItemFromLC('theme') as string
 	const [theme, setTheme] = useState(savedThemeInLC || 'light')
 	const isLight = theme === 'light'
 
@@ -31,11 +31,18 @@ export const Header: FC<IHeaderProps> = ({ sideBarStateChanger }) => {
 	return (
 		<HeaderWrapper>
 			<HeaderContainer>
-				<HeaderBurgerButton onClick={sideBarStateChanger}>
+				<HeaderBurgerButton
+					onClick={sideBarStateChanger}
+					aria-label={'Burger menu'}
+				>
 					<RxRows />
 				</HeaderBurgerButton>
-				<HeaderThemeSwitcher onClick={changeTheme}>
+				<HeaderThemeSwitcher
+					onClick={changeTheme}
+					aria-label={'Theme switcher'}
+				>
 					{isLight ? <BiSun /> : <BsFillMoonFill />}
+					<p className={'hidden'}>{isLight ? 'Light' : 'Dark'}</p>
 				</HeaderThemeSwitcher>
 			</HeaderContainer>
 		</HeaderWrapper>
