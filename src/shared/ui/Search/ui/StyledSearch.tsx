@@ -1,0 +1,19 @@
+import styled from 'styled-components'
+
+export const SearchWrapper = styled.div`
+	height: rem(40);
+	padding: 0.2rem;
+	display: flex;
+	gap: 0.1rem;
+	border: 1px solid var(--color-light);
+	border-radius: var(--radius);
+	align-items: center;
+`
+
+export const SearchInput = styled.input`
+	border: none;
+	outline: none;
+	background: transparent;
+	width: 100%;
+	height: 100%;
+`

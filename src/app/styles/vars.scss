@@ -1,16 +1,28 @@
 :root {
 	// Colors
 	--color-purple: #5e548e;
+
+	// Typography
+	--fw-bold: 600;
+	--fw-sm: 400;
+	--fs-sm: 1rem;
+	--fs-md: 1.25rem;
+	--fs-big: 1.5rem;
+
+	// Other
+	--radius: 4px;
 }
 
 [data-theme='light'] {
 	--color-primary: #000;
 	--color-secondary: #fff;
+	--color-light: #737067;
 	--shadow-primary: 11px 4px 8px 0px rgba(57, 61, 65, 0.2);
 }
 
 [data-theme='dark'] {
 	--color-primary: #fff;
 	--color-secondary: #08090a;
+	--color-light: #a6a2a0;
 	--shadow-primary: 11px 4px 8px 0px rgba(29, 29, 30, 0.2);
 }

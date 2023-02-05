@@ -1,4 +1,7 @@
-import { getItemFromLC, setItemToLC } from '@shared/utils/localStorage'
+import {
+	getItemFromLC,
+	setItemToLC
+} from '@shared/utils/localStorage/localStorage'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Header } from '@widgets/Header'
 

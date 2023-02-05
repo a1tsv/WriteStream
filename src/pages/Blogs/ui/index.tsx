@@ -1,5 +1,6 @@
+import { Blogs } from '@features/Blogs'
 import { FC } from 'react'
 
 export const BlogsPage: FC = () => {
-	return <div>Blogs page</div>
+	return <Blogs />
 }

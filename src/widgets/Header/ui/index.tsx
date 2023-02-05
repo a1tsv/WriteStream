@@ -4,7 +4,10 @@ import {
 	HeaderThemeSwitcher,
 	HeaderWrapper
 } from './StyledHeader'
-import { getItemFromLC, setItemToLC } from '@shared/utils/localStorage'
+import {
+	getItemFromLC,
+	setItemToLC
+} from '@shared/utils/localStorage/localStorage'
 import { FC, useEffect, useState } from 'react'
 import { BiSun } from 'react-icons/bi'
 import { BsFillMoonFill } from 'react-icons/bs'
