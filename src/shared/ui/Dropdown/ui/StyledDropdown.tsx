@@ -1,5 +1,6 @@
 import { rem } from '@app/styles/mixins'
 import { Menu } from '@headlessui/react'
+import { SxComponent } from '@shared/types'
 import styled from 'styled-components'
 
 interface IDropDownButton {
@@ -7,14 +8,18 @@ interface IDropDownButton {
 }
 
 export const DropDownLabel = styled(Menu.Button)`
+	cursor: pointer;
 	color: var(--color-primary);
 	padding: ${rem(5)};
 	border: 1px solid var(--color-light);
 	border-radius: var(--radius);
+	width: 100%;
 `
 
-export const DropDownWrapper = styled.div`
+export const DropDownWrapper = styled.div<SxComponent<object>>`
 	position: relative;
+
+	${({ sx }) => sx}
 `
 
 export const DropDownMenu = styled(Menu.Items)`

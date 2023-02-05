@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
+import { SXType } from '@shared/types'
 import { IDropDownItem } from '@shared/ui/Dropdown/model'
 import {
 	DropDownButton,
@@ -13,18 +14,20 @@ interface IDropDownProps {
 	selected: string
 	onChangeCb: (value: string) => void
 	items: IDropDownItem[]
+	sx: SXType
 }
 
 export const Dropdown: FC<IDropDownProps> = ({
 	button,
 	onChangeCb,
 	items,
-	selected
+	selected,
+	sx
 }) => {
 	return (
 		<div>
 			<Menu>
-				<DropDownWrapper>
+				<DropDownWrapper sx={sx}>
 					<DropDownLabel>{selected || button}</DropDownLabel>
 					<Transition
 						as={Fragment}
@@ -41,7 +44,7 @@ export const Dropdown: FC<IDropDownProps> = ({
 									{({ active }) => (
 										<DropDownButton
 											active={active || item.title === selected}
-											onClick={() => onChangeCb(item.title)}
+											onClick={() => onChangeCb(item.value)}
 										>
 											{item.title}
 										</DropDownButton>

@@ -1,7 +1,5 @@
 export type SXType = {
-	sx?: {
-		[key: string]: string
-	}
+	[key: string]: string
 }
 
-export type SxComponent<D> = SXType & D
+export type SxComponent<D> = { sx?: SXType } & D
