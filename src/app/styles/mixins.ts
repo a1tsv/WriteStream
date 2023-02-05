@@ -11,6 +11,6 @@ export const fzRem = (size: number, base = 16) => `
   font-size: calc(${size / base} * 1rem);
 `
 
-const rem = (px: number) => {
+export const rem = (px: number) => {
 	return `${px / 16}rem`
 }

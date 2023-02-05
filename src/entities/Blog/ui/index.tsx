@@ -21,7 +21,9 @@ export const Blog: FC<IBlogProps> = ({ blog }) => {
 			<BlogBody>
 				<BlogHeading>
 					<BlogTitle>{blog.name}</BlogTitle>
-					<BlogWebsite>Website: {blog.websiteUrl}</BlogWebsite>
+					<BlogWebsite>
+						Website: <a href={blog.websiteUrl}>{blog.websiteUrl}</a>
+					</BlogWebsite>
 				</BlogHeading>
 				<BlogText>{blog.description}</BlogText>
 			</BlogBody>

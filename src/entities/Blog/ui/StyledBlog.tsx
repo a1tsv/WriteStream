@@ -44,7 +44,9 @@ export const BlogTitle = styled(Typography).attrs({
 `
 
 export const BlogWebsite = styled.div`
-	color: var(--color-light) a {
+	color: var(--color-light);
+
+	& a {
 		color: var(--color-purple);
 	}
 `
