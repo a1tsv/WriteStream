@@ -8,6 +8,7 @@ import {
 	PostPreviewTitle
 } from '@features/PostPreview/ui/StyledPostPreview'
 import { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 
 interface IPostPreviewProps {
 	post: IPost
@@ -18,7 +19,9 @@ export const PostPreview: FC<IPostPreviewProps> = ({ post }) => {
 		<PostPreviewContent>
 			<PostPreviewImg src={'#'} />
 			<PostPreviewBody>
-				<PostPreviewTitle>{post.title}</PostPreviewTitle>
+				<NavLink to={`/posts/${post.id}`}>
+					<PostPreviewTitle>{post.title}</PostPreviewTitle>
+				</NavLink>
 				<PostPreviewText>{post.shortDescription}</PostPreviewText>
 				<PostPreviewTime>
 					{new Date(post.createdAt).toLocaleDateString()}

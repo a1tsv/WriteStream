@@ -2,6 +2,12 @@ import { rem } from '@app/styles/mixins'
 import { Typography } from '@shared/ui/Typography'
 import styled from 'styled-components'
 
+export const PostNavigation = styled.div`
+	&:not(:last-child) {
+		margin-bottom: ${rem(15)};
+	}
+`
+
 export const PostBlogTitle = styled(Typography).attrs({
 	as: 'h2',
 	variant: 'sub-title-md'
@@ -12,6 +18,7 @@ export const PostBlogTitle = styled(Typography).attrs({
 export const PostHeading = styled.div`
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: ${rem(5)};
 
 	&:not(:last-child) {

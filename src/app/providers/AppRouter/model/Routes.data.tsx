@@ -1,6 +1,7 @@
 import { IRoute, RoutesEnum } from '../types'
 import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
+import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
 import { MdOutlineTableRows } from 'react-icons/md'
 import { RxRows } from 'react-icons/rx'
@@ -22,5 +23,10 @@ export const routes: IRoute[] = [
 		path: RoutesEnum.BLOG_PAGE,
 		title: 'Blog Page',
 		component: <BlogPage />
+	},
+	{
+		path: RoutesEnum.POST_PAGE,
+		title: 'Post Page',
+		component: <PostPage />
 	}
 ]

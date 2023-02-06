@@ -1,10 +1,12 @@
 import { useGetPostQuery } from '@entities/Post'
+import { PostSkeleton } from '@pages/Post/ui/PostSkeleton'
 import {
 	PostBlogTitle,
 	PostDate,
 	PostHeading,
 	PostImg,
 	PostMembership,
+	PostNavigation,
 	PostText,
 	PostTitle
 } from '@pages/Post/ui/StyledPost'
@@ -17,7 +19,9 @@ export const PostPage = () => {
 
 	return (
 		<div>
-			<BackTo to={'/posts'} text={'Back to posts'} />
+			<PostNavigation>
+				<BackTo to={'/posts'} text={'Back to posts'} />
+			</PostNavigation>
 			{post ? (
 				<>
 					<PostBlogTitle>{post.blogName}</PostBlogTitle>
@@ -30,7 +34,7 @@ export const PostPage = () => {
 					<PostText>{post.content}</PostText>
 				</>
 			) : (
-				<div>Placeholder</div>
+				<PostSkeleton />
 			)}
 		</div>
 	)
