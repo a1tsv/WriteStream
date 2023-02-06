@@ -1,14 +1,28 @@
+import { rem } from '@app/styles/mixins'
 import { Typography } from '@shared/ui/Typography'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+interface IBlogTextProps {
+	collapsed: boolean
+	initialHeight?: number
+}
+
+interface IBlogShowMoreProps {
+	collapsed: boolean
+}
 
 export const BlogWrapper = styled.article`
 	display: flex;
 	padding: 0.6rem;
-	align-items: center;
 	margin: 0;
 	gap: 0.5rem;
+	align-items: flex-start;
 
 	border-bottom: 1px solid var(--color-light);
+
+	@media (max-width: 48rem) {
+		flex-direction: column;
+	}
 `
 
 export const BlogImg = styled.img`
@@ -22,6 +36,7 @@ export const BlogImg = styled.img`
 export const BlogBody = styled.div`
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 	//gap: 0.9rem;
 `
 
@@ -51,4 +66,43 @@ export const BlogWebsite = styled.div`
 	}
 `
 
-export const BlogText = styled.p``
+export const BlogText = styled.p<IBlogTextProps>`
+	position: relative;
+	transition: height 0.15s ease-in 0s;
+	overflow: hidden;
+
+	${({ collapsed, initialHeight }) =>
+		css`
+			height: ${collapsed
+				? rem(50)
+				: (initialHeight && rem(initialHeight)) || 'auto'};
+
+			${collapsed &&
+			css`
+				&:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 3;
+					background: var(--gradient-hiding);
+				}
+			`}
+		`}
+`
+
+export const BlogShowMore = styled.button<IBlogShowMoreProps>`
+	display: flex;
+	align-items: center;
+	color: var(--color-light);
+	cursor: pointer;
+	gap: ${rem(5)};
+	transition: background 0.15s ease-in 0s;
+
+	svg {
+		transition: all 0.2s ease-in 0s;
+		${({ collapsed }) => collapsed && 'transform: rotate(180deg);'}
+	}
+`

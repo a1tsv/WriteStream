@@ -2,7 +2,8 @@ import { ReactNode } from 'react'
 
 export enum RoutesEnum {
 	'BLOGS' = '/blogs',
-	'POSTS' = '/POSTS'
+	'POSTS' = '/POSTS',
+	'BLOG_PAGE' = '/blogs/:id'
 }
 
 export interface IRoute {

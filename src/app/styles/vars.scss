@@ -18,6 +18,11 @@
 	--color-secondary: #fff;
 	--color-light: #737067;
 	--shadow-primary: 11px 4px 8px 0px rgba(57, 61, 65, 0.2);
+	--gradient-hiding: linear-gradient(
+		0deg,
+		rgb(231, 231, 231) 0%,
+		rgba(38, 49, 51, 0) 100%
+	);
 }
 
 [data-theme='dark'] {
@@ -25,4 +30,5 @@
 	--color-secondary: #08090a;
 	--color-light: #a6a2a0;
 	--shadow-primary: 11px 4px 8px 0px rgba(29, 29, 30, 0.2);
+	--gradient-hiding: linear-gradient(0deg, #08090a 0%, rgba(0, 0, 0, 0.2) 100%);
 }

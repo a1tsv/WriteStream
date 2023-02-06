@@ -1,4 +1,5 @@
 import {
+	IBlog,
 	IBlogRequestModel,
 	IBlogResponse
 } from '@entities/Blog/model/blog.types'
@@ -11,8 +12,13 @@ const blogsApi = api.injectEndpoints({
 				url: '/blogs',
 				params: data
 			})
+		}),
+		getBlog: build.query<IBlog, string>({
+			query: id => ({
+				url: `/blogs/${id}`
+			})
 		})
 	})
 })
 
-export const { useGetBlogsQuery } = blogsApi
+export const { useGetBlogsQuery, useGetBlogQuery } = blogsApi

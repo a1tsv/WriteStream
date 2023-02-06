@@ -7,7 +7,7 @@ import {
 	DropDownMenu,
 	DropDownWrapper
 } from '@shared/ui/Dropdown/ui/StyledDropdown'
-import { FC, Fragment } from 'react'
+import { FC } from 'react'
 
 interface IDropDownProps {
 	button: string
@@ -30,20 +30,20 @@ export const Dropdown: FC<IDropDownProps> = ({
 				<DropDownWrapper sx={sx}>
 					<DropDownLabel>{selected || button}</DropDownLabel>
 					<Transition
-						as={Fragment}
-						enter='transition ease-out duration-100'
-						enterFrom='transform opacity-0 scale-95'
-						enterTo='transform opacity-100 scale-100'
-						leave='transition ease-in duration-75'
-						leaveFrom='transform opacity-100 scale-100'
-						leaveTo='transform opacity-0 scale-95'
+						as='div'
+						enter='transition-opacity'
+						enterFrom='opacity-0'
+						enterTo='opacity-1'
+						leave='transition-opacity'
+						leaveFrom='opacity-1'
+						leaveTo='opacity-0'
 					>
 						<DropDownMenu>
 							{items.map(item => (
 								<Menu.Item key={item.title}>
 									{({ active }) => (
 										<DropDownButton
-											active={active || item.title === selected}
+											active={!!active || item.title === selected}
 											onClick={() => onChangeCb(item.value)}
 										>
 											{item.title}
