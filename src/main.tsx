@@ -7,14 +7,14 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<SkeletonTheme
-		baseColor='var(--sk-primary)'
-		highlightColor='var(--color-secondary)'
-	>
-		<BrowserRouter>
-			<StoreProvider>
+	<BrowserRouter>
+		<StoreProvider>
+			<SkeletonTheme
+				baseColor='var(--sk-primary)'
+				highlightColor='var(--color-secondary)'
+			>
 				<App />
-			</StoreProvider>
-		</BrowserRouter>
-	</SkeletonTheme>
+			</SkeletonTheme>
+		</StoreProvider>
+	</BrowserRouter>
 )

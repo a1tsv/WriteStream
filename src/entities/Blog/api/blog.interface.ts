@@ -7,14 +7,6 @@ export interface IBlog {
 	isMembership: boolean
 }
 
-export interface IBlogResponse {
-	pagesCount: number
-	page: number
-	pageSize: number
-	totalCount: number
-	items: IBlog[]
-}
-
 export interface IBlogRequestModel {
 	searchNameTerm: string
 	sortBy: string

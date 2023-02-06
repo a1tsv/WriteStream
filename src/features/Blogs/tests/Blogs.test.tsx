@@ -1,7 +1,8 @@
 import { Blogs } from '../ui'
 import { server } from '@app/tests/msw/server'
-import { IBlog, IBlogResponse } from '@entities/Blog/model/blog.types'
+import { IBlog } from '@entities/Blog/api/blog.interface'
 import { api } from '@shared/api'
+import { IGetItemsResponse } from '@shared/api/api.interface'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen, waitFor } from '@testing-library/react'
@@ -12,20 +13,26 @@ import { rest } from 'msw'
 describe('Blogs page', () => {
 	const storeRef = setupApiStore(api, {})
 
-	const items = [
+	const items: IBlog[] = [
 		{
 			id: '1',
 			name: 'Blog 1',
-			description: 'Description for Blog 1'
+			description: 'Description for Blog 1',
+			websiteUrl: 'https://blog1.com',
+			createdAt: '2021-01-01',
+			isMembership: false
 		},
 		{
 			id: '2',
 			name: 'Blog 2',
-			description: 'Description for Blog 2'
+			description: 'Description for Blog 2',
+			websiteUrl: 'https://blog2.com',
+			createdAt: '2021-01-01',
+			isMembership: false
 		}
-	] as IBlog[]
+	]
 
-	const mockServerResponse: IBlogResponse = {
+	const mockServerResponse: IGetItemsResponse<IBlog[]> = {
 		items,
 		pagesCount: 1,
 		page: 1,
@@ -41,16 +48,13 @@ describe('Blogs page', () => {
 	beforeEach(() => {
 		server.use(
 			rest.get('https://ht-02-03.vercel.app/api/blogs', (req, res, ctx) => {
-				console.log('getting items')
 				const searchTermName = req.url.searchParams.get('searchNameTerm')
 				if (searchTermName) {
-					console.log('filtering items')
-					mockServerResponse.items = mockServerResponse.items.filter(item =>
+					const searchItems = mockServerResponse.items.filter(item =>
 						item.name.toLowerCase().includes(searchTermName.toLowerCase())
 					)
-					console.log(mockServerResponse.items)
+					mockServerResponse.items = searchItems
 				}
-
 				return res(ctx.json(mockServerResponse))
 			})
 		)

@@ -1,2 +1,2 @@
 export { useGetBlogsQuery, useGetBlogQuery } from './blogs.api'
-export { type IBlog } from './blog.types'
+export { type IBlog } from './blog.interface'

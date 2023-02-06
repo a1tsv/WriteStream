@@ -1,0 +1,1 @@
+export { getArrayFromLength } from './getArrayFromLength'
