@@ -2,11 +2,7 @@ import { PostBlogTitle, PostText } from '@pages/Post/ui/StyledPost'
 import { FC } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-interface IPostSkeletonProps {
-	count: number
-}
-
-export const PostSkeleton: FC<IPostSkeletonProps> = ({ count }) => {
+export const PostSkeleton: FC = () => {
 	return (
 		<>
 			<PostBlogTitle>

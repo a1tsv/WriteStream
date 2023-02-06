@@ -15,7 +15,7 @@ import { useParams } from 'react-router'
 
 export const PostPage = () => {
 	const { id } = useParams<{ id: string }>()
-	const { data: post, isLoading, error } = useGetPostQuery(id as string)
+	const { data: post } = useGetPostQuery(id as string)
 
 	return (
 		<div>
