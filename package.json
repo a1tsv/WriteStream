@@ -81,5 +81,8 @@
 	},
 	"resolutions": {
 		"styled-components": "^5"
+	},
+	"msw": {
+		"workerDirectory": "public"
 	}
 }

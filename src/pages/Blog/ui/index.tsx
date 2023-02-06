@@ -13,6 +13,7 @@ export const BlogPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const { data: blog, isLoading: fetchingBlog } = useGetBlogQuery(id as string)
 	const { data: posts, isLoading: fetchingPosts } = useGetPostsQuery()
+
 	return (
 		<div>
 			<BackTo to={'/blogs'} text={'Back to blogs'} />

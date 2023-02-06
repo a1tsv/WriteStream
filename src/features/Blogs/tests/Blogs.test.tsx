@@ -3,6 +3,7 @@ import { server } from '@app/tests/msw/server'
 import { IBlog } from '@entities/Blog/api/blog.interface'
 import { api } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
+import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen, waitFor } from '@testing-library/react'
@@ -47,7 +48,7 @@ describe('Blogs page', () => {
 
 	beforeEach(() => {
 		server.use(
-			rest.get('https://ht-02-03.vercel.app/api/blogs', (req, res, ctx) => {
+			rest.get(`${baseURL}/blogs`, (req, res, ctx) => {
 				const searchTermName = req.url.searchParams.get('searchNameTerm')
 				if (searchTermName) {
 					const searchItems = mockServerResponse.items.filter(item =>

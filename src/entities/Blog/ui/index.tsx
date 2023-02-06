@@ -10,7 +10,7 @@ import {
 	BlogWrapper
 } from '@entities/Blog/ui/StyledBlog'
 import { FC, useRef, useState } from 'react'
-import { BiUpArrow } from 'react-icons/all'
+import { BiUpArrow } from 'react-icons/bi'
 import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
