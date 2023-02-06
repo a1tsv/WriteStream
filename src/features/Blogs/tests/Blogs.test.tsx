@@ -10,6 +10,7 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
+import { Route, Routes } from 'react-router'
 
 describe('Blogs page', () => {
 	const storeRef = setupApiStore(api, {})
@@ -92,5 +93,25 @@ describe('Blogs page', () => {
 			timeout: 1500
 		})
 		expect(await screen.findByText('Blog 1')).toBeInTheDocument()
+	})
+
+	it('should navigate to blog details page', async () => {
+		renderWithRouter(
+			storeRef.wrapper({
+				children: (
+					<>
+						<Routes>
+							<Route path='/blogs/:id' element={<div>Blog 1 Details</div>} />
+						</Routes>
+						<Blogs />
+					</>
+				)
+			}),
+			{}
+		)
+
+		expect(await screen.findByText('Blog 1')).toBeInTheDocument()
+		await userEvent.click(screen.getByText('Blog 1'))
+		expect(await screen.findByText('Blog 1 Details')).toBeInTheDocument()
 	})
 })
