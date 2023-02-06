@@ -17,9 +17,6 @@ interface IBlogProps {
 }
 
 export const Blog: FC<IBlogProps> = ({ blog }) => {
-	const blogText =
-		'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.  lorem ipsum dolor sit amet consectetur adipisicing elit.  lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.  lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.'
-	// const isTextLong = blogText.length > 200
 	const isTextLong = blog.description.length > 200
 	const [isCollapsed, setIsCollapsed] = useState(isTextLong)
 	const showMoreRef = useRef<HTMLParagraphElement>(null)
@@ -44,7 +41,6 @@ export const Blog: FC<IBlogProps> = ({ blog }) => {
 					collapsed={isCollapsed}
 					ref={showMoreRef}
 				>
-					{/*{blogText}*/}
 					{blog.description}
 				</BlogText>
 				{isTextLong && (

@@ -1,4 +1,5 @@
 import { Blog, useGetBlogsQuery } from '@entities/Blog'
+import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
 import { dropdownItems } from '@features/Blogs/model'
 import { BlogsFilters, BlogsSearch } from '@features/Blogs/ui/StyledBlogs'
 import { getOptionTitleByValue } from '@features/Blogs/utils'
@@ -65,6 +66,7 @@ export const Blogs = () => {
 				/>
 			</BlogsFilters>
 			<div>
+				{isLoading && <BlogSkeleton count={3} />}
 				{data?.items &&
 					data.items.map(blog => <Blog key={blog.id} blog={blog} />)}
 			</div>
