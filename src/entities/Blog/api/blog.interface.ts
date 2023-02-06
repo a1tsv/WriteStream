@@ -1,3 +1,5 @@
+import { IGetItemsModel } from '@shared/api/api.interface'
+
 export interface IBlog {
 	id: string
 	name: string
@@ -7,10 +9,6 @@ export interface IBlog {
 	isMembership: boolean
 }
 
-export interface IBlogRequestModel {
+export interface IBlogRequestModel extends IGetItemsModel {
 	searchNameTerm: string
-	sortBy: string
-	sortDirection: string
-	pageNumber: number
-	pageSize: number
 }

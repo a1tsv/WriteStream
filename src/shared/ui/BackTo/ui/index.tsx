@@ -10,17 +10,14 @@ interface IBackToProps {
 }
 
 export const BackTo: FC<IBackToProps> = ({ to, text }) => {
-	// const [shouldNavigate, setShouldNavigate] = useState(false)
 	const navigate = useNavigate()
 
 	const handleMouseEnter = () => {
 		navigate(to)
-		// setShouldNavigate(true)
 	}
 
 	return (
 		<div>
-			{/*{shouldNavigate && <Navigate replace to={to} />}*/}
 			<BackToWrapper onClick={handleMouseEnter}>
 				<BsArrowLeft />
 				<Typography variant={'sub-title-md'}>{text}</Typography>

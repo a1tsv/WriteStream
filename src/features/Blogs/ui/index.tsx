@@ -2,11 +2,11 @@ import { Blog, useGetBlogsQuery } from '@entities/Blog'
 import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
 import { dropdownItems } from '@features/Blogs/model'
 import { BlogsFilters, BlogsSearch } from '@features/Blogs/ui/StyledBlogs'
-import { getOptionTitleByValue } from '@features/Blogs/utils'
 import { useDebounce } from '@shared/hooks'
 import { Dropdown } from '@shared/ui/Dropdown'
 import { Search } from '@shared/ui/Search'
 import { Typography } from '@shared/ui/Typography'
+import { getOptionTitleByValue } from '@shared/utils/getOptionTitleByValue'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
@@ -23,7 +23,8 @@ export const Blogs = () => {
 		params.searchNameTerm || ''
 	)
 	const [selectedItem, setSelectedItem] = useState<string>(
-		getOptionTitleByValue(params.sortDirection) || dropdownItems[0].title
+		getOptionTitleByValue(dropdownItems, params.sortDirection) ||
+			dropdownItems[0].title
 	)
 
 	// Utils
@@ -44,7 +45,7 @@ export const Blogs = () => {
 	}, 500)
 
 	const handleSelectedChange = (value: string) => {
-		setSelectedItem(getOptionTitleByValue(value) as string)
+		setSelectedItem(getOptionTitleByValue(dropdownItems, value) as string)
 		setSearchParams({ ...params, sortDirection: value })
 	}
 

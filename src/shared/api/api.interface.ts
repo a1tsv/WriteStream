@@ -5,3 +5,10 @@ export interface IGetItemsResponse<D> {
 	totalCount: number
 	items: D
 }
+
+export interface IGetItemsModel {
+	sortBy: string
+	sortDirection: string
+	pageNumber: number
+	pageSize: number
+}
