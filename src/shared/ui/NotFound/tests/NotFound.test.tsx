@@ -15,7 +15,7 @@ describe('NotFound component', () => {
 		const label = 'Page Not Found'
 		const fallback = '/'
 		renderWithRouter(<NotFound label={label} fallback={fallback} />, {})
-		expect(screen.getByText('Go back')).toBeInTheDocument()
+		expect(screen.getByText('👈 Go back')).toBeInTheDocument()
 	})
 
 	it('should redirect to fallback page', async () => {

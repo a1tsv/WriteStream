@@ -1,14 +1,14 @@
-import {
-	getItemFromLC,
-	setItemToLC
-} from '@shared/utils/localStorage/localStorage'
+import { getItemFromLC, setItemToLC } from '@shared/utils/localStorage'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Header } from '@widgets/Header'
 
-jest.mock('@shared/utils/localStorage', () => ({
+jest.mock('@shared/utils/localStorage/localStorage', () => ({
 	getItemFromLC: jest.fn(() => 'light'),
 	setItemToLC: jest.fn()
 }))
+const mockedGetItemFromLC = getItemFromLC as jest.Mock
+const mockedSetItemToLC = setItemToLC as jest.Mock
+
 describe('Header', () => {
 	it('should renders correctly', () => {
 		render(<Header sideBarStateChanger={jest.fn()} />)
@@ -20,7 +20,7 @@ describe('Header', () => {
 	})
 
 	it('renders correctly with dark theme when saved in local storage', () => {
-		(getItemFromLC as jest.Mock).mockReturnValueOnce('dark')
+		mockedGetItemFromLC.mockReturnValueOnce('dark')
 
 		render(<Header sideBarStateChanger={jest.fn()} />)
 
@@ -33,10 +33,10 @@ describe('Header', () => {
 
 		fireEvent.click(themeSwitcher)
 
-		expect((setItemToLC as jest.Mock).mock.calls[0]).toEqual(['theme', 'dark'])
+		expect(mockedSetItemToLC.mock.calls[0]).toEqual(['theme', 'dark'])
 
 		fireEvent.click(themeSwitcher)
 
-		expect((setItemToLC as jest.Mock).mock.calls[1]).toEqual(['theme', 'light'])
+		expect(mockedSetItemToLC.mock.calls[1]).toEqual(['theme', 'light'])
 	})
 })

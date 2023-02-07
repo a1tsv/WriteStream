@@ -14,7 +14,7 @@ interface IDropDownProps {
 	selected: string
 	onChangeCb: (value: string) => void
 	items: IDropDownItem[]
-	sx: SXType
+	sx?: SXType
 }
 
 export const Dropdown: FC<IDropDownProps> = ({

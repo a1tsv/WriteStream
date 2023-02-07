@@ -21,11 +21,11 @@ describe('post api', () => {
 		]
 		fetchMock.mockResponseOnce(JSON.stringify({ data: posts }))
 
-		await store.dispatch(api.endpoints.getPosts.initiate())
+		await store.dispatch(api.endpoints.getPosts.initiate({ model: {} }))
 		expect(fetchMock).toHaveBeenCalledTimes(1)
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/posts`)
+		expect(url).toBe(`${baseURL}/posts?`)
 		expect(method).toBe('GET')
 	})
 

@@ -2,7 +2,7 @@ import { rem } from '@app/styles/mixins'
 import { Typography } from '@shared/ui/Typography'
 import styled from 'styled-components'
 
-export const PostPreviewContent = styled.div`
+export const PostPreviewContent = styled.li`
 	display: flex;
 	flex-direction: column;
 	padding: ${rem(10)};

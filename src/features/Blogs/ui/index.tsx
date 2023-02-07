@@ -4,6 +4,7 @@ import { dropdownItems } from '@features/Blogs/model'
 import { BlogsFilters, BlogsSearch } from '@features/Blogs/ui/StyledBlogs'
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { useDebounce } from '@shared/hooks'
+import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
 import { Typography } from '@shared/ui/Typography'
 import { useState } from 'react'
@@ -16,6 +17,7 @@ export const Blogs = () => {
 
 	// Api call
 	const { data, isLoading } = useGetBlogsQuery(params)
+	const isItemsEmpty = !data?.items.length && !isLoading
 
 	// Local states
 	const [searchValue, setSearchValue] = useState<string>(
@@ -56,6 +58,7 @@ export const Blogs = () => {
 				{isLoading && <BlogSkeleton count={3} />}
 				{data?.items &&
 					data.items.map(blog => <Blog key={blog.id} blog={blog} />)}
+				{isItemsEmpty && <NotFound label={'There is no blogs yet 😔'} />}
 			</div>
 		</>
 	)

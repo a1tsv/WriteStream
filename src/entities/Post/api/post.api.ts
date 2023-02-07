@@ -4,10 +4,14 @@ import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 
 export const postApi = api.injectEndpoints({
 	endpoints: build => ({
-		getPosts: build.query<IGetItemsResponse<IPost[]>, Partial<IGetItemsModel>>({
-			query: () => ({
-				url: '/posts',
-				method: 'GET'
+		getPosts: build.query<
+			IGetItemsResponse<IPost[]>,
+			{ model: Partial<IGetItemsModel>; blogId?: string }
+		>({
+			query: data => ({
+				url: data.blogId ? `/blogs/${data.blogId}/posts` : '/posts',
+				method: 'GET',
+				params: data.model
 			})
 		}),
 		getPost: build.query<IPost, string>({

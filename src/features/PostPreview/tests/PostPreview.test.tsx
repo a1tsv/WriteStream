@@ -1,5 +1,6 @@
 import { PostPreview } from '@features/PostPreview'
-import { render, screen } from '@testing-library/react'
+import { renderWithRouter } from '@shared/utils/renderWithRouter'
+import { screen } from '@testing-library/react'
 
 describe('PostPreview', () => {
 	const post = {
@@ -13,8 +14,7 @@ describe('PostPreview', () => {
 	}
 
 	it('should render correctly', () => {
-		render(<PostPreview post={post} />)
-
+		renderWithRouter(<PostPreview post={post} />, {})
 		expect(screen.getByText('Title')).toBeInTheDocument()
 	})
 })
