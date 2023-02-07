@@ -1,5 +1,6 @@
 import App from './app/App'
 import { StoreProvider } from '@app/providers'
+import { Modals } from '@app/providers/ModalsProvider'
 import '@app/styles/index.scss'
 import ReactDOM from 'react-dom/client'
 import { SkeletonTheme } from 'react-loading-skeleton'
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 				baseColor='var(--sk-primary)'
 				highlightColor='var(--color-secondary)'
 			>
-				<App />
+				<Modals>
+					<App />
+				</Modals>
 			</SkeletonTheme>
 		</StoreProvider>
 	</BrowserRouter>

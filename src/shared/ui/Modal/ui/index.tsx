@@ -12,7 +12,15 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
 		<Transition as={'div'} show={isOpen}>
 			<Dialog onClose={onClose}>
 				<ModalBackground />
-				<Transition.Child as={'div'}>
+				<Transition.Child
+					as={'div'}
+					enter={'transition-opacity'}
+					enterFrom={'opacity-0'}
+					enterTo={'opacity-100'}
+					leave={'transition-opacity'}
+					leaveFrom={'opacity-100'}
+					leaveTo={'opacity-0'}
+				>
 					<ModalWrapper>
 						<Dialog.Panel>{children}</Dialog.Panel>
 					</ModalWrapper>
