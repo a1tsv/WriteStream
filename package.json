@@ -72,6 +72,7 @@
 		"eslint-plugin-storybook": "^0.6.10",
 		"eslint-plugin-testing-library": "^5.10.0",
 		"husky": "^8.0.3",
+		"intersection-observer": "^0.12.2",
 		"lint-staged": "^13.1.0",
 		"prettier": "^2.8.3",
 		"typescript": "^4.9.3",

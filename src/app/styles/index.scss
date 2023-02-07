@@ -42,7 +42,7 @@ body {
 }
 
 .transition-opacity {
-	transition: opacity 0.3s ease 0s;
+	transition: opacity 0.3s ease-in-out 0s;
 }
 
 .opacity-0 {
@@ -54,7 +54,7 @@ body {
 }
 
 .transition {
-	transition: all 0.3s ease 0s;
+	transition: all 0.2s ease-in 0s;
 }
 
 .scale-95 {
@@ -63,4 +63,19 @@ body {
 
 .scale-100 {
 	transform: scale(1);
+}
+
+.modal-enter {
+	transition: opacity 0.3s ease-in-out 0s, transform 0.3s ease-in-out 0s;
+	z-index: 101;
+}
+
+.modal-from {
+	transform: scale(0.95);
+	opacity: 0;
+}
+
+.modal-to {
+	transform: scale(1);
+	opacity: 1;
 }

@@ -5,8 +5,10 @@ interface IButtonProps {
 }
 
 export const Button = styled.button<IButtonProps>`
+	cursor: pointer;
 	padding: 0.5rem 1rem;
 	border-radius: var(--radius);
+	border: 1px solid transparent;
 	${({ variant }) =>
 		variant === 'primary'
 			? css`
@@ -17,6 +19,7 @@ export const Button = styled.button<IButtonProps>`
 						&:hover {
 							background-color: transparent;
 							color: var(--color-purple);
+							border-color: var(--color-purple);
 						}
 					}
 			  `

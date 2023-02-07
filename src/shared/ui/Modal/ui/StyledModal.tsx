@@ -16,10 +16,10 @@ export const ModalWrapper = styled.div`
 	transform: translate(-50%, -50%);
 	width: 100%;
 	max-width: 500px;
-	background-color: var(--color-primary);
+	background-color: var(--color-secondary);
 	z-index: 101;
 	border-radius: var(--radius);
-	box-shadow: var(--shadow);
+	box-shadow: var(--shadow-modal);
 	padding: 0.3rem 0.5rem;
 `
 
@@ -31,6 +31,7 @@ export const ModalStyledHeader = styled.div`
 	gap: 0.4rem;
 	flex-wrap: wrap;
 	border-bottom: 1px solid var(--color-light);
+	color: var(--color-primary);
 `
 
 export const ModalCrossButton = styled.button`
