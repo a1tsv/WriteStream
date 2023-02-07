@@ -3,3 +3,7 @@ export type SXType = {
 }
 
 export type SxComponent<D> = { sx?: SXType } & D
+
+export interface ISkeletonProps {
+	count: number
+}

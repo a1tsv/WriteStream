@@ -6,14 +6,11 @@ import {
 	BlogWebsite,
 	BlogWrapper
 } from '@entities/Blog/ui/StyledBlog'
+import { ISkeletonProps } from '@shared/types'
 import { FC } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-interface IBlogSkeletonProps {
-	count: number
-}
-
-export const BlogSkeleton: FC<IBlogSkeletonProps> = ({ count }) => {
+export const BlogSkeleton: FC<ISkeletonProps> = ({ count }) => {
 	const countArray = Array.from(Array(count).keys())
 
 	return (

@@ -5,17 +5,12 @@ import {
 	PostPreviewTime,
 	PostPreviewTitle
 } from '@features/PostPreview/ui/StyledPostPreview'
+import { ISkeletonProps } from '@shared/types'
 import { getArrayFromLength } from '@shared/utils/getArrayFromLength'
 import { FC } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-interface IPostPreviewSkeletonProps {
-	count: number
-}
-
-export const PostPreviewSkeleton: FC<IPostPreviewSkeletonProps> = ({
-	count
-}) => {
+export const PostPreviewSkeleton: FC<ISkeletonProps> = ({ count }) => {
 	const countArray = getArrayFromLength(count)
 
 	return (

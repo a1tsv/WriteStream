@@ -27,6 +27,7 @@ export const Header: FC<IHeaderProps> = ({ sideBarStateChanger }) => {
 		setItemToLC('theme', newTheme)
 		setTheme(newTheme)
 	}
+
 	useEffect(() => {
 		document.documentElement.dataset.theme = theme
 	}, [theme])

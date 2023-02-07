@@ -1,11 +1,9 @@
 import { useGetPostsQuery } from '@entities/Post'
+import { NavigationDropdown } from '@features/FilterDropdown'
 import { PostPreview } from '@features/PostPreview'
 import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleton'
 import { dropdownItems } from '@pages/Posts/model'
 import { PostsFilters, PostsItems } from '@pages/Posts/ui/StyledPosts'
-import { Dropdown } from '@shared/ui/Dropdown'
-import { getOptionTitleByValue } from '@shared/utils/getOptionTitleByValue'
-import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 export const PostsPage = () => {
@@ -14,29 +12,15 @@ export const PostsPage = () => {
 	const params = Object.fromEntries(searchParams)
 
 	// Api call
-	const { data, isLoading, isError } = useGetPostsQuery(params)
-
-	// Local states
-	const [selectedItem, setSelectedItem] = useState<string>(
-		getOptionTitleByValue(dropdownItems, params.sortDirection) ||
-			dropdownItems[0].title
-	)
-
-	// Utils
-	const handleSelectedChange = (value: string) => {
-		setSelectedItem(getOptionTitleByValue(dropdownItems, value) as string)
-		setSearchParams({ ...params, sortDirection: value })
-	}
+	const { data, isLoading } = useGetPostsQuery(params)
 
 	return (
 		<>
 			<PostsFilters>
-				<Dropdown
-					onChangeCb={handleSelectedChange}
-					button={'Dropdown'}
+				<NavigationDropdown
 					items={dropdownItems}
-					selected={selectedItem}
-					sx={{ width: '200px' }}
+					params={params}
+					setSearchParams={setSearchParams}
 				/>
 			</PostsFilters>
 			<PostsItems>
