@@ -3,7 +3,8 @@ import { Header } from '@widgets/Header'
 
 export default {
 	title: 'Header',
-	component: Header
+	component: Header,
+	decorators: []
 } as ComponentMeta<typeof Header>
 
 const Template: ComponentStory<typeof Header> = args => (

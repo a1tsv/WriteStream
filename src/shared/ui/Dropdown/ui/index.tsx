@@ -7,7 +7,7 @@ import {
 	DropDownMenu,
 	DropDownWrapper
 } from '@shared/ui/Dropdown/ui/StyledDropdown'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 interface IDropDownProps {
 	button: string
@@ -17,44 +17,40 @@ interface IDropDownProps {
 	sx?: SXType
 }
 
-export const Dropdown: FC<IDropDownProps> = ({
-	button,
-	onChangeCb,
-	items,
-	selected,
-	sx
-}) => {
-	return (
-		<div>
-			<Menu>
-				<DropDownWrapper sx={sx}>
-					<DropDownLabel>{selected || button}</DropDownLabel>
-					<Transition
-						as='div'
-						enter='transition-opacity'
-						enterFrom='opacity-0'
-						enterTo='opacity-1'
-						leave='transition-opacity'
-						leaveFrom='opacity-1'
-						leaveTo='opacity-0'
-					>
-						<DropDownMenu>
-							{items.map(item => (
-								<Menu.Item key={item.title}>
-									{({ active }) => (
-										<DropDownButton
-											active={!!active || item.title === selected}
-											onClick={() => onChangeCb(item.value)}
-										>
-											{item.title}
-										</DropDownButton>
-									)}
-								</Menu.Item>
-							))}
-						</DropDownMenu>
-					</Transition>
-				</DropDownWrapper>
-			</Menu>
-		</div>
-	)
-}
+export const Dropdown: FC<IDropDownProps> = memo(
+	({ button, onChangeCb, items, selected, sx }) => {
+		return (
+			<div>
+				<Menu>
+					<DropDownWrapper sx={sx}>
+						<DropDownLabel>{selected || button}</DropDownLabel>
+						<Transition
+							as='div'
+							enter='transition-opacity'
+							enterFrom='opacity-0'
+							enterTo='opacity-1'
+							leave='transition-opacity'
+							leaveFrom='opacity-1'
+							leaveTo='opacity-0'
+						>
+							<DropDownMenu>
+								{items.map(item => (
+									<Menu.Item key={item.title}>
+										{({ active }) => (
+											<DropDownButton
+												active={!!active || item.title === selected}
+												onClick={() => onChangeCb(item.value)}
+											>
+												{item.title}
+											</DropDownButton>
+										)}
+									</Menu.Item>
+								))}
+							</DropDownMenu>
+						</Transition>
+					</DropDownWrapper>
+				</Menu>
+			</div>
+		)
+	}
+)

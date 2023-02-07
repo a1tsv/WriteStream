@@ -1,5 +1,5 @@
 import { SearchInput, SearchWrapper } from '@shared/ui/Search/ui/StyledSearch'
-import { FC } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 import { CiSearch } from 'react-icons/ci'
 
 interface ISearchProps {
@@ -7,8 +7,8 @@ interface ISearchProps {
 	onChange: (searchValue: string) => void
 }
 
-export const Search: FC<ISearchProps> = ({ onChange, value }) => {
-	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+export const Search: FC<ISearchProps> = memo(({ onChange, value }) => {
+	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		onChange(value)
 	}
@@ -23,4 +23,4 @@ export const Search: FC<ISearchProps> = ({ onChange, value }) => {
 			/>
 		</SearchWrapper>
 	)
-}
+})

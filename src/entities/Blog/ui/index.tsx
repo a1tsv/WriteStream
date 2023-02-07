@@ -9,7 +9,7 @@ import {
 	BlogWebsite,
 	BlogWrapper
 } from '@entities/Blog/ui/StyledBlog'
-import { FC, useRef, useState } from 'react'
+import { FC, memo, useRef, useState } from 'react'
 import { BiUpArrow } from 'react-icons/bi'
 import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
@@ -18,7 +18,7 @@ interface IBlogProps {
 	blog: IBlog
 }
 
-export const Blog: FC<IBlogProps> = ({ blog }) => {
+export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 	// Show more
 	const isTextLong = blog.description.length > 200
 	const [isCollapsed, setIsCollapsed] = useState(isTextLong)
@@ -65,4 +65,4 @@ export const Blog: FC<IBlogProps> = ({ blog }) => {
 			</BlogBody>
 		</BlogWrapper>
 	)
-}
+})

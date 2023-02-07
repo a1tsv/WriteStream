@@ -3,7 +3,6 @@ import { Blogs } from '@features/Blogs'
 import { baseURL } from '@shared/utils/baseURL'
 import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
-import { useEffect } from 'react'
 import { MemoryRouter, Routes } from 'react-router'
 import { Route } from 'react-router-dom'
 
@@ -38,25 +37,7 @@ export default {
 	}
 } as ComponentMeta<typeof Blogs>
 
-export const Light = () => {
-	useEffect(() => {
-		document.body.dataset.theme = 'light'
-	}, [])
-
-	return (
-		<MemoryRouter initialEntries={['/blogs/']}>
-			<Routes>
-				<Route path={'/blogs'} element={<Blogs />} />
-			</Routes>
-		</MemoryRouter>
-	)
-}
-
-export const Dark = () => {
-	useEffect(() => {
-		document.body.dataset.theme = 'dark'
-	}, [])
-
+export const Default = () => {
 	return (
 		<MemoryRouter initialEntries={['/blogs/']}>
 			<Routes>

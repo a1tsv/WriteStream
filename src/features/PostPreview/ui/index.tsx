@@ -7,14 +7,15 @@ import {
 	PostPreviewTime,
 	PostPreviewTitle
 } from '@features/PostPreview/ui/StyledPostPreview'
-import { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 interface IPostPreviewProps {
 	post: IPost
 }
 
-export const PostPreview: FC<IPostPreviewProps> = ({ post }) => {
+export const PostPreview: FC<IPostPreviewProps> = memo(({ post }) => {
+	console.log('PostPreview')
 	return (
 		<PostPreviewContent>
 			<PostPreviewImg src={'#'} />
@@ -29,4 +30,4 @@ export const PostPreview: FC<IPostPreviewProps> = ({ post }) => {
 			</PostPreviewBody>
 		</PostPreviewContent>
 	)
-}
+})

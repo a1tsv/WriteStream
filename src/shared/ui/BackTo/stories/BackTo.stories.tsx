@@ -1,9 +1,11 @@
+import { RouterDecorator } from '@app/providers/RouterDecorator'
 import { BackTo } from '@shared/ui/BackTo'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
 	title: 'BackTo',
-	component: BackTo
+	component: BackTo,
+	decorators: [RouterDecorator]
 } as ComponentMeta<typeof BackTo>
 
 const Template: ComponentStory<typeof BackTo> = args => <BackTo {...args} />

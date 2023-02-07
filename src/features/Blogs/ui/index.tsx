@@ -7,13 +7,13 @@ import { useDebounce } from '@shared/hooks'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
 import { Typography } from '@shared/ui/Typography'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 export const Blogs = () => {
 	// Vars
 	const [searchParams, setSearchParams] = useSearchParams()
-	const params = Object.fromEntries(searchParams)
+	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
 
 	// Api call
 	const { data, isLoading } = useGetBlogsQuery(params)
@@ -25,10 +25,10 @@ export const Blogs = () => {
 	)
 
 	// Utils
-	const changeSearchValue = (value: string) => {
+	const changeSearchValue = useCallback((value: string) => {
 		setSearchValue(value)
 		setSearchTermToQuery(value)
-	}
+	}, [])
 
 	const setSearchTermToQuery = useDebounce((value: string) => {
 		if (!value) {

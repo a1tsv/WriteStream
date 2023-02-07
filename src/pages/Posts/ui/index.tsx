@@ -5,6 +5,7 @@ import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleto
 import { dropdownItems } from '@pages/Posts/model'
 import { PostsFilters, PostsItems } from '@pages/Posts/ui/StyledPosts'
 import { NotFound } from '@shared/ui/NotFound'
+import { useMemo } from 'react'
 import { useParams } from 'react-router'
 import { useSearchParams } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ export const PostsPage = () => {
 	// Vars
 	const { id } = useParams()
 	const [searchParams, setSearchParams] = useSearchParams()
-	const params = Object.fromEntries(searchParams)
+	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
 
 	// Api call
 	const { data, isLoading } = useGetPostsQuery({
