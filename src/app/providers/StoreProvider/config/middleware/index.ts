@@ -1,0 +1,1 @@
+export { rtkQueryErrorLogger } from './errorMiddleware'

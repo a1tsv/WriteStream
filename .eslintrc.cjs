@@ -25,7 +25,9 @@ module.exports = {
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
 		'react/react-in-jsx-scope': 'off',
 		'react/display-name': 'off',
-		'react/prop-types': 'off'
+		'react/prop-types': 'off',
+		'@typescript-eslint/no-unsafe-member-access': 'off',
+		'@typescript-eslint/no-unsafe-assignment': 'off'
 	},
 	parser: '@typescript-eslint/parser',
 	settings: {

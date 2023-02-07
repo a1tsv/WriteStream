@@ -1,10 +1,7 @@
 import { AppRouter } from './providers'
-import { SideBar } from '@features/Sidebar'
-import { Container } from '@shared/ui/Container/ui'
-import { MenuLink } from '@shared/ui/MenuLink/ui'
+import { getItemFromLC } from '@shared/utils/localStorage'
 import { Layout } from '@widgets/Layout'
-import { RxRows } from 'react-icons/rx'
-import styled from 'styled-components'
+import { Theme, ToastContainer } from 'react-toastify'
 
 function App() {
 	return (
@@ -12,6 +9,7 @@ function App() {
 			<Layout>
 				<AppRouter />
 			</Layout>
+			<ToastContainer theme={(getItemFromLC('theme') as Theme) || 'light'} />
 		</>
 	)
 }
