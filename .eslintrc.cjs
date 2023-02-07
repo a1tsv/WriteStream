@@ -27,7 +27,8 @@ module.exports = {
 		'react/display-name': 'off',
 		'react/prop-types': 'off',
 		'@typescript-eslint/no-unsafe-member-access': 'off',
-		'@typescript-eslint/no-unsafe-assignment': 'off'
+		'@typescript-eslint/no-unsafe-assignment': 'off',
+		'@typescript-eslint/no-unsafe-return': 'off'
 	},
 	parser: '@typescript-eslint/parser',
 	settings: {

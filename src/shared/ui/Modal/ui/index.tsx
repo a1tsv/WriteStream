@@ -9,23 +9,21 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
 	children
 }) => {
 	return (
-		<Transition as={'div'} show={isOpen}>
-			<Dialog onClose={onClose}>
-				<ModalBackground />
-				<Transition.Child
-					as={'div'}
-					enter={'transition-opacity'}
-					enterFrom={'opacity-0'}
-					enterTo={'opacity-100'}
-					leave={'transition-opacity'}
-					leaveFrom={'opacity-100'}
-					leaveTo={'opacity-0'}
-				>
-					<ModalWrapper>
-						<Dialog.Panel>{children}</Dialog.Panel>
-					</ModalWrapper>
-				</Transition.Child>
-			</Dialog>
-		</Transition>
+		<Dialog onClose={onClose}>
+			<ModalBackground />
+			<Transition.Child
+				as={'div'}
+				enter={'transition-opacity'}
+				enterFrom={'opacity-0'}
+				enterTo={'opacity-100'}
+				leave={'transition-opacity'}
+				leaveFrom={'opacity-100'}
+				leaveTo={'opacity-0'}
+			>
+				<ModalWrapper>
+					<Dialog.Panel>{children}</Dialog.Panel>
+				</ModalWrapper>
+			</Transition.Child>
+		</Dialog>
 	)
 }
