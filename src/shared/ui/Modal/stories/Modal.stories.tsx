@@ -1,11 +1,12 @@
-import { ActionModal } from '@shared/ui/ActionModal'
+import { Flex } from '@shared/ui/Flex'
+import { Modal } from '@shared/ui/Modal'
 import { ComponentMeta } from '@storybook/react'
 import { useState } from 'react'
 
 export default {
-	title: 'ActionModal',
-	component: ActionModal
-} as ComponentMeta<typeof ActionModal>
+	title: 'Modal',
+	component: Modal
+} as ComponentMeta<typeof Modal>
 
 export const Default = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -26,14 +27,11 @@ export const Default = () => {
 			>
 				Open Modal
 			</button>
-			<ActionModal
-				isOpen={isOpen}
-				onClose={closeModal}
-				submitAction={openModal}
-				label='Test'
-			>
-				Modal Content
-			</ActionModal>
+			<Modal isOpen={isOpen} onClose={closeModal}>
+				<Flex justify={'center'} align={'center'}>
+					Modal Content
+				</Flex>
+			</Modal>
 		</>
 	)
 }
