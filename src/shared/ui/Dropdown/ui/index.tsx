@@ -8,22 +8,26 @@ import {
 	DropDownWrapper
 } from '@shared/ui/Dropdown/ui/StyledDropdown'
 import { FC, memo } from 'react'
+import { IconType } from 'react-icons'
 
 interface IDropDownProps {
-	button: string
-	selected: string
+	button: string | IconType
+	selected?: string
+	select?: boolean
 	onChangeCb: (value: string) => void
 	items: IDropDownItem[]
 	sx?: SXType
 }
 
 export const Dropdown: FC<IDropDownProps> = memo(
-	({ button, onChangeCb, items, selected, sx }) => {
+	({ button, onChangeCb, items, selected, select, sx }) => {
+		const dropdownLabel = select ? button : selected || button
+
 		return (
 			<div>
 				<Menu>
-					<DropDownWrapper sx={sx}>
-						<DropDownLabel>{selected || button}</DropDownLabel>
+					<DropDownWrapper isSelect={!!select} sx={sx}>
+						<DropDownLabel>{dropdownLabel}</DropDownLabel>
 						<Transition
 							as='div'
 							enter='transition-opacity'
@@ -41,7 +45,10 @@ export const Dropdown: FC<IDropDownProps> = memo(
 												active={!!active || item.title === selected}
 												onClick={() => onChangeCb(item.value)}
 											>
-												{item.title}
+												<>
+													{item.icon}
+													{item.title}
+												</>
 											</DropDownButton>
 										)}
 									</Menu.Item>

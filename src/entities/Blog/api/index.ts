@@ -1,2 +1,7 @@
-export { blogsApi, useGetBlogsQuery, useGetBlogQuery } from './blogs.api'
+export {
+	blogsApi,
+	useGetBlogsQuery,
+	useGetBlogQuery,
+	useDeleteBlogMutation
+} from './blogs.api'
 export { type IBlog } from './blog.interface'

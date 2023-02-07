@@ -7,6 +7,10 @@ interface IDropDownButton {
 	active: boolean
 }
 
+interface IDropDownWrapper {
+	isSelect: boolean
+}
+
 export const DropDownLabel = styled(Menu.Button)`
 	cursor: pointer;
 	color: var(--color-primary);
@@ -16,8 +20,14 @@ export const DropDownLabel = styled(Menu.Button)`
 	width: 100%;
 `
 
-export const DropDownWrapper = styled.div<SxComponent<object>>`
+export const DropDownWrapper = styled.div<
+	SxComponent<object> & IDropDownWrapper
+>`
 	position: relative;
+
+	& [role='menu'] {
+		width: ${({ isSelect }) => (isSelect ? '100%' : 'max-content')};
+	}
 
 	${({ sx }) => sx}
 `
@@ -33,8 +43,9 @@ export const DropDownMenu = styled(Menu.Items)`
 
 	position: absolute;
 	top: calc(100% + 1px);
-	left: 0;
-	width: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 50;
 `
 
 export const DropDownButton = styled.button<IDropDownButton>`
@@ -43,6 +54,10 @@ export const DropDownButton = styled.button<IDropDownButton>`
 	cursor: pointer;
 	padding: ${rem(5)};
 	transition: background 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s;
+	display: flex;
+	align-items: center;
+	gap: ${rem(5)};
+	justify-content: center;
 
 	${({ active }) =>
 		active &&

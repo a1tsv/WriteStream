@@ -1,7 +1,10 @@
+import { useModalContext } from '@app/providers/ModalsProvider'
 import { IBlog } from '@entities/Blog'
+import { dropdownItems } from '@entities/Blog/model'
 import {
 	BlogBody,
 	BlogHeading,
+	BlogHeadingInfo,
 	BlogImg,
 	BlogShowMore,
 	BlogText,
@@ -9,8 +12,9 @@ import {
 	BlogWebsite,
 	BlogWrapper
 } from '@entities/Blog/ui/StyledBlog'
+import { Dropdown } from '@shared/ui/Dropdown'
 import { FC, memo, useRef, useState } from 'react'
-import { BiUpArrow } from 'react-icons/bi'
+import { BiDotsVerticalRounded, BiUpArrow } from 'react-icons/bi'
 import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
@@ -24,6 +28,7 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 	const [isCollapsed, setIsCollapsed] = useState(isTextLong)
 	const showMoreRef = useRef<HTMLParagraphElement>(null)
 	const initialTextHeight = showMoreRef?.current?.scrollHeight
+	const { showModal } = useModalContext()
 
 	// Link
 	const { id } = useParams<{ id: string }>()
@@ -33,21 +38,32 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 		setIsCollapsed(!isCollapsed)
 	}
 
+	const handleBlogOperation = (value: string) => {
+		showModal(value, true, { title: blog.name, id: blog.id })
+	}
+
 	return (
 		<BlogWrapper>
 			<BlogImg />
 			<BlogBody>
 				<BlogHeading>
-					{shouldNavigate ? (
-						<BlogTitle>{blog.name}</BlogTitle>
-					) : (
-						<NavLink to={`/blogs/${blog.id}`}>
+					<BlogHeadingInfo>
+						{shouldNavigate ? (
 							<BlogTitle>{blog.name}</BlogTitle>
-						</NavLink>
-					)}
-					<BlogWebsite>
-						Website: <a href={blog.websiteUrl}>{blog.websiteUrl}</a>
-					</BlogWebsite>
+						) : (
+							<NavLink to={`/blogs/${blog.id}`}>
+								<BlogTitle>{blog.name}</BlogTitle>
+							</NavLink>
+						)}
+						<BlogWebsite>
+							Website: <a href={blog.websiteUrl}>{blog.websiteUrl}</a>
+						</BlogWebsite>
+					</BlogHeadingInfo>
+					<Dropdown
+						button={BiDotsVerticalRounded}
+						onChangeCb={handleBlogOperation}
+						items={dropdownItems}
+					/>
 				</BlogHeading>
 				<BlogText
 					initialHeight={initialTextHeight}

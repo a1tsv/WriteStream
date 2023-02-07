@@ -15,12 +15,17 @@ export const ActionModal: FC<PropsWithChildren<IActionModalProps>> = ({
 	label,
 	children
 }) => {
+	const submitHandler = () => {
+		submitAction()
+		onClose()
+	}
+
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalHeader label={label} onClose={onClose} />
 				{children}
-				<ModalFooter onClose={onClose} submitAction={submitAction} />
+				<ModalFooter onClose={onClose} submitAction={submitHandler} />
 			</Modal>
 		</>
 	)

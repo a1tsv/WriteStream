@@ -30,6 +30,7 @@ describe('Dropdown', () => {
 				items={dropdownItems}
 			/>
 		)
+
 		expect(screen.getByText('Item 1')).toBeInTheDocument()
 	})
 
@@ -43,7 +44,7 @@ describe('Dropdown', () => {
 			/>
 		)
 
-		openDropdown()
+		openDropdown(selected)
 
 		expect(screen.getAllByText(selected)[1]).toHaveStyle({
 			background: 'var(--color-purple)',
@@ -61,7 +62,7 @@ describe('Dropdown', () => {
 			/>
 		)
 
-		openDropdown()
+		openDropdown(selected)
 
 		expect(screen.getByText('Item 2')).toBeInTheDocument()
 		expect(screen.getByText('Item 3')).toBeInTheDocument()
@@ -77,16 +78,33 @@ describe('Dropdown', () => {
 			/>
 		)
 
-		openDropdown()
+		openDropdown(selected)
 
 		expect(dropdownCallback).toHaveBeenCalledTimes(0)
 		screen.getByText('Item 2').click()
 		expect(dropdownCallback).toHaveBeenCalledTimes(1)
-		expect(dropdownCallback).toHaveBeenCalledWith('Item 2')
+		expect(dropdownCallback).toHaveBeenCalledWith('item2')
+	})
+
+	it('should not change title after item selected if "select" prop is true', () => {
+		render(
+			<Dropdown
+				selected={selected}
+				onChangeCb={dropdownCallback}
+				button={'Label'}
+				items={dropdownItems}
+				select
+			/>
+		)
+
+		openDropdown('Label')
+
+		screen.getByText('Item 2').click()
+		expect(screen.getByText('Label')).toBeInTheDocument()
 	})
 })
 
-const openDropdown = () => {
-	const dropdownBtn = screen.getByText('Item 1')
+const openDropdown = (label: string) => {
+	const dropdownBtn = screen.getByText(label)
 	fireEvent.click(dropdownBtn)
 }

@@ -28,6 +28,7 @@ export const NavigationDropdown: FC<INavigationDropdownProps> = memo(
 				onChangeCb={handleSelectedChange}
 				button={'Dropdown'}
 				items={items}
+				select
 				selected={selectedItem}
 				sx={{ width: '200px' }}
 			/>

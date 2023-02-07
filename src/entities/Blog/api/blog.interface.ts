@@ -12,3 +12,13 @@ export interface IBlog {
 export interface IBlogRequestModel extends IGetItemsModel {
 	searchNameTerm: string
 }
+
+export interface IBlogCreateRequestModel {
+	name: string
+	description: string
+	websiteUrl: string
+}
+
+export interface IBlogCreateRequest extends IBlogCreateRequestModel {
+	id: string
+}

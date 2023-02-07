@@ -32,6 +32,8 @@ export const ModalStyledHeader = styled.div`
 	flex-wrap: wrap;
 	border-bottom: 1px solid var(--color-light);
 	color: var(--color-primary);
+
+	margin-bottom: 0.3rem;
 `
 
 export const ModalCrossButton = styled.button`
@@ -52,4 +54,6 @@ export const ModalStyledFooter = styled.div`
 	gap: 0.4rem;
 	flex-wrap: wrap;
 	border-top: 1px solid var(--color-light);
+
+	margin-top: 0.3rem;
 `

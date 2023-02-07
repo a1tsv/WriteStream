@@ -42,12 +42,18 @@ export const BlogBody = styled.div`
 
 export const BlogHeading = styled.div`
 	display: flex;
-	flex-direction: column;
-	gap: 0.1rem;
+	justify-content: space-between;
+	gap: 0.4rem;
 
 	&:not(:last-child) {
 		margin-bottom: 0.6rem;
 	}
+`
+
+export const BlogHeadingInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
 `
 
 export const BlogTitle = styled(Typography).attrs({
