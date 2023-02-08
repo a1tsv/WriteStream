@@ -41,7 +41,6 @@ describe('AddBlogModal', () => {
 	beforeEach(() => {
 		server.use(
 			rest.post(`${baseURL}/blogs`, (req, res, ctx) => {
-				console.log('intercepted')
 				items.push(req.body as IBlog)
 				return res(ctx.json({}))
 			})

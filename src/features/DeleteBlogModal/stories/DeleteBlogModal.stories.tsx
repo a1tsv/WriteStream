@@ -21,7 +21,6 @@ export default {
 export const Default = () => {
 	const { showModal } = useModalContext()
 	const openModal = () => {
-		console.log('opening modal', showModal)
 		showModal(ModalsEnum.DELETE_BLOG, true, {
 			blogId: '123',
 			title: 'Blog title'

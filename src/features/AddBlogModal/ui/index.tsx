@@ -1,5 +1,8 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
-import { useCreateBlogMutation } from '@entities/Blog/api'
+import {
+	useCreateBlogMutation,
+	useUpdateBlogMutation
+} from '@entities/Blog/api'
 import { IBlogCreateRequestModel } from '@entities/Blog/api/blog.interface'
 import {
 	AddModalBlogForm,
@@ -12,33 +15,34 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const AddBlogModal = () => {
 	const { closeModal, store } = useModalContext()
-	const { isOpen } = store || {}
+	const { isOpen, modalProps } = store || {}
+	const { blogId, name, websiteUrl, description } = modalProps.blog || {}
+	const isEdit = !!blogId
 	const [createBlog] = useCreateBlogMutation()
+	const [updateBlog] = useUpdateBlogMutation()
 
 	const {
-		formState: { errors, isValid },
+		formState: { isValid },
 		control,
 		handleSubmit
 	} = useForm<IBlogCreateRequestModel>({
 		defaultValues: {
-			name: '',
-			description: '',
-			websiteUrl: ''
+			name: name || '',
+			description: description || '',
+			websiteUrl: websiteUrl || ''
 		},
 		mode: 'onBlur'
 	})
 
 	const onSubmit: SubmitHandler<IBlogCreateRequestModel> = async data => {
-		await createBlog(data)
+		isEdit ? await updateBlog({ id: blogId, ...data }) : await createBlog(data)
 		closeModal()
 	}
-
-	console.log('errors', errors)
 
 	return (
 		<ActionModal
 			submitAction={handleSubmit(onSubmit)}
-			label={'Add blog'}
+			label={isEdit ? 'Add blog' : 'Edit blog'}
 			isOpen={isOpen}
 			onClose={closeModal}
 			disabled={!isValid}

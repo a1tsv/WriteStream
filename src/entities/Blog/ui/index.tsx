@@ -39,7 +39,7 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 	}
 
 	const handleBlogOperation = (value: string) => {
-		showModal(value, true, { title: blog.name, id: blog.id })
+		showModal(value, true, { blog })
 	}
 
 	return (

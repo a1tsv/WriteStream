@@ -11,7 +11,6 @@ interface INavigationDropdownProps {
 
 export const NavigationDropdown: FC<INavigationDropdownProps> = memo(
 	({ items, params, setSearchParams }) => {
-		console.log('NavigationDropdown render')
 		const getOptionTitleByValueInItems = getOptionTitleByValue.bind(null, items)
 
 		const [selectedItem, setSelectedItem] = useState<string>(

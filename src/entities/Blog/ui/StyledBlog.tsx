@@ -19,7 +19,6 @@ export const BlogWrapper = styled.article`
 	align-items: flex-start;
 	background: var(--color-bg);
 	border-radius: 0.7rem;
-	overflow: hidden;
 
 	@media (max-width: 48rem) {
 		flex-direction: column;

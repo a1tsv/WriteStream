@@ -7,11 +7,12 @@ import { Typography } from '@shared/ui/Typography'
 export const DeleteBlogModal = () => {
 	const { closeModal, store } = useModalContext()
 	const { modalProps, isOpen } = store || {}
-	const { title, submitAction, id } = modalProps || {}
+	const { title, id } = modalProps.blog || {}
 	const [deleteBlog, { isLoading }] = useDeleteBlogMutation()
 
-	const deleteModal = () => {
-		void deleteBlog(id as string)
+	const deleteModal = async () => {
+		await deleteBlog(id as string)
+		closeModal()
 	}
 
 	return (
