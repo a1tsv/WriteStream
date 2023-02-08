@@ -64,6 +64,6 @@ export const SideBarMenu = styled.ul`
 export const SideBarMenuItem = styled.li``
 
 export const SideBarBurgerButton = styled.button`
-	fill: var(--color-purple);
+	fill: var(--color-main);
 	font-size: 1.25rem;
 `

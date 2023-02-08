@@ -44,7 +44,7 @@ export const ModalCrossButton = styled.button`
 
 	@media (any-hover: hover) {
 		&:hover {
-			color: var(--color-purple);
+			color: var(--color-main);
 		}
 	}
 `

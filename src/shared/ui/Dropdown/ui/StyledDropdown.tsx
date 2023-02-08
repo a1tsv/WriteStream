@@ -65,7 +65,7 @@ export const DropDownButton = styled.button<IDropDownButton>`
 	${({ active }) =>
 		active &&
 		`
-    background: var(--color-purple);
+    background: var(--color-main);
     color: var(--color-secondary);
   `}
 `

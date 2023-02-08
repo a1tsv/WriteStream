@@ -11,16 +11,16 @@ export const MenuLink = styled(NavLink)`
 	border-right: 0.125rem solid transparent;
 
 	&.active {
-		color: var(--color-purple);
-		fill: var(--color-purple);
-		border-color: var(--color-purple);
+		color: var(--color-main);
+		fill: var(--color-main);
+		border-color: var(--color-main);
 	}
 
 	@media (any-hover: hover) {
 		&:hover {
-			color: var(--color-purple);
-			fill: var(--color-purple);
-			border-color: var(--color-purple);
+			color: var(--color-main);
+			fill: var(--color-main);
+			border-color: var(--color-main);
 		}
 	}
 

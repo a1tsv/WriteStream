@@ -1,4 +1,5 @@
 import { postApi } from './post.api'
+import { IUpdatePostModel } from '@entities/Post/api/post.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import fetchMock from 'jest-fetch-mock'
@@ -54,7 +55,9 @@ describe('post api', () => {
 	it('updates a post', async () => {
 		const post = { id: '1', title: 'Post 1', content: 'This is post 1' }
 		fetchMock.mockResponseOnce(JSON.stringify({ data: post }))
-		await store.dispatch(api.endpoints.updatePost.initiate(post))
+		await store.dispatch(
+			api.endpoints.updatePost.initiate(post as IUpdatePostModel)
+		)
 		expect(fetchMock).toHaveBeenCalledTimes(1)
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls

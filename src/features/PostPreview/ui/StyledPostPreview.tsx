@@ -23,7 +23,7 @@ export const PostPreviewImgPlaceholder = styled.div`
 	width: 100%;
 	height: 150px;
 	border-radius: ${rem(10)};
-	background: var(--color-purple);
+	background: var(--color-main);
 
 	&:not(:last-child) {
 		margin-bottom: ${rem(5)};

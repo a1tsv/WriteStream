@@ -14,18 +14,18 @@ export const Button = styled.button<SxComponent<IButtonProps>>`
 		variant === 'primary'
 			? css`
 					color: #000;
-					background-color: var(--color-purple);
+					background-color: var(--color-main);
 
 					@media (any-hover: hover) {
 						&:hover {
 							background-color: transparent;
-							color: var(--color-purple);
-							border-color: var(--color-purple);
+							color: var(--color-main);
+							border-color: var(--color-main);
 						}
 					}
 			  `
 			: css`
-					color: var(--color-purple);
+					color: var(--color-main);
 					background-color: transparent;
 			  `}
 

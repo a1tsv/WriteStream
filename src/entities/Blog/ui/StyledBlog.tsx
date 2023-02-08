@@ -41,7 +41,7 @@ export const BlogImgPlaceholder = styled.div`
 	height: 100px;
 	border-radius: 0.7rem;
 	border: none;
-	background: var(--color-purple);
+	background: var(--color-main);
 `
 
 export const BlogBody = styled.div`
@@ -79,7 +79,7 @@ export const BlogWebsite = styled.div`
 	color: var(--color-light);
 
 	& a {
-		color: var(--color-purple);
+		color: var(--color-main);
 	}
 `
 

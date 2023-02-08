@@ -23,7 +23,7 @@ export const AddModalBlogLabel = styled.label<IAddModalBlogLabelProps>`
 
 export const AddModalBlogInput = styled.input`
 	padding: 0.5rem;
-	border-bottom: 1px solid var(--color-purple);
+	border-bottom: 1px solid var(--color-main);
 	border-radius: var(--radius);
 	outline: none;
 	font-size: 1rem;
@@ -32,13 +32,13 @@ export const AddModalBlogInput = styled.input`
 	color: var(--color-primary);
 
 	&:focus {
-		border-color: var(--color-purple);
+		border-color: var(--color-main);
 	}
 `
 
 export const AddModalBlogTextarea = styled.textarea`
 	padding: 0.5rem;
-	border-bottom: 1px solid var(--color-purple);
+	border-bottom: 1px solid var(--color-main);
 	border-radius: var(--radius);
 	outline: none;
 	font-size: 1rem;
@@ -47,7 +47,7 @@ export const AddModalBlogTextarea = styled.textarea`
 	color: var(--color-primary);
 
 	&:focus {
-		border-color: var(--color-purple);
+		border-color: var(--color-main);
 	}
 
 	resize: none;
