@@ -12,3 +12,8 @@ export interface IGetItemsModel {
 	pageNumber: number
 	pageSize: number
 }
+
+export interface IError {
+	message: string
+	field: string
+}

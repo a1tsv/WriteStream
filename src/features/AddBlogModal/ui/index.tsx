@@ -16,8 +16,9 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 export const AddBlogModal = () => {
 	const { closeModal, store } = useModalContext()
 	const { isOpen, modalProps } = store || {}
-	const { blogId, name, websiteUrl, description } = modalProps.blog || {}
-	const isEdit = !!blogId
+	console.log('MODAL PROPS', store)
+	const { id, name, websiteUrl, description } = modalProps.blog || {}
+	const isEdit = !!modalProps.blog
 	const [createBlog] = useCreateBlogMutation()
 	const [updateBlog] = useUpdateBlogMutation()
 
@@ -35,14 +36,14 @@ export const AddBlogModal = () => {
 	})
 
 	const onSubmit: SubmitHandler<IBlogCreateRequestModel> = async data => {
-		isEdit ? await updateBlog({ id: blogId, ...data }) : await createBlog(data)
+		isEdit ? await updateBlog({ id, ...data }) : await createBlog(data)
 		closeModal()
 	}
 
 	return (
 		<ActionModal
 			submitAction={handleSubmit(onSubmit)}
-			label={isEdit ? 'Add blog' : 'Edit blog'}
+			label={isEdit ? 'Edit blog' : 'Add blog'}
 			isOpen={isOpen}
 			onClose={closeModal}
 			disabled={!isValid}
