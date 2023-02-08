@@ -1,7 +1,8 @@
 import {
 	IBlog,
-	IBlogCreateRequest,
-	IBlogRequestModel
+	IBlogCreateRequestModel,
+	IBlogRequestModel,
+	IBlogUpdateRequest
 } from '@entities/Blog/api/blog.interface'
 import { api } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
@@ -32,14 +33,14 @@ export const blogsApi = api.injectEndpoints({
 				}
 			})
 		}),
-		createBlog: build.mutation<IBlog, IBlogCreateRequest>({
+		createBlog: build.mutation<IBlog, IBlogCreateRequestModel>({
 			query: data => ({
 				url: '/blogs',
 				method: 'POST',
 				body: data
 			})
 		}),
-		updateBlog: build.mutation<IBlog, IBlogCreateRequest>({
+		updateBlog: build.mutation<IBlog, IBlogUpdateRequest>({
 			query: data => ({
 				url: `/blogs/${data.id}`,
 				method: 'PUT',

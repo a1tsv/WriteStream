@@ -1,7 +1,12 @@
 import { Blog, useGetBlogsQuery } from '@entities/Blog'
 import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
 import { dropdownItems } from '@features/Blogs/model'
-import { BlogsFilters, BlogsSearch } from '@features/Blogs/ui/StyledBlogs'
+import {
+	BlogsFilters,
+	BlogsItems,
+	BlogsSearch,
+	BlogsSubTitle
+} from '@features/Blogs/ui/StyledBlogs'
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { useDebounce } from '@shared/hooks'
 import { NotFound } from '@shared/ui/NotFound'
@@ -41,9 +46,13 @@ export const Blogs = () => {
 
 	return (
 		<>
-			<Typography variant='title' sx={{ marginBottom: '0.6rem' }}>
+			<Typography variant='title' as={'h1'}>
 				Blogs
 			</Typography>
+			<BlogsSubTitle>
+				Unleash Your Creativity, Share Your Story. Join the Blogging Community
+				Today!
+			</BlogsSubTitle>
 			<BlogsFilters>
 				<BlogsSearch>
 					<Search value={searchValue} onChange={changeSearchValue} />
@@ -54,12 +63,12 @@ export const Blogs = () => {
 					setSearchParams={setSearchParams}
 				/>
 			</BlogsFilters>
-			<div>
+			<BlogsItems>
 				{isLoading && <BlogSkeleton count={3} />}
 				{data?.items &&
 					data.items.map(blog => <Blog key={blog.id} blog={blog} />)}
-				{isItemsEmpty && <NotFound label={'There is no blogs yet 😔'} />}
-			</div>
+			</BlogsItems>
+			{isItemsEmpty && <NotFound label={'There is no blogs yet 😔'} />}
 		</>
 	)
 }

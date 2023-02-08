@@ -11,15 +11,6 @@ interface IDropDownWrapper {
 	isSelect: boolean
 }
 
-export const DropDownLabel = styled(Menu.Button)`
-	cursor: pointer;
-	color: var(--color-primary);
-	padding: ${rem(5)};
-	border: 1px solid var(--color-light);
-	border-radius: var(--radius);
-	width: 100%;
-`
-
 export const DropDownWrapper = styled.div<
 	SxComponent<object> & IDropDownWrapper
 >`
@@ -29,13 +20,24 @@ export const DropDownWrapper = styled.div<
 		width: ${({ isSelect }) => (isSelect ? '100%' : 'max-content')};
 	}
 
+	& [aria-haspopup='menu'] {
+		border-bottom: ${({ isSelect }) =>
+			isSelect ? '1px solid var(--color-purple)' : 'none'};
+		padding: ${({ isSelect }) => (isSelect ? rem(5) : '0')};
+	}
+
 	${({ sx }) => sx}
+`
+export const DropDownLabel = styled(Menu.Button)`
+	cursor: pointer;
+	color: var(--color-primary);
+	border-radius: var(--radius);
+	width: 100%;
 `
 
 export const DropDownMenu = styled(Menu.Items)`
 	border-radius: var(--radius);
 	background: var(--color-secondary);
-	border: 1px solid var(--color-light);
 
 	display: flex;
 	flex-direction: column;
@@ -58,6 +60,7 @@ export const DropDownButton = styled.button<IDropDownButton>`
 	align-items: center;
 	gap: ${rem(5)};
 	justify-content: center;
+	border-radius: var(--radius);
 
 	${({ active }) =>
 		active &&

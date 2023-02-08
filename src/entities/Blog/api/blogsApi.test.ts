@@ -44,4 +44,62 @@ describe('blogsApi', () => {
 		expect(url).toBe(`${baseURL}/blogs/1`)
 		expect(method).toBe('GET')
 	})
+
+	it('deletes a specific blog', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				data: { id: '1', title: 'Blog 1' }
+			})
+		)
+
+		await store.dispatch(api.endpoints.deleteBlog.initiate('1'))
+		expect(fetchMock).toHaveBeenCalledTimes(1)
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/blogs/1`)
+		expect(method).toBe('DELETE')
+	})
+
+	it('creates a blog', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				data: { id: '1', title: 'Blog 1' }
+			})
+		)
+
+		await store.dispatch(
+			api.endpoints.createBlog.initiate({
+				name: 'Blog 1',
+				description: 'blog 1',
+				websiteUrl: 'website'
+			})
+		)
+		expect(fetchMock).toHaveBeenCalledTimes(1)
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/blogs`)
+		expect(method).toBe('POST')
+	})
+
+	it('updates a blog', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				data: { id: '1', title: 'Blog 1' }
+			})
+		)
+
+		await store.dispatch(
+			api.endpoints.updateBlog.initiate({
+				id: '1',
+				name: 'Blog 1',
+				description: 'blog 1',
+				websiteUrl: 'website'
+			})
+		)
+		expect(fetchMock).toHaveBeenCalledTimes(1)
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/blogs/1`)
+		expect(method).toBe('PUT')
+	})
 })

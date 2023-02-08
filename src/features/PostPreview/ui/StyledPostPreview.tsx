@@ -19,6 +19,16 @@ export const PostPreviewImg = styled.img`
 		margin-bottom: ${rem(5)};
 	}
 `
+export const PostPreviewImgPlaceholder = styled.div`
+	width: 100%;
+	height: 150px;
+	border-radius: ${rem(10)};
+	background: var(--color-purple);
+
+	&:not(:last-child) {
+		margin-bottom: ${rem(5)};
+	}
+`
 
 export const PostPreviewBody = styled.div`
 	display: flex;

@@ -17,8 +17,8 @@ export const BlogWrapper = styled.article`
 	margin: 0;
 	gap: 0.5rem;
 	align-items: flex-start;
-
-	border-bottom: 1px solid var(--color-light);
+	background: var(--color-bg);
+	border-radius: 0.7rem;
 
 	@media (max-width: 48rem) {
 		flex-direction: column;
@@ -29,8 +29,18 @@ export const BlogImg = styled.img`
 	width: 100px;
 	height: 100px;
 	object-fit: cover;
+	border-radius: 0.7rem;
+	border: none;
 
 	background: var(--color-secondary);
+`
+
+export const BlogImgPlaceholder = styled.div`
+	width: 100px;
+	height: 100px;
+	border-radius: 0.7rem;
+	border: none;
+	background: var(--color-purple);
 `
 
 export const BlogBody = styled.div`

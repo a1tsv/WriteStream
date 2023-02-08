@@ -19,6 +19,6 @@ export interface IBlogCreateRequestModel {
 	websiteUrl: string
 }
 
-export interface IBlogCreateRequest extends IBlogCreateRequestModel {
+export interface IBlogUpdateRequest extends IBlogCreateRequestModel {
 	id: string
 }

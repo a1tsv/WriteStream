@@ -2,7 +2,7 @@ import { IPost } from '@entities/Post'
 import {
 	PostPreviewBody,
 	PostPreviewContent,
-	PostPreviewImg,
+	PostPreviewImgPlaceholder,
 	PostPreviewText,
 	PostPreviewTime,
 	PostPreviewTitle
@@ -15,10 +15,10 @@ interface IPostPreviewProps {
 }
 
 export const PostPreview: FC<IPostPreviewProps> = memo(({ post }) => {
-	console.log('PostPreview')
 	return (
 		<PostPreviewContent>
-			<PostPreviewImg src={'#'} />
+			{/*<PostPreviewImg src={'#'} />*/}
+			<PostPreviewImgPlaceholder />
 			<PostPreviewBody>
 				<NavLink to={`/posts/${post.id}`}>
 					<PostPreviewTitle>{post.title}</PostPreviewTitle>

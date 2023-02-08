@@ -5,7 +5,7 @@ import {
 	BlogBody,
 	BlogHeading,
 	BlogHeadingInfo,
-	BlogImg,
+	BlogImgPlaceholder,
 	BlogShowMore,
 	BlogText,
 	BlogTitle,
@@ -44,7 +44,8 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 
 	return (
 		<BlogWrapper>
-			<BlogImg />
+			{/*<BlogImg />*/}
+			<BlogImgPlaceholder />
 			<BlogBody>
 				<BlogHeading>
 					<BlogHeadingInfo>

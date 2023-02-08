@@ -26,6 +26,7 @@ describe('Dropdown', () => {
 			<Dropdown
 				selected={selected}
 				onChangeCb={dropdownCallback}
+				select
 				button={'Label'}
 				items={dropdownItems}
 			/>
@@ -39,6 +40,7 @@ describe('Dropdown', () => {
 			<Dropdown
 				selected={selected}
 				onChangeCb={dropdownCallback}
+				select
 				button={'Label'}
 				items={dropdownItems}
 			/>
@@ -57,6 +59,7 @@ describe('Dropdown', () => {
 			<Dropdown
 				selected={selected}
 				onChangeCb={dropdownCallback}
+				select
 				button={'Label'}
 				items={dropdownItems}
 			/>
@@ -73,6 +76,7 @@ describe('Dropdown', () => {
 			<Dropdown
 				selected={selected}
 				onChangeCb={dropdownCallback}
+				select
 				button={'Label'}
 				items={dropdownItems}
 			/>
@@ -93,7 +97,6 @@ describe('Dropdown', () => {
 				onChangeCb={dropdownCallback}
 				button={'Label'}
 				items={dropdownItems}
-				select
 			/>
 		)
 

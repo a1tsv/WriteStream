@@ -21,7 +21,7 @@ interface IDropDownProps {
 
 export const Dropdown: FC<IDropDownProps> = memo(
 	({ button, onChangeCb, items, selected, select, sx }) => {
-		const dropdownLabel = select ? button : selected || button
+		const dropdownLabel = select ? selected || button : button
 
 		return (
 			<div>
