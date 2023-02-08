@@ -49,7 +49,10 @@ export const AddBlogModal = () => {
 					name={'name'}
 					rules={{
 						required: { value: true, message: 'Name is required' },
-						maxLength: { value: 4, message: 'Max length is 4' }
+						maxLength: {
+							value: 4,
+							message: 'Name must contain 4 or less characters'
+						}
 					}}
 					render={({ field, fieldState: { error } }) => (
 						<AddModalBlogLabel error={error?.message}>
@@ -63,7 +66,10 @@ export const AddBlogModal = () => {
 					name={'websiteUrl'}
 					rules={{
 						required: { value: true, message: 'Website is required' },
-						maxLength: { value: 30, message: 'Max length is 30' }
+						maxLength: {
+							value: 30,
+							message: 'Website must contain 40 or less characters'
+						}
 					}}
 					render={({ field, fieldState: { error } }) => (
 						<AddModalBlogLabel error={error?.message}>
@@ -77,7 +83,10 @@ export const AddBlogModal = () => {
 					name={'description'}
 					rules={{
 						required: { value: true, message: 'Description is required' },
-						maxLength: { value: 500, message: 'Max length is 500' }
+						maxLength: {
+							value: 500,
+							message: 'Description must contain less than 500 characters'
+						}
 					}}
 					render={({ field, fieldState: { error } }) => (
 						<AddModalBlogLabel error={error?.message}>

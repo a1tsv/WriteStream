@@ -1,10 +1,11 @@
 import { server } from '@app/tests/msw'
+import { IBlog } from '@entities/Blog'
 import { DeleteBlogModal } from '@features/DeleteBlogModal'
 import { Transition } from '@headlessui/react'
 import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 import React from 'react'
@@ -31,14 +32,29 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 describe('DeleteBlogModal', () => {
 	const storeRef = setupApiStore(api, {})
 
+	let items: IBlog[]
+
 	beforeAll(() => {
 		server.listen()
 		fetchMock.disableMocks()
 	})
 
 	beforeEach(() => {
+		items = [
+			{
+				name: 'Blog 1',
+				id: '1',
+				websiteUrl: 'https://www.google.com',
+				description: 'Blog 1 description',
+				createdAt: '2021-08-01T00:00:00.000Z',
+				isMembership: false
+			}
+		]
+
 		server.use(
 			rest.delete(`${baseURL}/blogs/1`, (req, res, ctx) => {
+				const index = items.findIndex(item => item.id === '1')
+				items.splice(index, 1)
 				return res(ctx.json({}))
 			})
 		)
@@ -65,7 +81,7 @@ describe('DeleteBlogModal', () => {
 		).toBeInTheDocument()
 	})
 
-	it('calls the deleteBlog mutation when the delete button is clicked', () => {
+	it('calls the deleteBlog mutation when the delete button is clicked', async () => {
 		render(
 			<Transition show={true}>
 				<DeleteBlogModal />
@@ -75,7 +91,7 @@ describe('DeleteBlogModal', () => {
 
 		const deleteButton = screen.getByRole('button', { name: 'Submit' })
 		fireEvent.click(deleteButton)
-		expect(deleteModal).toHaveBeenCalled()
+		await waitFor(() => expect(items).toHaveLength(0))
 	})
 
 	it('calls the closeModal function when the cancel button is clicked', () => {
