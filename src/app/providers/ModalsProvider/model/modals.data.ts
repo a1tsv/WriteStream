@@ -19,4 +19,7 @@ export const initialState: IModalContext = {
 }
 
 export const ModalContext = createContext(initialState)
-export const useModalContext = () => useContext(ModalContext)
+export const useModalContext = () => {
+	console.log('executing useModalContext', ModalContext)
+	return useContext(ModalContext)
+}

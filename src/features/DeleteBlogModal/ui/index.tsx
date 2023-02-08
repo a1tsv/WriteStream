@@ -1,6 +1,5 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
 import { useDeleteBlogMutation } from '@entities/Blog/api'
-import { useLoginMutation } from '@entities/User'
 import { ActionModal } from '@shared/ui/ActionModal'
 import { Flex } from '@shared/ui/Flex'
 import { Typography } from '@shared/ui/Typography'
@@ -10,22 +9,17 @@ export const DeleteBlogModal = () => {
 	const { modalProps, isOpen } = store || {}
 	const { title, submitAction, id } = modalProps || {}
 	const [deleteBlog, { isLoading }] = useDeleteBlogMutation()
-	const [login] = useLoginMutation()
 
-	// const deleteModal = () => {
-	// 	deleteBlog(id as string)
-	// }
-	//
-	// const testAuth = () => {
-	// 	login({ loginOrEmail: 'admin', password: 'qwerty' })
-	// }
+	const deleteModal = () => {
+		void deleteBlog(id as string)
+	}
 
 	return (
 		<ActionModal
 			isOpen={isOpen}
 			onClose={closeModal}
 			label={'Delete'}
-			submitAction={submitAction}
+			submitAction={deleteModal}
 		>
 			<Flex fDirection={'column'} align={'center'}>
 				<Typography variant={'title'}>{title}</Typography>
