@@ -54,5 +54,10 @@ export const blogsApi = api.injectEndpoints({
 	})
 })
 
-export const { useGetBlogsQuery, useGetBlogQuery, useDeleteBlogMutation } =
-	blogsApi
+export const {
+	useGetBlogsQuery,
+	useGetBlogQuery,
+	useDeleteBlogMutation,
+	useCreateBlogMutation,
+	useUpdateBlogMutation
+} = blogsApi

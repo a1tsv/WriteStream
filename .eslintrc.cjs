@@ -28,7 +28,9 @@ module.exports = {
 		'react/prop-types': 'off',
 		'@typescript-eslint/no-unsafe-member-access': 'off',
 		'@typescript-eslint/no-unsafe-assignment': 'off',
-		'@typescript-eslint/no-unsafe-return': 'off'
+		'@typescript-eslint/no-unsafe-return': 'off',
+		'@typescript-eslint/no-unsafe-call': 'off',
+		'@typescript-eslint/no-misused-promises': 'off'
 	},
 	parser: '@typescript-eslint/parser',
 	settings: {

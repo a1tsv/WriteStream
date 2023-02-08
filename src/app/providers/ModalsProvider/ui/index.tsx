@@ -14,6 +14,7 @@ interface IStore {
 export const Modals: FC<PropsWithChildren> = ({ children }) => {
 	const [store, setStore] = useState<IStore>()
 	const { modalType, modalProps, isOpen } = store || {}
+	console.log('in modals')
 
 	const showModal = (modalType: string, isOpen: boolean, modalProps: any) => {
 		setStore({ ...store, modalType, modalProps, isOpen })

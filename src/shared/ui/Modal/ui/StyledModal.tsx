@@ -37,6 +37,8 @@ export const ModalStyledHeader = styled.div`
 `
 
 export const ModalCrossButton = styled.button`
+	cursor: pointer;
+	font-size: 1.5rem;
 	color: var(--color-primary);
 	transition: color 0.3s ease-in 0s;
 

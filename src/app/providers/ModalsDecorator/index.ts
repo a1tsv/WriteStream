@@ -1,0 +1,1 @@
+export { ModalDecorator } from './ui'

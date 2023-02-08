@@ -11,6 +11,7 @@ import React from 'react'
 
 const submitAction = jest.fn()
 const closeModal = jest.fn()
+const deleteModal = jest.fn()
 
 jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 	...jest.requireActual('@app/providers/ModalsProvider/model/modals.data.ts'),
@@ -74,7 +75,7 @@ describe('DeleteBlogModal', () => {
 
 		const deleteButton = screen.getByRole('button', { name: 'Submit' })
 		fireEvent.click(deleteButton)
-		expect(submitAction).toHaveBeenCalled()
+		expect(deleteModal).toHaveBeenCalled()
 	})
 
 	it('calls the closeModal function when the cancel button is clicked', () => {

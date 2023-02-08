@@ -4,7 +4,7 @@ import {
 } from '@shared/ui/Modal/ui/StyledModal'
 import { Typography } from '@shared/ui/Typography'
 import { FC } from 'react'
-import { GrFormClose } from 'react-icons/gr'
+import { IoIosClose } from 'react-icons/io'
 
 interface IModalHeaderProps {
 	label: string
@@ -18,7 +18,7 @@ export const ModalHeader: FC<IModalHeaderProps> = ({ label, onClose }) => {
 				{label}
 			</Typography>
 			<ModalCrossButton onClick={onClose}>
-				<GrFormClose />
+				<IoIosClose />
 			</ModalCrossButton>
 		</ModalStyledHeader>
 	)

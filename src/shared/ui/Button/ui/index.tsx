@@ -1,10 +1,11 @@
+import { SxComponent } from '@shared/types'
 import styled, { css } from 'styled-components'
 
 interface IButtonProps {
 	variant: 'primary' | 'secondary'
 }
 
-export const Button = styled.button<IButtonProps>`
+export const Button = styled.button<SxComponent<IButtonProps>>`
 	cursor: pointer;
 	padding: 0.5rem 1rem;
 	border-radius: var(--radius);
@@ -12,7 +13,7 @@ export const Button = styled.button<IButtonProps>`
 	${({ variant }) =>
 		variant === 'primary'
 			? css`
-					color: var(--color-primary);
+					color: #000;
 					background-color: var(--color-purple);
 
 					@media (any-hover: hover) {
@@ -29,4 +30,11 @@ export const Button = styled.button<IButtonProps>`
 			  `}
 
 	transition: background-color 0.3s ease-in 0s, color 0.3s ease-in 0s;
+
+	&:disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	${({ sx }) => sx}
 `

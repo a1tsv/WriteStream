@@ -1,6 +1,7 @@
 :root {
 	// Colors
 	//--color-purple: #5e548e;
+	--color-error: #ff7b7b;
 
 	// Typography
 	--fw-bold: 600;
@@ -37,7 +38,7 @@
 	--color-light: #a6a2a0;
 	--shadow-primary: 11px 4px 8px 0px rgba(29, 29, 30, 0.2);
 	--shadow-modal: 0px -1px 13px 14px rgba(29, 29, 30, 0.2);
-	--gradient-hiding: linear-gradient(0deg, #08090a 0%, rgba(0, 0, 0, 0.2) 100%);
+	--gradient-hiding: linear-gradient(0deg, #222 0%, rgba(0, 0, 0, 0) 100%);
 	--sk-primary: #1c1e22;
 	--sk-secondary: #fff;
 }

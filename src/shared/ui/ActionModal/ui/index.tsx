@@ -6,6 +6,7 @@ import { FC, PropsWithChildren } from 'react'
 interface IActionModalProps extends IModalProps {
 	submitAction: () => void
 	label: string
+	disabled?: boolean
 }
 
 export const ActionModal: FC<PropsWithChildren<IActionModalProps>> = ({
@@ -13,19 +14,19 @@ export const ActionModal: FC<PropsWithChildren<IActionModalProps>> = ({
 	onClose,
 	submitAction,
 	label,
-	children
+	children,
+	disabled = false
 }) => {
-	const submitHandler = () => {
-		submitAction()
-		onClose()
-	}
-
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalHeader label={label} onClose={onClose} />
 				{children}
-				<ModalFooter onClose={onClose} submitAction={submitHandler} />
+				<ModalFooter
+					disabled={disabled}
+					onClose={onClose}
+					submitAction={submitAction}
+				/>
 			</Modal>
 		</>
 	)

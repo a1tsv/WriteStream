@@ -1,3 +1,4 @@
+import { Transition } from '@headlessui/react'
 import { ActionModal } from '@shared/ui/ActionModal'
 import { ComponentMeta } from '@storybook/react'
 import { useState } from 'react'
@@ -26,14 +27,16 @@ export const Default = () => {
 			>
 				Open Modal
 			</button>
-			<ActionModal
-				isOpen={isOpen}
-				onClose={closeModal}
-				submitAction={openModal}
-				label='Test'
-			>
-				Modal Content
-			</ActionModal>
+			<Transition show={isOpen}>
+				<ActionModal
+					isOpen={isOpen}
+					onClose={closeModal}
+					submitAction={openModal}
+					label='Test'
+				>
+					Modal Content
+				</ActionModal>
+			</Transition>
 		</>
 	)
 }

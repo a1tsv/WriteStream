@@ -19,6 +19,7 @@ export const BlogWrapper = styled.article`
 	align-items: flex-start;
 	background: var(--color-bg);
 	border-radius: 0.7rem;
+	overflow: hidden;
 
 	@media (max-width: 48rem) {
 		flex-direction: column;
@@ -36,6 +37,7 @@ export const BlogImg = styled.img`
 `
 
 export const BlogImgPlaceholder = styled.div`
+	flex: 0 0 100px;
 	width: 100px;
 	height: 100px;
 	border-radius: 0.7rem;

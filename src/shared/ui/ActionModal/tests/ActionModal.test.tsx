@@ -1,3 +1,4 @@
+import { Transition } from '@headlessui/react'
 import { ActionModal } from '@shared/ui/ActionModal'
 import { fireEvent, render, screen } from '@testing-library/react'
 
@@ -9,14 +10,16 @@ describe('ActionModal', () => {
 	it('renders the modal with the provided label and children', () => {
 		const children = <div>Modal Content</div>
 		render(
-			<ActionModal
-				submitAction={submitAction}
-				onClose={onClose}
-				isOpen
-				label={label}
-			>
-				{children}
-			</ActionModal>
+			<Transition show={true}>
+				<ActionModal
+					submitAction={submitAction}
+					onClose={onClose}
+					isOpen
+					label={label}
+				>
+					{children}
+				</ActionModal>
+			</Transition>
 		)
 
 		expect(screen.getByText(label)).toBeInTheDocument()
@@ -25,12 +28,14 @@ describe('ActionModal', () => {
 
 	it('should not render the modal when isOpen is false', () => {
 		render(
-			<ActionModal
-				submitAction={submitAction}
-				onClose={onClose}
-				isOpen={false}
-				label={label}
-			/>
+			<Transition show={false}>
+				<ActionModal
+					submitAction={submitAction}
+					onClose={onClose}
+					isOpen={false}
+					label={label}
+				/>
+			</Transition>
 		)
 
 		expect(screen.queryByText(label)).not.toBeInTheDocument()
@@ -38,12 +43,14 @@ describe('ActionModal', () => {
 
 	it('calls the provided submitAction when the submit button is clicked', () => {
 		render(
-			<ActionModal
-				label={label}
-				onClose={onClose}
-				isOpen
-				submitAction={submitAction}
-			/>
+			<Transition show={true}>
+				<ActionModal
+					label={label}
+					onClose={onClose}
+					isOpen
+					submitAction={submitAction}
+				/>
+			</Transition>
 		)
 
 		fireEvent.click(screen.getByText('Submit'))
@@ -52,12 +59,14 @@ describe('ActionModal', () => {
 
 	it('calls the provided onClose function when the close button is clicked', () => {
 		render(
-			<ActionModal
-				label={label}
-				submitAction={submitAction}
-				isOpen
-				onClose={onClose}
-			/>
+			<Transition show={true}>
+				<ActionModal
+					label={label}
+					submitAction={submitAction}
+					isOpen
+					onClose={onClose}
+				/>
+			</Transition>
 		)
 
 		fireEvent.click(screen.getByText('Cancel'))

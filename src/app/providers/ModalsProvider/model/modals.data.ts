@@ -1,10 +1,10 @@
 import { IModalContext, ModalsEnum } from '.'
+import { AddBlogModal } from '@features/AddBlogModal'
 import { DeleteBlogModal } from '@features/DeleteBlogModal'
-import { ActionModal } from '@shared/ui/ActionModal'
 import { createContext, useContext } from 'react'
 
 export const ModalComponents: any = {
-	[ModalsEnum.ADD_BLOG]: ActionModal,
+	[ModalsEnum.ADD_BLOG]: AddBlogModal,
 	[ModalsEnum.ADD_POST]: '',
 	[ModalsEnum.DELETE_BLOG]: DeleteBlogModal,
 	[ModalsEnum.DELETE_POST]: '',
@@ -20,6 +20,5 @@ export const initialState: IModalContext = {
 
 export const ModalContext = createContext(initialState)
 export const useModalContext = () => {
-	console.log('executing useModalContext', ModalContext)
 	return useContext(ModalContext)
 }

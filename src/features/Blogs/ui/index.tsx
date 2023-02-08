@@ -1,3 +1,5 @@
+import { useModalContext } from '@app/providers/ModalsProvider'
+import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { Blog, useGetBlogsQuery } from '@entities/Blog'
 import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
 import { dropdownItems } from '@features/Blogs/model'
@@ -9,6 +11,7 @@ import {
 } from '@features/Blogs/ui/StyledBlogs'
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { useDebounce } from '@shared/hooks'
+import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
 import { Typography } from '@shared/ui/Typography'
@@ -19,6 +22,7 @@ export const Blogs = () => {
 	// Vars
 	const [searchParams, setSearchParams] = useSearchParams()
 	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
+	const { showModal } = useModalContext()
 
 	// Api call
 	const { data, isLoading } = useGetBlogsQuery(params)
@@ -30,6 +34,10 @@ export const Blogs = () => {
 	)
 
 	// Utils
+	const openNewBlogModal = () => {
+		showModal(ModalsEnum.ADD_BLOG, true, {})
+	}
+
 	const changeSearchValue = useCallback((value: string) => {
 		setSearchValue(value)
 		setSearchTermToQuery(value)
@@ -53,6 +61,13 @@ export const Blogs = () => {
 				Unleash Your Creativity, Share Your Story. Join the Blogging Community
 				Today!
 			</BlogsSubTitle>
+			<Button
+				sx={{ marginBottom: '0.6rem' }}
+				onClick={openNewBlogModal}
+				variant={'primary'}
+			>
+				New Blog
+			</Button>
 			<BlogsFilters>
 				<BlogsSearch>
 					<Search value={searchValue} onChange={changeSearchValue} />

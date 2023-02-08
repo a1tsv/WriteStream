@@ -5,18 +5,20 @@ import { FC } from 'react'
 interface IModalFooterProps {
 	onClose: () => void
 	submitAction: () => void
+	disabled?: boolean
 }
 
 export const ModalFooter: FC<IModalFooterProps> = ({
 	onClose,
-	submitAction
+	submitAction,
+	disabled = false
 }) => {
 	return (
 		<ModalStyledFooter>
 			<Button variant={'secondary'} onClick={onClose}>
 				Cancel
 			</Button>
-			<Button variant={'primary'} onClick={submitAction}>
+			<Button disabled={disabled} variant={'primary'} onClick={submitAction}>
 				Submit
 			</Button>
 		</ModalStyledFooter>
