@@ -1,6 +1,6 @@
 import { server } from '@app/tests/msw'
-import { IBlog } from '@entities/Blog'
-import { DeleteBlogModal } from '@features/DeleteBlogModal'
+import { IPost } from '@entities/Post'
+import { DeletePostModal } from '@features/DeletePostModal'
 import { Transition } from '@headlessui/react'
 import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
@@ -18,18 +18,20 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 		closeModal,
 		store: {
 			modalProps: {
-				title: 'Delete Blog',
-				id: '1'
+				post: {
+					title: 'Delete Post',
+					id: '1'
+				}
 			},
 			isOpen: true
 		}
 	}))
 }))
 
-describe('DeleteBlogModal', () => {
+describe('DeletePostModal', () => {
 	const storeRef = setupApiStore(api, {})
 
-	let items: IBlog[]
+	let items: IPost[]
 
 	beforeAll(() => {
 		server.listen()
@@ -39,17 +41,18 @@ describe('DeleteBlogModal', () => {
 	beforeEach(() => {
 		items = [
 			{
-				name: 'Blog 1',
+				blogId: '1',
+				content: 'Post 1 content',
 				id: '1',
-				websiteUrl: 'https://www.google.com',
-				description: 'Blog 1 description',
+				title: 'Post 1',
 				createdAt: '2021-08-01T00:00:00.000Z',
-				isMembership: false
+				blogName: 'Blog 1',
+				shortDescription: 'Post 1 short description'
 			}
 		]
 
 		server.use(
-			rest.delete(`${baseURL}/blogs/1`, (req, res, ctx) => {
+			rest.delete(`${baseURL}/posts/1`, (req, res, ctx) => {
 				const index = items.findIndex(item => item.id === '1')
 				items.splice(index, 1)
 				return res(ctx.json({}))
@@ -67,21 +70,21 @@ describe('DeleteBlogModal', () => {
 	it('renders the Delete Blog modal with the title and message', () => {
 		render(
 			<Transition show={true}>
-				<DeleteBlogModal />
+				<DeletePostModal />
 			</Transition>,
 			{ wrapper: storeRef.wrapper }
 		)
 
-		expect(screen.getByText('Delete Blog')).toBeInTheDocument()
+		expect(screen.getByText('Delete Post')).toBeInTheDocument()
 		expect(
-			screen.getByText('Do you want to delete this blog?')
+			screen.getByText('Do you want to delete this post?')
 		).toBeInTheDocument()
 	})
 
-	it('calls the deleteBlog mutation when the delete button is clicked', async () => {
+	it('calls the deletePost mutation when the delete button is clicked', async () => {
 		render(
 			<Transition show={true}>
-				<DeleteBlogModal />
+				<DeletePostModal />
 			</Transition>,
 			{ wrapper: storeRef.wrapper }
 		)
@@ -94,7 +97,7 @@ describe('DeleteBlogModal', () => {
 	it('calls the closeModal function when the cancel button is clicked', () => {
 		render(
 			<Transition show={true}>
-				<DeleteBlogModal />
+				<DeletePostModal />
 			</Transition>,
 			{ wrapper: storeRef.wrapper }
 		)

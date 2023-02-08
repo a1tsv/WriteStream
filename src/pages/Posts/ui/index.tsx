@@ -1,9 +1,12 @@
+import { useModalContext } from '@app/providers/ModalsProvider'
+import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { useGetPostsQuery } from '@entities/Post'
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { PostPreview } from '@features/PostPreview'
 import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleton'
 import { dropdownItems } from '@pages/Posts/model'
 import { PostsFilters, PostsItems } from '@pages/Posts/ui/StyledPosts'
+import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 import { useMemo } from 'react'
 import { useParams } from 'react-router'
@@ -14,6 +17,7 @@ export const PostsPage = () => {
 	const { id } = useParams()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
+	const { showModal } = useModalContext()
 
 	// Api call
 	const { data, isLoading } = useGetPostsQuery({
@@ -21,6 +25,10 @@ export const PostsPage = () => {
 		blogId: id ? id : ''
 	})
 	const isItemsEmpty = !data?.items.length && !isLoading
+
+	const openCreatePostModal = () => {
+		showModal(ModalsEnum.ADD_POST, true, {})
+	}
 
 	return (
 		<>
@@ -31,6 +39,9 @@ export const PostsPage = () => {
 					setSearchParams={setSearchParams}
 				/>
 			</PostsFilters>
+			<Button variant={'primary'} onClick={openCreatePostModal}>
+				New post
+			</Button>
 			<PostsItems>
 				{isLoading && <PostPreviewSkeleton count={3} />}
 				{data?.items.length &&

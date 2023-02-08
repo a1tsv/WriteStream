@@ -1,17 +1,17 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
-import { useDeleteBlogMutation } from '@entities/Blog/api'
+import { useDeletePostMutation } from '@entities/Post/api'
 import { ActionModal } from '@shared/ui/ActionModal'
 import { Flex } from '@shared/ui/Flex'
 import { Typography } from '@shared/ui/Typography'
 
-export const DeleteBlogModal = () => {
+export const DeletePostModal = () => {
 	const { closeModal, store } = useModalContext()
 	const { modalProps, isOpen } = store || {}
-	const { name, id } = modalProps.blog || {}
-	const [deleteBlog, { isLoading }] = useDeleteBlogMutation()
+	const { title, id } = modalProps.post || {}
+	const [deletePost, { isLoading }] = useDeletePostMutation()
 
 	const deleteModal = async () => {
-		await deleteBlog(id as string)
+		await deletePost(id as string)
 		closeModal()
 	}
 
@@ -23,8 +23,8 @@ export const DeleteBlogModal = () => {
 			submitAction={deleteModal}
 		>
 			<Flex fDirection={'column'} align={'center'}>
-				<Typography variant={'title'}>{name}</Typography>
-				Do you want to delete this blog?
+				<Typography variant={'title'}>{title}</Typography>
+				Do you want to delete this post?
 			</Flex>
 		</ActionModal>
 	)

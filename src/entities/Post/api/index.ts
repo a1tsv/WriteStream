@@ -1,2 +1,9 @@
-export { postApi, useGetPostsQuery, useGetPostQuery } from './post.api'
-export { type IPost } from './post.interface'
+export {
+	postApi,
+	useGetPostsQuery,
+	useGetPostQuery,
+	useCreatePostMutation,
+	useDeletePostMutation,
+	useUpdatePostMutation
+} from './post.api'
+export { type IPost, type IUpdatePostModel } from './post.interface'

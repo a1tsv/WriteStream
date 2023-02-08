@@ -7,3 +7,6 @@ export interface IPost {
 	blogName: string
 	createdAt: string
 }
+
+export type IUpdatePostModel = Omit<IPost, 'blogName' | 'createdAt'>
+export type IUpdatePostFields = Omit<IUpdatePostModel, 'id'>
