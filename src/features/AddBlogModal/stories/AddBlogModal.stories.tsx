@@ -14,15 +14,38 @@ export default {
 		msw: [
 			rest.post(`${baseURL}/blogs`, (req, res, ctx) => {
 				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
 			})
 		]
 	}
 } as ComponentMeta<typeof DeleteBlogModal>
 
-export const Default = () => {
+export const AddModal = () => {
 	const { showModal } = useModalContext()
 	const openModal = () => {
 		showModal(ModalsEnum.ADD_BLOG, true, {})
+	}
+
+	return (
+		<Button onClick={openModal} variant={'primary'}>
+			Open modal
+		</Button>
+	)
+}
+
+export const EditMode = () => {
+	const { showModal } = useModalContext()
+	const openModal = () => {
+		showModal(ModalsEnum.ADD_BLOG, true, {
+			blog: {
+				id: 1,
+				name: 'Test',
+				description: 'Test description',
+				websiteUrl: 'https://test.com'
+			}
+		})
 	}
 
 	return (

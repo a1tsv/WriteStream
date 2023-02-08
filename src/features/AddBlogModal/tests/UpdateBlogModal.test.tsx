@@ -48,13 +48,13 @@ describe('Update mode', () => {
 
 	beforeEach(() => {
 		server.use(
-			rest.put(`${baseURL}/blogs/2`, (req, res, ctx) => {
+			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
 				console.log('intercepting')
 				const { id } = req.body as IBlogUpdateRequest
 				const index = items.findIndex(item => item.id === id)
 				items[index] = req.body as IBlog
 				console.log(items)
-				return res(ctx.json({}))
+				return res(ctx.status(200), ctx.json({}))
 			})
 		)
 	})
