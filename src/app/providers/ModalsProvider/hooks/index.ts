@@ -1,0 +1,1 @@
+export { useGetModalProps } from './useGetModalProps'

@@ -27,5 +27,6 @@ export const Typography = styled.p<SxComponent<Partial<ITypographyProps>>>`
 			font-weight: var(--fw-sm);
 			font-size: var(--fs-sm);
 		`};
+
 	${p => ({ ...p.sx })}
 `

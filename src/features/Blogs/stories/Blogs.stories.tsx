@@ -1,4 +1,3 @@
-import { StoreDecorator } from '@app/providers/StoreDecorator'
 import { Blogs } from '@features/Blogs'
 import { baseURL } from '@shared/utils/baseURL'
 import { ComponentMeta } from '@storybook/react'
@@ -9,7 +8,6 @@ import { Route } from 'react-router-dom'
 export default {
 	title: 'Blogs',
 	component: Blogs,
-	decorators: [StoreDecorator],
 	parameters: {
 		msw: [
 			rest.get(`${baseURL}/blogs`, (req, res, ctx) => {
@@ -32,6 +30,15 @@ export default {
 						]
 					})
 				)
+			}),
+			rest.post(`${baseURL}/blogs`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.delete(`${baseURL}/blogs/*`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
 			})
 		]
 	}

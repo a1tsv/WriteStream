@@ -1,4 +1,3 @@
-import { StoreDecorator } from '@app/providers/StoreDecorator'
 import { BlogPage } from '@pages/Blog'
 import { baseURL } from '@shared/utils/baseURL'
 import { ComponentMeta } from '@storybook/react'
@@ -9,7 +8,6 @@ import { Route } from 'react-router-dom'
 export default {
 	title: 'Blog Page',
 	component: BlogPage,
-	decorators: [StoreDecorator],
 	parameters: {
 		msw: [
 			rest.get(`${baseURL}/posts`, (req, res, ctx) => {

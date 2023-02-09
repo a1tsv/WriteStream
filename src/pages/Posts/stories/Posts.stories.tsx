@@ -1,4 +1,3 @@
-import { StoreDecorator } from '@app/providers/StoreDecorator'
 import { IPost } from '@entities/Post'
 import { PostsPage } from '@pages/Posts'
 import { baseURL } from '@shared/utils/baseURL'
@@ -11,7 +10,6 @@ import { Route } from 'react-router-dom'
 export default {
 	title: 'Posts',
 	component: PostsPage,
-	decorators: [StoreDecorator],
 	parameters: {
 		msw: [
 			rest.get(`${baseURL}/posts`, (req, res, ctx) => {
@@ -42,6 +40,15 @@ export default {
 						items: posts
 					})
 				)
+			}),
+			rest.post(`${baseURL}/posts`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.delete(`${baseURL}/posts/*`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.put(`${baseURL}/posts/*`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
 			})
 		]
 	}

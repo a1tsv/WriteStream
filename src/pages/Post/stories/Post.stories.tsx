@@ -1,4 +1,3 @@
-import { StoreDecorator } from '@app/providers/StoreDecorator'
 import { PostPage } from '@pages/Post'
 import { baseURL } from '@shared/utils/baseURL'
 import { ComponentMeta } from '@storybook/react'
@@ -10,7 +9,6 @@ import { Route } from 'react-router-dom'
 export default {
 	title: 'Post',
 	component: PostPage,
-	decorators: [StoreDecorator],
 	parameters: {
 		msw: [
 			rest.get(`${baseURL}/posts/1`, (req, res, ctx) => {

@@ -1,43 +1,70 @@
-import { useModalContext } from '@app/providers/ModalsProvider'
+import { useGetModalProps } from '@app/providers/ModalsProvider/hooks'
+import { useGetBlogsQuery } from '@entities/Blog'
 import {
 	useCreatePostMutation,
 	useUpdatePostMutation
 } from '@entities/Post/api'
 import { IUpdatePostFields } from '@entities/Post/api/post.interface'
-import {
-	AddModalBlogForm,
-	AddModalBlogInput,
-	AddModalBlogLabel,
-	AddModalBlogTextarea
-} from '@features/AddBlogModal/ui/StyledAddModalBlog'
+import { rules } from '@features/PostModal/model/PostModal.rules'
 import { ActionModal } from '@shared/ui/ActionModal'
+import { ComboBox } from '@shared/ui/Combobox'
+import { IComboBoxItem } from '@shared/ui/Combobox/model'
+import { FormField, FormLayout } from '@shared/ui/FormLayout/ui'
+import { TextField } from '@shared/ui/Input'
+import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const PostModal = () => {
-	const { closeModal, store } = useModalContext()
-	const { isOpen, modalProps } = store || {}
-	const { id, title, shortDescription, content, blogId } = modalProps.post || {}
-	const isEdit = !!modalProps.post
+	// Modal context
+	const { modalProps, isOpen, closeModal } = useGetModalProps()
+	const { id, title, shortDescription, content, blogId, blogName } =
+		modalProps.post || {}
+	const currentBlog = { id: blogId, title: blogName } as IComboBoxItem
+
+	// Local State
+	const [query, setQuery] = useState('')
+	const changeQuery = (value: string) => {
+		setQuery(value)
+	}
+
+	// Api calls
+	const isInitial = !query && blogName
 	const [createPost] = useCreatePostMutation()
 	const [updatePost] = useUpdatePostMutation()
+	const { data, isLoading } = useGetBlogsQuery(
+		{ searchNameTerm: query },
+		{ skip: isInitial || !query }
+	)
+
+	// Vars
+	const isEdit = !!modalProps.post
+	const comboData =
+		data?.items.map(item => ({
+			id: item.id,
+			title: item.name
+		})) || []
+
+	// Form configuration
+	const defaultValues = {
+		title: title || '',
+		shortDescription: shortDescription || '',
+		blog: currentBlog || {},
+		content: content || ''
+	}
 
 	const {
 		formState: { isValid, isDirty },
 		control,
 		handleSubmit
-	} = useForm<IUpdatePostFields>({
-		defaultValues: {
-			title: title || '',
-			shortDescription: shortDescription || '',
-			blogId: blogId || '',
-			content: content || ''
-		},
-		mode: 'onBlur'
-	})
+	} = useForm<IUpdatePostFields>({ defaultValues, mode: 'onBlur' })
 	const formValid = !isDirty || !isValid
 
+	// Utils
+
 	const onSubmit: SubmitHandler<IUpdatePostFields> = async data => {
-		isEdit ? await updatePost({ id, ...data }) : await createPost(data)
+		isEdit
+			? await updatePost({ id, blogId: data.blog.id, ...data })
+			: await createPost({ blogId: data.blog.id, ...data })
 		closeModal()
 	}
 
@@ -49,59 +76,54 @@ export const PostModal = () => {
 			onClose={closeModal}
 			disabled={formValid}
 		>
-			<AddModalBlogForm onSubmit={handleSubmit(onSubmit)}>
+			<FormLayout onSubmit={handleSubmit(onSubmit)}>
 				<Controller
 					control={control}
 					name={'title'}
-					rules={{
-						required: { value: true, message: 'Title is required' },
-						maxLength: {
-							value: 10,
-							message: 'Title must contain 4 or less characters'
-						}
-					}}
+					rules={rules.title}
 					render={({ field, fieldState: { error } }) => (
-						<AddModalBlogLabel error={error?.message}>
-							{error ? error.message : 'Title:'}
-							<AddModalBlogInput {...field} />
-						</AddModalBlogLabel>
+						<FormField error={error} label={'Title:'}>
+							<TextField {...field} />
+						</FormField>
 					)}
 				/>
 				<Controller
 					control={control}
 					name={'shortDescription'}
-					rules={{
-						required: { value: true, message: 'Description is required' },
-						maxLength: {
-							value: 30,
-							message: 'Description must contain 40 or less characters'
-						}
-					}}
+					rules={rules.shortDescription}
 					render={({ field, fieldState: { error } }) => (
-						<AddModalBlogLabel error={error?.message}>
-							{error ? error.message : 'Short description:'}
-							<AddModalBlogInput {...field} />
-						</AddModalBlogLabel>
+						<FormField error={error} label={'Description:'}>
+							<TextField {...field} />
+						</FormField>
+					)}
+				></Controller>
+				<Controller
+					control={control}
+					name={'blog'}
+					rules={rules.blog}
+					render={({ field, fieldState: { error } }) => (
+						<FormField error={error} label={'Blog:'}>
+							<ComboBox
+								isLoading={isLoading}
+								query={query}
+								setQuery={changeQuery}
+								items={comboData}
+								{...field}
+							/>
+						</FormField>
 					)}
 				/>
 				<Controller
 					control={control}
 					name={'content'}
-					rules={{
-						required: { value: true, message: 'Content is required' },
-						maxLength: {
-							value: 500,
-							message: 'Content must contain less than 500 characters'
-						}
-					}}
+					rules={rules.controller}
 					render={({ field, fieldState: { error } }) => (
-						<AddModalBlogLabel error={error?.message}>
-							{error ? error.message : 'Content:'}
-							<AddModalBlogTextarea {...field} />
-						</AddModalBlogLabel>
+						<FormField error={error} label={'Description:'}>
+							<TextField isTextarea sx={{ minHeight: '150px' }} {...field} />
+						</FormField>
 					)}
 				/>
-			</AddModalBlogForm>
+			</FormLayout>
 		</ActionModal>
 	)
 }

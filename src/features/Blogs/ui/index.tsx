@@ -12,7 +12,6 @@ import {
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { useDebounce } from '@shared/hooks'
 import { Button } from '@shared/ui/Button'
-import { ComboBox } from '@shared/ui/Combobox'
 import { IComboBoxItem } from '@shared/ui/Combobox/model/ComboBox.interface'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
@@ -39,14 +38,6 @@ export const Blogs = () => {
 	const [searchValue, setSearchValue] = useState<string>(
 		params.searchNameTerm || ''
 	)
-	const [selectedBlog, setSelectedBlog] = useState<IComboBoxItem>(
-		comboBoxItems[0]
-	)
-
-	// Utils
-	const handleBlogChange = (value: IComboBoxItem) => {
-		setSelectedBlog(value)
-	}
 
 	const openNewBlogModal = () => {
 		showModal(ModalsEnum.ADD_BLOG, true, {})
@@ -71,11 +62,6 @@ export const Blogs = () => {
 			<Typography variant='title' as={'h1'}>
 				Blogs
 			</Typography>
-			<ComboBox
-				items={comboBoxItems}
-				onChange={handleBlogChange}
-				selectedItem={selectedBlog}
-			/>
 			<BlogsSubTitle>
 				Unleash Your Creativity, Share Your Story. Join the Blogging Community
 				Today!

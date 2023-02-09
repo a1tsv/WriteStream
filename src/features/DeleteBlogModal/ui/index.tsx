@@ -1,12 +1,9 @@
-import { useModalContext } from '@app/providers/ModalsProvider'
+import { useGetModalProps } from '@app/providers/ModalsProvider/hooks'
 import { useDeleteBlogMutation } from '@entities/Blog/api'
-import { ActionModal } from '@shared/ui/ActionModal'
-import { Flex } from '@shared/ui/Flex'
-import { Typography } from '@shared/ui/Typography'
+import { DeleteModal } from '@features/DeleteModal'
 
 export const DeleteBlogModal = () => {
-	const { closeModal, store } = useModalContext()
-	const { modalProps, isOpen } = store || {}
+	const { modalProps, isOpen, closeModal } = useGetModalProps()
 	const { name, id } = modalProps.blog || {}
 	const [deleteBlog, { isLoading }] = useDeleteBlogMutation()
 
@@ -16,16 +13,12 @@ export const DeleteBlogModal = () => {
 	}
 
 	return (
-		<ActionModal
+		<DeleteModal
 			isOpen={isOpen}
 			onClose={closeModal}
-			label={'Delete'}
 			submitAction={deleteModal}
-		>
-			<Flex fDirection={'column'} align={'center'}>
-				<Typography variant={'title'}>{name}</Typography>
-				Do you want to delete this blog?
-			</Flex>
-		</ActionModal>
+			entity={name}
+			label={'post'}
+		/>
 	)
 }

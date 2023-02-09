@@ -1,27 +1,28 @@
-import { useModalContext } from '@app/providers/ModalsProvider'
+import { useGetModalProps } from '@app/providers/ModalsProvider/hooks'
 import {
 	useCreateBlogMutation,
 	useUpdateBlogMutation
 } from '@entities/Blog/api'
 import { IBlogCreateRequestModel } from '@entities/Blog/api/blog.interface'
-import {
-	AddModalBlogForm,
-	AddModalBlogInput,
-	AddModalBlogLabel,
-	AddModalBlogTextarea
-} from '@features/AddBlogModal/ui/StyledAddModalBlog'
+import { rules } from '@features/AddBlogModal/model'
 import { ActionModal } from '@shared/ui/ActionModal'
+import { FormField, FormLayout } from '@shared/ui/FormLayout'
+import { TextField } from '@shared/ui/Input'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const AddBlogModal = () => {
-	const { closeModal, store } = useModalContext()
-	const { isOpen, modalProps } = store || {}
-	console.log('MODAL PROPS', store)
+	// Modal context
+	const { modalProps, isOpen, closeModal } = useGetModalProps()
 	const { id, name, websiteUrl, description } = modalProps.blog || {}
-	const isEdit = !!modalProps.blog
+
+	// Api calls
 	const [createBlog] = useCreateBlogMutation()
 	const [updateBlog] = useUpdateBlogMutation()
 
+	// Vars
+	const isEdit = !!modalProps.blog
+
+	// Form configuration
 	const {
 		formState: { isValid },
 		control,
@@ -35,6 +36,7 @@ export const AddBlogModal = () => {
 		mode: 'onBlur'
 	})
 
+	// Utils
 	const onSubmit: SubmitHandler<IBlogCreateRequestModel> = async data => {
 		isEdit ? await updateBlog({ id, ...data }) : await createBlog(data)
 		closeModal()
@@ -48,59 +50,38 @@ export const AddBlogModal = () => {
 			onClose={closeModal}
 			disabled={!isValid}
 		>
-			<AddModalBlogForm onSubmit={handleSubmit(onSubmit)}>
+			<FormLayout onSubmit={handleSubmit(onSubmit)}>
 				<Controller
 					control={control}
 					name={'name'}
-					rules={{
-						required: { value: true, message: 'Name is required' },
-						maxLength: {
-							value: 4,
-							message: 'Name must contain 4 or less characters'
-						}
-					}}
+					rules={rules.name}
 					render={({ field, fieldState: { error } }) => (
-						<AddModalBlogLabel error={error?.message}>
-							{error ? error.message : 'Name:'}
-							<AddModalBlogInput {...field} />
-						</AddModalBlogLabel>
+						<FormField error={error} label='Name:'>
+							<TextField {...field} />
+						</FormField>
 					)}
 				/>
 				<Controller
 					control={control}
 					name={'websiteUrl'}
-					rules={{
-						required: { value: true, message: 'Website is required' },
-						maxLength: {
-							value: 30,
-							message: 'Website must contain 40 or less characters'
-						}
-					}}
+					rules={rules.websiteUrl}
 					render={({ field, fieldState: { error } }) => (
-						<AddModalBlogLabel error={error?.message}>
-							{error ? error.message : 'Website:'}
-							<AddModalBlogInput {...field} />
-						</AddModalBlogLabel>
+						<FormField error={error} label='Website:'>
+							<TextField {...field} />
+						</FormField>
 					)}
 				/>
 				<Controller
 					control={control}
 					name={'description'}
-					rules={{
-						required: { value: true, message: 'Description is required' },
-						maxLength: {
-							value: 500,
-							message: 'Description must contain less than 500 characters'
-						}
-					}}
+					rules={rules.description}
 					render={({ field, fieldState: { error } }) => (
-						<AddModalBlogLabel error={error?.message}>
-							{error ? error.message : 'Description:'}
-							<AddModalBlogTextarea {...field} />
-						</AddModalBlogLabel>
+						<FormField error={error} label='Description:'>
+							<TextField isTextarea sx={{ minHeight: '150px' }} {...field} />
+						</FormField>
 					)}
 				/>
-			</AddModalBlogForm>
+			</FormLayout>
 		</ActionModal>
 	)
 }

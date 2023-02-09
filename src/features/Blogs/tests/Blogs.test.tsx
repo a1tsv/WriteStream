@@ -1,4 +1,5 @@
 import { Blogs } from '../ui'
+import { Modals } from '@app/providers/ModalsProvider'
 import { server } from '@app/tests/msw/server'
 import { IBlog } from '@entities/Blog/api/blog.interface'
 import { api } from '@shared/api'
@@ -113,5 +114,55 @@ describe('Blogs page', () => {
 		expect(await screen.findByText('Blog 1')).toBeInTheDocument()
 		await userEvent.click(screen.getByText('Blog 1'))
 		expect(await screen.findByText('Blog 1 Details')).toBeInTheDocument()
+	})
+
+	it('should open add blog modal', async () => {
+		renderWithRouter(
+			storeRef.wrapper({
+				children: (
+					<Modals>
+						<Blogs />
+					</Modals>
+				)
+			}),
+			{}
+		)
+
+		await userEvent.click(screen.getByText('New Blog'))
+		expect(await screen.findByText('Add blog')).toBeInTheDocument()
+	})
+
+	it('should open edit blog modal', async () => {
+		const { container } = renderWithRouter(
+			storeRef.wrapper({
+				children: (
+					<Modals>
+						<Blogs />
+					</Modals>
+				)
+			}),
+			{}
+		)
+
+		await userEvent.click(screen.getByText('Dropdown label'))
+		await userEvent.click(await screen.findByText('Edit blog'))
+		expect(await screen.findByText('Edit blog')).toBeInTheDocument()
+	})
+
+	it('should open delete blog modal', async () => {
+		const { container } = renderWithRouter(
+			storeRef.wrapper({
+				children: (
+					<Modals>
+						<Blogs />
+					</Modals>
+				)
+			}),
+			{}
+		)
+
+		await userEvent.click(screen.getByText('Dropdown label'))
+		await userEvent.click(await screen.findByText('Delete blog'))
+		expect(await screen.findByText('Delete blog')).toBeInTheDocument()
 	})
 })

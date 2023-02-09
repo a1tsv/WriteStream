@@ -1,3 +1,5 @@
+import { IComboBoxItem } from '@shared/ui/Combobox/model'
+
 export interface IPost {
 	id: string
 	title: string
@@ -9,4 +11,10 @@ export interface IPost {
 }
 
 export type IUpdatePostModel = Omit<IPost, 'blogName' | 'createdAt'>
-export type IUpdatePostFields = Omit<IUpdatePostModel, 'id'>
+
+export interface IUpdatePostFields {
+	title: string
+	shortDescription: string
+	content: string
+	blog: IComboBoxItem
+}

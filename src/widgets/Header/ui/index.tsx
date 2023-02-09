@@ -29,7 +29,7 @@ export const Header: FC<IHeaderProps> = ({ sideBarStateChanger }) => {
 	}
 
 	useEffect(() => {
-		document.documentElement.dataset.theme = theme
+		document.body.dataset.theme = theme
 	}, [theme])
 
 	return (
