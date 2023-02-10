@@ -19,7 +19,7 @@ import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
 interface IBlogProps {
-	blog: IBlog
+	blog?: IBlog
 }
 
 export const Blog: FC<IBlogProps> = memo(({ blog }) => {
@@ -32,7 +32,7 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 
 	// Link
 	const { id } = useParams<{ id: string }>()
-	const shouldNavigate = id
+	const singleBlog = !!id
 
 	const handleShowMore = () => {
 		setIsCollapsed(!isCollapsed)
@@ -43,13 +43,13 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 	}
 
 	return (
-		<BlogWrapper>
+		<BlogWrapper singleBlog={singleBlog}>
 			{/*<BlogImg />*/}
 			<BlogImgPlaceholder />
 			<BlogBody>
 				<BlogHeading>
 					<BlogHeadingInfo>
-						{shouldNavigate ? (
+						{singleBlog ? (
 							<BlogTitle>{blog.name}</BlogTitle>
 						) : (
 							<NavLink to={`/blogs/${blog.id}`}>

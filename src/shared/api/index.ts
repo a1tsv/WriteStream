@@ -8,6 +8,6 @@ export const api = createApi({
 			Authorization: 'Basic YWRtaW46cXdlcnR5'
 		}
 	}),
-	tagTypes: ['Posts', 'Blogs'],
+	tagTypes: ['Posts', 'Blogs', 'Blog', 'Post'],
 	endpoints: build => ({})
 })

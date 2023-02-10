@@ -2,6 +2,10 @@ import { rem } from '@app/styles/mixins'
 import { Typography } from '@shared/ui/Typography'
 import styled, { css } from 'styled-components'
 
+interface IBlogWrapperProps {
+	singleBlog?: boolean
+}
+
 interface IBlogTextProps {
 	collapsed: boolean
 	initialHeight?: number
@@ -11,7 +15,7 @@ interface IBlogShowMoreProps {
 	collapsed: boolean
 }
 
-export const BlogWrapper = styled.article`
+export const BlogWrapper = styled.article<IBlogWrapperProps>`
 	display: flex;
 	padding: 0.6rem;
 	margin: 0;
@@ -19,6 +23,22 @@ export const BlogWrapper = styled.article`
 	align-items: flex-start;
 	background: var(--color-bg);
 	border-radius: 0.7rem;
+
+	${({ singleBlog }) =>
+		singleBlog &&
+		css`
+			flex-direction: column;
+
+			img {
+				height: 300px;
+				width: 100%;
+			}
+
+			span {
+				flex: 0 1 300px;
+				width: 100%;
+			}
+		`}
 
 	@media (max-width: 48rem) {
 		flex-direction: column;
@@ -35,7 +55,7 @@ export const BlogImg = styled.img`
 	background: var(--color-secondary);
 `
 
-export const BlogImgPlaceholder = styled.div`
+export const BlogImgPlaceholder = styled.span`
 	flex: 0 0 100px;
 	width: 100px;
 	height: 100px;
@@ -48,6 +68,7 @@ export const BlogBody = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
+	width: 100%;
 	//gap: 0.9rem;
 `
 

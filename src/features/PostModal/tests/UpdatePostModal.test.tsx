@@ -52,7 +52,6 @@ describe('AddPostModal', () => {
 	beforeEach(() => {
 		server.use(
 			rest.get(`${baseURL}/blogs`, (req, res, ctx) => {
-				console.log('getting blogs')
 				return res(
 					ctx.json({
 						items: [

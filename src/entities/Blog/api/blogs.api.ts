@@ -17,12 +17,13 @@ export const blogsApi = api.injectEndpoints({
 				url: '/blogs',
 				params: data
 			}),
-			providesTags: ['Blogs']
+			providesTags: ['Blogs', 'Blog']
 		}),
 		getBlog: build.query<IBlog, string>({
 			query: id => ({
 				url: `/blogs/${id}`
-			})
+			}),
+			providesTags: ['Blog']
 		}),
 		deleteBlog: build.mutation<void, string>({
 			query: id => ({
@@ -33,7 +34,7 @@ export const blogsApi = api.injectEndpoints({
 					password: 'qwerty'
 				}
 			}),
-			invalidatesTags: ['Blogs']
+			invalidatesTags: ['Blogs', 'Blog']
 		}),
 		createBlog: build.mutation<IBlog, IBlogCreateRequestModel>({
 			query: data => ({
@@ -49,7 +50,7 @@ export const blogsApi = api.injectEndpoints({
 				method: 'PUT',
 				body: data
 			}),
-			invalidatesTags: ['Blogs']
+			invalidatesTags: ['Blogs', 'Blog']
 		})
 	})
 })
