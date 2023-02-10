@@ -6,6 +6,7 @@ import { PostsPage } from '@pages/Posts'
 import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
+import { useMemo } from 'react'
 import { Navigate, useParams } from 'react-router'
 
 export const BlogPage = () => {
@@ -14,13 +15,16 @@ export const BlogPage = () => {
 
 	if (error) return <Navigate to={'/blogs'} />
 
-	const breadcrumbs: IBreadCrumbsItem[] = [
-		{ link: 'blogs', title: 'Blogs' },
-		{
-			link: `blogs/${blog?.id ? blog.id : ''}`,
-			title: blog?.name ? blog.name : ''
-		}
-	]
+	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
+		() => [
+			{ link: 'blogs', title: 'Blogs' },
+			{
+				link: `blogs/${blog?.id ? blog.id : ''}`,
+				title: blog?.name ? blog.name : ''
+			}
+		],
+		[blog]
+	)
 
 	return (
 		<>

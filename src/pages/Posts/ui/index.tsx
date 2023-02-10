@@ -7,6 +7,7 @@ import { PostPreview } from '@features/PostPreview'
 import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleton'
 import { dropdownItems } from '@pages/Posts/model'
 import { PostsFilters, PostsItems } from '@pages/Posts/ui/StyledPosts'
+import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
 import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
@@ -21,6 +22,10 @@ export const PostsPage = () => {
 	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
 	const { showModal } = useModalContext()
 	const blogId = id ? id : ''
+	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
+		() => [{ link: 'posts', title: 'Posts' }],
+		[]
+	)
 
 	// Api call
 	const { data, isLoading } = useGetPostsQuery({
@@ -38,7 +43,7 @@ export const PostsPage = () => {
 
 	return (
 		<>
-			<BreadCrumbs items={[{ link: 'posts', title: 'Posts' }]} />
+			<BreadCrumbs items={breadcrumbs} />
 			<PostsFilters>
 				<NavigationDropdown
 					items={dropdownItems}

@@ -14,18 +14,22 @@ import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
 import { NotFound } from '@shared/ui/NotFound'
+import { useMemo } from 'react'
 import { useParams } from 'react-router'
 
 export const PostPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const { data: post, isLoading } = useGetPostQuery(id as string)
-	const breadcrumbs: IBreadCrumbsItem[] = [
-		{ link: 'posts', title: 'Posts' },
-		{
-			link: `posts/${post?.id ? post.id : ''}`,
-			title: post?.title ? post.title : ''
-		}
-	]
+	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
+		() => [
+			{ link: 'posts', title: 'Posts' },
+			{
+				link: `posts/${post?.id ? post.id : ''}`,
+				title: post?.title ? post.title : ''
+			}
+		],
+		[post]
+	)
 
 	return (
 		<div>
