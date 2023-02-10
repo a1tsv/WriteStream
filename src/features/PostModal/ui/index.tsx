@@ -38,6 +38,7 @@ export const PostModal = () => {
 
 	// Vars
 	const isEdit = !!modalProps.post
+	const modalTitle = isEdit ? 'Edit post' : 'Add post'
 	const comboData =
 		data?.items.map(item => ({
 			id: item.id,
@@ -57,10 +58,10 @@ export const PostModal = () => {
 		control,
 		handleSubmit
 	} = useForm<IUpdatePostFields>({ defaultValues, mode: 'onBlur' })
+
 	const formValid = !isDirty || !isValid
 
 	// Utils
-
 	const onSubmit: SubmitHandler<IUpdatePostFields> = async data => {
 		isEdit
 			? await updatePost({ id, blogId: data.blog.id, ...data })
@@ -71,7 +72,7 @@ export const PostModal = () => {
 	return (
 		<ActionModal
 			submitAction={handleSubmit(onSubmit)}
-			label={isEdit ? 'Edit post' : 'Add post'}
+			label={modalTitle}
 			isOpen={isOpen}
 			onClose={closeModal}
 			disabled={formValid}
@@ -102,7 +103,8 @@ export const PostModal = () => {
 					name={'blog'}
 					rules={rules.blog}
 					render={({ field, fieldState: { error } }) => (
-						<FormField error={error} label={'Blog:'}>
+						<>
+							<FormField error={error} label={'Blog:'} />
 							<ComboBox
 								isLoading={isLoading}
 								query={query}
@@ -110,15 +112,15 @@ export const PostModal = () => {
 								items={comboData}
 								{...field}
 							/>
-						</FormField>
+						</>
 					)}
 				/>
 				<Controller
 					control={control}
 					name={'content'}
-					rules={rules.controller}
+					rules={rules.content}
 					render={({ field, fieldState: { error } }) => (
-						<FormField error={error} label={'Description:'}>
+						<FormField error={error} label={'Content:'}>
 							<TextField isTextarea sx={{ minHeight: '150px' }} {...field} />
 						</FormField>
 					)}

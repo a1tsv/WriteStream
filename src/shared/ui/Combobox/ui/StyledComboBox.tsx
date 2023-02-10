@@ -53,7 +53,6 @@ export const ComboBoxOptions = styled(Combobox.Options)`
 	background: var(--color-secondary);
 	border-radius: var(--radius);
 	box-shadow: var(--shadow-modal);
-	padding: ${rem(5)} !important;
 	max-height: ${rem(200)};
 `
 

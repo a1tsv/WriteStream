@@ -1,4 +1,4 @@
-import { FormLabel } from '@shared/ui/FormLayout'
+import { FormLabel } from './FormLabel'
 import { FC, PropsWithChildren } from 'react'
 import { FieldError } from 'react-hook-form'
 
