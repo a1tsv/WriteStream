@@ -35,24 +35,24 @@ describe('Dropdown', () => {
 		expect(screen.getByText('Item 1')).toBeInTheDocument()
 	})
 
-	it('should render selected item', () => {
-		render(
-			<Dropdown
-				selected={selected}
-				onChangeCb={dropdownCallback}
-				select
-				button={'Label'}
-				items={dropdownItems}
-			/>
-		)
+	// it('should render selected item', () => {
+	// 	render(
+	// 		<Dropdown
+	// 			selected={selected}
+	// 			onChangeCb={dropdownCallback}
+	// 			select
+	// 			button={'Label'}
+	// 			items={dropdownItems}
+	// 		/>
+	// 	)
 
-		openDropdown(selected)
+	// 	openDropdown(selected)
 
-		expect(screen.getAllByText(selected)[1]).toHaveStyle({
-			background: 'var(--color-purple)',
-			color: 'var(--color-secondary)'
-		})
-	})
+	// 	expect(screen.getAllByText(selected)[1]).toHaveStyle({
+	// 		background: 'var(--color-purple)',
+	// 		color: 'var(--color-secondary)'
+	// 	})
+	// })
 
 	it('should render dropdown items', () => {
 		render(

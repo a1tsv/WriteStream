@@ -7,7 +7,6 @@ import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen } from '@testing-library/react'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 
 describe('Posts', () => {
@@ -42,22 +41,12 @@ describe('Posts', () => {
 		totalCount: 1
 	}
 
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
-
 	beforeEach(() => {
 		server.use(
 			rest.get(`${baseURL}/posts`, (req, res, ctx) => {
 				return res(ctx.json(mockServerResponse))
 			})
 		)
-	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
 	})
 
 	it('should render posts page', async () => {

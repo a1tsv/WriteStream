@@ -7,17 +7,11 @@ import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 import { Route, Routes } from 'react-router'
 
 describe('Blog', () => {
 	const storeRef = setupApiStore(api, {})
-
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
 
 	beforeEach(() => {
 		server.use(
@@ -61,11 +55,6 @@ describe('Blog', () => {
 				)
 			})
 		)
-	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
 	})
 
 	it('should render blog', async () => {

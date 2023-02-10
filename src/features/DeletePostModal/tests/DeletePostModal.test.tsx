@@ -6,9 +6,7 @@ import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
-import React from 'react'
 
 const closeModal = jest.fn()
 
@@ -33,11 +31,6 @@ describe('DeletePostModal', () => {
 
 	let items: IPost[]
 
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
-
 	beforeEach(() => {
 		items = [
 			{
@@ -59,13 +52,6 @@ describe('DeletePostModal', () => {
 			})
 		)
 	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
-	})
-
-	afterAll(() => server.close())
 
 	it('renders the Delete Blog modal with the title and message', () => {
 		render(

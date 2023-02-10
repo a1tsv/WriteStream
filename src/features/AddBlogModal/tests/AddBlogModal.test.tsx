@@ -6,7 +6,6 @@ import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen } from '@testing-library/react'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 
 jest.mock('@app/providers/ModalsProvider', () => {
@@ -39,18 +38,6 @@ describe('AddBlogModal', () => {
 			createdAt: '2021-07-01T12:00:00.000Z'
 		}
 	]
-
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
-	})
-
-	afterAll(() => server.close())
 
 	beforeEach(() => {
 		server.use(
@@ -87,7 +74,7 @@ describe('AddBlogModal', () => {
 		fireEvent.blur(nameInput)
 
 		expect(
-			await screen.findByText('Name must contain 4 or less characters')
+			await screen.findByText('Title must contain 4 or less characters')
 		).toBeInTheDocument()
 	})
 

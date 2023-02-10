@@ -6,9 +6,7 @@ import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
-import React from 'react'
 
 const closeModal = jest.fn()
 
@@ -18,8 +16,10 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 		closeModal,
 		store: {
 			modalProps: {
-				title: 'Delete Blog',
-				id: '1'
+				blog: {
+					name: 'Blog 1',
+					id: '1'
+				}
 			},
 			isOpen: true
 		}
@@ -30,11 +30,6 @@ describe('DeleteBlogModal', () => {
 	const storeRef = setupApiStore(api, {})
 
 	let items: IBlog[]
-
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
 
 	beforeEach(() => {
 		items = [
@@ -49,20 +44,14 @@ describe('DeleteBlogModal', () => {
 		]
 
 		server.use(
-			rest.delete(`${baseURL}/blogs/1`, (req, res, ctx) => {
+			rest.delete(`${baseURL}/blogs/*`, (req, res, ctx) => {
+				console.log('in blogs')
 				const index = items.findIndex(item => item.id === '1')
 				items.splice(index, 1)
 				return res(ctx.json({}))
 			})
 		)
 	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
-	})
-
-	afterAll(() => server.close())
 
 	it('renders the Delete Blog modal with the title and message', () => {
 		render(
@@ -72,7 +61,7 @@ describe('DeleteBlogModal', () => {
 			{ wrapper: storeRef.wrapper }
 		)
 
-		expect(screen.getByText('Delete Blog')).toBeInTheDocument()
+		expect(screen.getByText('Blog 1')).toBeInTheDocument()
 		expect(
 			screen.getByText('Do you want to delete this blog?')
 		).toBeInTheDocument()

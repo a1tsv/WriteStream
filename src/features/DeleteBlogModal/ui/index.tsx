@@ -18,7 +18,8 @@ export const DeleteBlogModal = () => {
 			onClose={closeModal}
 			submitAction={deleteModal}
 			entity={name}
-			label={'post'}
+			label={'blog'}
+			disabled={isLoading}
 		/>
 	)
 }

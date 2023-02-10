@@ -7,7 +7,6 @@ import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 
 const mockBlog = {
@@ -41,11 +40,6 @@ describe('Update mode', () => {
 		}
 	]
 
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
-
 	beforeEach(() => {
 		server.use(
 			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
@@ -58,13 +52,6 @@ describe('Update mode', () => {
 			})
 		)
 	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
-	})
-
-	afterAll(() => server.close())
 
 	it('should contain blog data in the form', () => {
 		render(

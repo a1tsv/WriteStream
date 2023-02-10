@@ -13,14 +13,16 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 export const AddBlogModal = () => {
 	// Modal context
 	const { modalProps, isOpen, closeModal } = useGetModalProps()
-	const { id, name, websiteUrl, description } = modalProps.blog || {}
+	const { id, name, websiteUrl, description } = modalProps?.blog || {}
 
 	// Api calls
-	const [createBlog] = useCreateBlogMutation()
-	const [updateBlog] = useUpdateBlogMutation()
+	const [createBlog, { isLoading: creatingBlog }] = useCreateBlogMutation()
+	const [updateBlog, { isLoading: updatingBlog }] = useUpdateBlogMutation()
 
 	// Vars
-	const isEdit = !!modalProps.blog
+	const submittingOperation = creatingBlog || updatingBlog
+	const isEdit = !!modalProps?.blog
+	const modalTitle = isEdit ? 'Edit blog' : 'Add blog'
 
 	// Form configuration
 	const {
@@ -45,10 +47,10 @@ export const AddBlogModal = () => {
 	return (
 		<ActionModal
 			submitAction={handleSubmit(onSubmit)}
-			label={isEdit ? 'Edit blog' : 'Add blog'}
+			label={modalTitle}
 			isOpen={isOpen}
 			onClose={closeModal}
-			disabled={!isValid}
+			disabled={!isValid || submittingOperation}
 		>
 			<FormLayout onSubmit={handleSubmit(onSubmit)}>
 				<Controller

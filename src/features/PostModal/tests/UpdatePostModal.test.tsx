@@ -7,7 +7,6 @@ import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 
 const mockPost: IPost = {
@@ -49,18 +48,6 @@ describe('AddPostModal', () => {
 			content: 'Test'
 		}
 	]
-
-	beforeAll(() => {
-		server.listen()
-		fetchMock.disableMocks()
-	})
-
-	afterEach(() => {
-		server.resetHandlers()
-		storeRef.store.dispatch(api.util.resetApiState())
-	})
-
-	afterAll(() => server.close())
 
 	beforeEach(() => {
 		server.use(

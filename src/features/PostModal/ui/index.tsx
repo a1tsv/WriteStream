@@ -18,7 +18,7 @@ export const PostModal = () => {
 	// Modal context
 	const { modalProps, isOpen, closeModal } = useGetModalProps()
 	const { id, title, shortDescription, content, blogId, blogName } =
-		modalProps.post || {}
+		modalProps?.post || {}
 	const currentBlog = { id: blogId, title: blogName } as IComboBoxItem
 
 	// Local State
@@ -29,15 +29,16 @@ export const PostModal = () => {
 
 	// Api calls
 	const isInitial = !query && blogName
-	const [createPost] = useCreatePostMutation()
-	const [updatePost] = useUpdatePostMutation()
-	const { data, isLoading } = useGetBlogsQuery(
+	const [createPost, { isLoading: creatingPost }] = useCreatePostMutation()
+	const [updatePost, { isLoading: updatingPost }] = useUpdatePostMutation()
+	const { data, isLoading: fetchingBlogs } = useGetBlogsQuery(
 		{ searchNameTerm: query },
 		{ skip: isInitial || !query }
 	)
 
 	// Vars
-	const isEdit = !!modalProps.post
+	const submittingOperation = creatingPost || updatingPost
+	const isEdit = !!modalProps?.post
 	const modalTitle = isEdit ? 'Edit post' : 'Add post'
 	const comboData =
 		data?.items.map(item => ({
@@ -75,7 +76,7 @@ export const PostModal = () => {
 			label={modalTitle}
 			isOpen={isOpen}
 			onClose={closeModal}
-			disabled={formValid}
+			disabled={formValid || submittingOperation}
 		>
 			<FormLayout onSubmit={handleSubmit(onSubmit)}>
 				<Controller
@@ -106,7 +107,7 @@ export const PostModal = () => {
 						<>
 							<FormField error={error} label={'Blog:'} />
 							<ComboBox
-								isLoading={isLoading}
+								isLoading={fetchingBlogs}
 								query={query}
 								setQuery={changeQuery}
 								items={comboData}

@@ -19,6 +19,7 @@ export const DeletePostModal = () => {
 			submitAction={deletePostHandler}
 			entity={title}
 			label={'post'}
+			disabled={isLoading}
 		/>
 	)
 }

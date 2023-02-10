@@ -12,7 +12,6 @@ import {
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { useDebounce } from '@shared/hooks'
 import { Button } from '@shared/ui/Button'
-import { IComboBoxItem } from '@shared/ui/Combobox/model/ComboBox.interface'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
 import { Typography } from '@shared/ui/Typography'
@@ -28,11 +27,6 @@ export const Blogs = () => {
 	// Api call
 	const { data, isLoading } = useGetBlogsQuery(params)
 	const isItemsEmpty = !data?.items.length && !isLoading
-	const comboBoxItems: IComboBoxItem[] =
-		data?.items.map(item => ({
-			id: item.id,
-			title: item.name
-		})) || []
 
 	// Local states
 	const [searchValue, setSearchValue] = useState<string>(

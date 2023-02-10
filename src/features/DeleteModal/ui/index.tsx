@@ -9,6 +9,7 @@ interface IDeleteModalProps {
 	submitAction: () => void
 	entity: string
 	label: string
+	disabled?: boolean
 }
 
 export const DeleteModal: FC<IDeleteModalProps> = ({
@@ -16,7 +17,8 @@ export const DeleteModal: FC<IDeleteModalProps> = ({
 	onClose,
 	submitAction,
 	label,
-	entity
+	entity,
+	disabled
 }) => {
 	return (
 		<ActionModal
@@ -24,6 +26,7 @@ export const DeleteModal: FC<IDeleteModalProps> = ({
 			onClose={onClose}
 			label={'Delete'}
 			submitAction={submitAction}
+			disabled={disabled}
 		>
 			<Flex fDirection={'column'} align={'center'}>
 				<Typography variant={'title'}>{entity}</Typography>
