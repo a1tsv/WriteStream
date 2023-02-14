@@ -1,4 +1,5 @@
 import { ILoginFields, ILoginResponse } from '.'
+import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 
 export const userApi = api.injectEndpoints({
@@ -9,15 +10,32 @@ export const userApi = api.injectEndpoints({
 				method: 'POST',
 				body: data
 			})
+		}),
+		createUser: build.mutation<IUser, IAddUserFields>({
+			query: data => ({
+				url: '/users',
+				method: 'POST',
+				body: data
+			})
+		}),
+		getUsers: build.query<IUser[], void>({
+			query: () => ({
+				url: '/users',
+				method: 'GET'
+			})
+		}),
+		deleteUser: build.mutation<void, string>({
+			query: id => ({
+				url: `/users/${id}`,
+				method: 'DELETE'
+			})
 		})
-		// register: build.mutation<IRegisterResponse, IRegisterRequest>({
-		// 	query: data => ({
-		// 		url: '/register',
-		// 		method: 'POST',
-		// 		body: data
-		// 	})
-		// })
 	})
 })
 
-export const { useLoginMutation } = userApi
+export const {
+	useLoginMutation,
+	useCreateUserMutation,
+	useDeleteUserMutation,
+	useGetUsersQuery
+} = userApi

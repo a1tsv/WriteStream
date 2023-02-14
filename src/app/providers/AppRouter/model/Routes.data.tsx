@@ -3,6 +3,8 @@ import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
+import { UsersPage } from '@pages/Users'
+import { FiUsers } from 'react-icons/fi'
 import { MdOutlineTableRows } from 'react-icons/md'
 import { RxRows } from 'react-icons/rx'
 
@@ -28,5 +30,11 @@ export const routes: IRoute[] = [
 		path: RoutesEnum.POST_PAGE,
 		title: 'Post Page',
 		component: <PostPage />
+	},
+	{
+		path: RoutesEnum.USERS_PAGE,
+		title: 'Users',
+		icon: <FiUsers />,
+		component: <UsersPage />
 	}
 ]

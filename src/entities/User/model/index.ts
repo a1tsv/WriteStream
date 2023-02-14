@@ -1,2 +1,14 @@
-export { type ILoginResponse, type ILoginFields } from './user.interface'
-export { userApi, useLoginMutation } from './user.api'
+export {
+	type ILoginResponse,
+	type ILoginFields,
+	type IAddUserFields,
+	type IUser
+} from './user.interface'
+
+export {
+	userApi,
+	useLoginMutation,
+	useCreateUserMutation,
+	useDeleteUserMutation,
+	useGetUsersQuery
+} from './user.api'
