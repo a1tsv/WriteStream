@@ -4,7 +4,9 @@ export enum ModalsEnum {
 	'DELETE_BLOG' = 'DELETE_BLOG',
 	'DELETE_POST' = 'DELETE_POST',
 	'EDIT_BLOG' = 'EDIT_BLOG',
-	'EDIT_POST' = 'EDIT_POST'
+	'EDIT_POST' = 'EDIT_POST',
+	'ADD_USER' = 'ADD_USER',
+	'DELETE_USER' = 'DELETE_USER'
 }
 
 export interface IModalComponent {
@@ -12,7 +14,7 @@ export interface IModalComponent {
 }
 
 export interface IModalContext {
-	showModal: (modalType: string, isOpen: boolean, modalProps?: any) => void
+	showModal: (modalType: ModalsEnum, isOpen: boolean, modalProps?: any) => void
 	closeModal: () => void
 	store: any
 }

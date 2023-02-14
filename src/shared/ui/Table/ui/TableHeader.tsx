@@ -11,4 +11,5 @@ export const TableHeader = styled.div<ITableSizes>`
 	background: var(--color-main);
 	color: #000;
 	width: 100%;
+	border-radius: var(--radius);
 `

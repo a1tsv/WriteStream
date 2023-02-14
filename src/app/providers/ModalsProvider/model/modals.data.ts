@@ -1,7 +1,9 @@
 import { IModalContext, ModalsEnum } from '.'
 import { AddBlogModal } from '@features/AddBlogModal'
+import { AddUserModal } from '@features/AddUserModal'
 import { DeleteBlogModal } from '@features/DeleteBlogModal'
 import { DeletePostModal } from '@features/DeletePostModal'
+import { DeleteUserModal } from '@features/DeleteUserModal'
 import { PostModal } from '@features/PostModal'
 import { createContext, useContext } from 'react'
 
@@ -9,7 +11,9 @@ export const ModalComponents: any = {
 	[ModalsEnum.ADD_BLOG]: AddBlogModal,
 	[ModalsEnum.ADD_POST]: PostModal,
 	[ModalsEnum.DELETE_BLOG]: DeleteBlogModal,
-	[ModalsEnum.DELETE_POST]: DeletePostModal
+	[ModalsEnum.DELETE_POST]: DeletePostModal,
+	[ModalsEnum.ADD_USER]: AddUserModal,
+	[ModalsEnum.DELETE_USER]: DeleteUserModal
 }
 
 export const initialState: IModalContext = {

@@ -14,6 +14,7 @@ import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
 import { NotFound } from '@shared/ui/NotFound'
+import { formatData } from '@shared/utils/formatData'
 import { useMemo } from 'react'
 import { useParams } from 'react-router'
 
@@ -43,7 +44,7 @@ export const PostPage = () => {
 					<PostHeading>
 						<PostTitle>{post.title}</PostTitle>
 						<PostMembership>(For public posts)</PostMembership>
-						<PostDate>{new Date(post.createdAt).toLocaleDateString()}</PostDate>
+						<PostDate>{formatData(post.createdAt)}</PostDate>
 					</PostHeading>
 					<PostImg />
 					<PostText>{post.content}</PostText>

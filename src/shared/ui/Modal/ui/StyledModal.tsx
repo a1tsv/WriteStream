@@ -33,7 +33,7 @@ export const ModalStyledHeader = styled.div`
 	border-bottom: 1px solid var(--color-light);
 	color: var(--color-primary);
 
-	margin-bottom: 0.3rem;
+	margin-bottom: 0.7rem;
 `
 
 export const ModalCrossButton = styled.button`
@@ -57,5 +57,5 @@ export const ModalStyledFooter = styled.div`
 	flex-wrap: wrap;
 	border-top: 1px solid var(--color-light);
 
-	margin-top: 0.3rem;
+	margin-top: 0.7rem;
 `

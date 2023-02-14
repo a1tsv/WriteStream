@@ -11,6 +11,7 @@ import {
 	PostPreviewTitle
 } from '@features/PostPreview/ui/StyledPostPreview'
 import { Dropdown } from '@shared/ui/Dropdown'
+import { formatData } from '@shared/utils/formatData'
 import React, { FC, memo } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { NavLink } from 'react-router-dom'
@@ -43,9 +44,7 @@ export const PostPreview: FC<IPostPreviewProps> = memo(({ post }) => {
 				</PostPreviewHeader>
 
 				<PostPreviewText>{post.shortDescription}</PostPreviewText>
-				<PostPreviewTime>
-					{new Date(post.createdAt).toLocaleDateString()}
-				</PostPreviewTime>
+				<PostPreviewTime>{formatData(post.createdAt)}</PostPreviewTime>
 			</PostPreviewBody>
 		</PostPreviewContent>
 	)
