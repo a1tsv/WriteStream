@@ -28,7 +28,11 @@ export const UserTableRow: FC<IUserTableRowProps> = ({ user }) => {
 			<UsersTableCell>{id}</UsersTableCell>
 			<UsersTableCell>{formatData(createdAt)}</UsersTableCell>
 			<UsersTableCell>
-				<Button variant={'secondary'} onClick={deleteUserHandler}>
+				<Button
+					variant={'secondary'}
+					aria-label={'Delete user'}
+					onClick={deleteUserHandler}
+				>
 					<AiFillDelete />
 				</Button>
 			</UsersTableCell>
