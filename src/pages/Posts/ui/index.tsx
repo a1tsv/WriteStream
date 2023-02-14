@@ -7,11 +7,13 @@ import { PostPreview } from '@features/PostPreview'
 import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleton'
 import { dropdownItems } from '@pages/Posts/model'
 import { PostsFilters, PostsItems } from '@pages/Posts/ui/StyledPosts'
+import { useObserver } from '@shared/hooks'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
 import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
-import { useMemo } from 'react'
+import { anotherItemsExist } from '@shared/utils/anotherItemsExist'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { useSearchParams } from 'react-router-dom'
 
@@ -20,12 +22,19 @@ export const PostsPage = () => {
 	const { id } = useParams()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
+
 	const { showModal } = useModalContext()
 	const blogId = id ? id : ''
+
 	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
 		() => [{ link: 'posts', title: 'Posts' }],
 		[]
 	)
+
+	const bottomElement = useRef<HTMLDivElement>(null)
+
+	// Local states
+	const [pageSize, setPageSize] = useState(10)
 
 	// Api call
 	const { data, isLoading } = useGetPostsQuery({
@@ -34,12 +43,19 @@ export const PostsPage = () => {
 	})
 	const { data: blog } = useGetBlogQuery(blogId, { skip: !!blogId })
 	const isItemsEmpty = !data?.items.length && !isLoading
+	const anotherPostsExist = anotherItemsExist(data)
 
 	const openCreatePostModal = () => {
 		showModal(ModalsEnum.ADD_POST, true, {
 			post: { blogId, blogName: blog?.name }
 		})
 	}
+
+	const changePageSize = useCallback(() => {
+		setPageSize(prev => prev + 10)
+	}, [pageSize])
+
+	useObserver(bottomElement, changePageSize, isLoading, anotherPostsExist)
 
 	return (
 		<>
@@ -56,9 +72,10 @@ export const PostsPage = () => {
 			</Button>
 			<PostsItems>
 				{isLoading && <PostPreviewSkeleton count={3} />}
-				{!!data?.items.length &&
-					data.items.map(post => <PostPreview post={post} key={post.id} />)}
+				{!isItemsEmpty &&
+					data?.items.map(post => <PostPreview post={post} key={post.id} />)}
 			</PostsItems>
+			<div ref={bottomElement} />
 			{isItemsEmpty && <NotFound label={'There is no posts yet 😔'} />}
 		</>
 	)

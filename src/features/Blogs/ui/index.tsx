@@ -16,6 +16,7 @@ import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
+import { anotherItemsExist } from '@shared/utils/anotherItemsExist'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
@@ -42,15 +43,7 @@ export const Blogs = () => {
 	const requestConfig = { ...params, pageSize }
 	const { data, isLoading } = useGetBlogsQuery(requestConfig)
 	const isItemsEmpty = !data?.items.length && !isLoading
-	const anotherBlogsExists = data?.items
-		? data?.items?.length < data?.totalCount
-		: false
-	console.log(
-		'anotherBlogsExists',
-		anotherBlogsExists,
-		data?.items?.length,
-		data?.totalCount
-	)
+	const anotherBlogsExist = anotherItemsExist(data)
 
 	const openNewBlogModal = () => {
 		showModal(ModalsEnum.ADD_BLOG, true, {})
@@ -74,7 +67,7 @@ export const Blogs = () => {
 		setPageSize(prev => prev + 10)
 	}, [pageSize])
 
-	useObserver(bottomElement, changePageSize, isLoading, anotherBlogsExists)
+	useObserver(bottomElement, changePageSize, isLoading, anotherBlogsExist)
 
 	return (
 		<>
