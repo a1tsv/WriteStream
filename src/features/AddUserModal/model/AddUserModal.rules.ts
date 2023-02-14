@@ -12,7 +12,7 @@ export const rules: IFieldRules = {
 		required: { value: true, message: 'Login is required' },
 		maxLength: {
 			value: 30,
-			message: 'Login must contain 40 or less characters'
+			message: 'Login must contain 30 or less characters'
 		}
 	},
 	password: {

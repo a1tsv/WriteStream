@@ -1,4 +1,5 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
+import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { IBlog } from '@entities/Blog'
 import { dropdownItems } from '@entities/Blog/model'
 import {
@@ -19,7 +20,7 @@ import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
 interface IBlogProps {
-	blog?: IBlog
+	blog: IBlog
 }
 
 export const Blog: FC<IBlogProps> = memo(({ blog }) => {
@@ -39,7 +40,7 @@ export const Blog: FC<IBlogProps> = memo(({ blog }) => {
 	}
 
 	const handleBlogOperation = (value: string) => {
-		showModal(value, true, { blog })
+		showModal(value as ModalsEnum, true, { blog })
 	}
 
 	return (

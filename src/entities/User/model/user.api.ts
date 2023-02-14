@@ -17,19 +17,22 @@ export const userApi = api.injectEndpoints({
 				url: '/users',
 				method: 'POST',
 				body: data
-			})
+			}),
+			invalidatesTags: ['User']
 		}),
 		getUsers: build.query<IGetItemsResponse<IUser[]>, void>({
 			query: () => ({
 				url: '/users',
 				method: 'GET'
-			})
+			}),
+			providesTags: ['User']
 		}),
 		deleteUser: build.mutation<void, string>({
 			query: id => ({
 				url: `/users/${id}`,
 				method: 'DELETE'
-			})
+			}),
+			invalidatesTags: ['User']
 		})
 	})
 })
