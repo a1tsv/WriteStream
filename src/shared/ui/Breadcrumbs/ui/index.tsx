@@ -16,9 +16,9 @@ export const BreadCrumbs: FC<IBreadCrumbs> = ({ items }) => {
 				return (
 					<>
 						<BreadCrumbsItem
+							key={i}
 							as={item.tag ? item.tag : 'span'}
 							first={i === 0}
-							key={i}
 						>
 							{item.link && !lastItem ? (
 								<NavLink to={`/${item.link}`}>{item.title}</NavLink>

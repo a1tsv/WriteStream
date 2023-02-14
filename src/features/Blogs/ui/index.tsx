@@ -10,12 +10,13 @@ import {
 	BlogsSubTitle
 } from '@features/Blogs/ui/StyledBlogs'
 import { NavigationDropdown } from '@features/FilterDropdown'
-import { useDebounce } from '@shared/hooks'
-import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
+import { useDebounce, useObserver } from '@shared/hooks'
+import { BreadCrumbs } from '@shared/ui/Breadcrumbs'
+import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 export const Blogs = () => {
@@ -23,15 +24,32 @@ export const Blogs = () => {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
 	const { showModal } = useModalContext()
-	const breadcrumbsItems = useMemo(() => [{ title: 'Blogs', tag: 'h1' }], [])
+	const breadcrumbsItems: IBreadCrumbsItem[] = useMemo(
+		() => [{ title: 'Blogs', tag: 'h1' }],
+		[]
+	)
 
-	// Api call
-	const { data, isLoading } = useGetBlogsQuery(params)
-	const isItemsEmpty = !data?.items.length && !isLoading
+	// Observer
+	const bottomElement = useRef<HTMLDivElement>(null)
 
 	// Local states
 	const [searchValue, setSearchValue] = useState<string>(
 		params.searchNameTerm || ''
+	)
+	const [pageSize, setPageSize] = useState(10)
+
+	// Api call
+	const requestConfig = { ...params, pageSize }
+	const { data, isLoading } = useGetBlogsQuery(requestConfig)
+	const isItemsEmpty = !data?.items.length && !isLoading
+	const anotherBlogsExists = data?.items
+		? data?.items?.length < data?.totalCount
+		: false
+	console.log(
+		'anotherBlogsExists',
+		anotherBlogsExists,
+		data?.items?.length,
+		data?.totalCount
 	)
 
 	const openNewBlogModal = () => {
@@ -52,11 +70,14 @@ export const Blogs = () => {
 		setSearchParams({ ...params, searchNameTerm: value })
 	}, 500)
 
+	const changePageSize = useCallback(() => {
+		setPageSize(prev => prev + 10)
+	}, [pageSize])
+
+	useObserver(bottomElement, changePageSize, isLoading, anotherBlogsExists)
+
 	return (
 		<>
-			{/* <Typography variant='title' as={'h1'}>
-				Blogs
-			</Typography> */}
 			<BreadCrumbs items={breadcrumbsItems} />
 			<BlogsSubTitle>
 				Unleash Your Creativity, Share Your Story. Join the Blogging Community
@@ -81,10 +102,13 @@ export const Blogs = () => {
 			</BlogsFilters>
 			<BlogsItems>
 				{isLoading && <BlogSkeleton count={3} />}
-				{data?.items &&
-					data.items.map(blog => <Blog key={blog.id} blog={blog} />)}
+				{isItemsEmpty ? (
+					<NotFound label={'There is no blogs yet 😔'} />
+				) : (
+					data?.items.map(blog => <Blog key={blog.id} blog={blog} />)
+				)}
+				<div ref={bottomElement} style={{ height: 20 }} />
 			</BlogsItems>
-			{isItemsEmpty && <NotFound label={'There is no blogs yet 😔'} />}
 		</>
 	)
 }
