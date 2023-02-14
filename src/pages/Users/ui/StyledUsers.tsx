@@ -1,5 +1,5 @@
 import { rem } from '@app/styles/mixins'
-import { TableHeader } from '@shared/ui/Table'
+import { TableHeader, TableLine } from '@shared/ui/Table'
 import styled from 'styled-components'
 
 export const UsersWrapper = styled.div``
@@ -13,10 +13,15 @@ export const UsersHeader = styled.div`
 	}
 `
 
-export const UsersTableHeader = styled(TableHeader).attrs({
-	columns: '5',
-	maxWidth: '1fr',
-	minWidth: '150px'
-})``
+export const UsersTableHeader = styled(TableHeader).attrs({})``
+
+export const UsersTableLine = styled(TableLine)``
 
 export const UserHeaderItem = styled.div``
+
+export const UsersTableCell = styled.div`
+	&:last-child {
+		display: flex;
+		justify-content: flex-end;
+	}
+`
