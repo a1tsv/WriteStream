@@ -14,7 +14,7 @@ export const TextField = styled.input.attrs<SxComponent<ITextFieldProps>>(
 	padding: ${rem(5)} ${rem(10)};
 	border: 0 solid transparent;
 	border-bottom: 1px solid var(--color-light);
-	background: none;
+	background: transparent;
 	outline: none;
 	color: var(--color-primary);
 	transition: border-color 0.3s ease-in 0s;
