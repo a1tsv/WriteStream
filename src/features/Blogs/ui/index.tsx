@@ -14,6 +14,7 @@ import { useDebounce, useObserver } from '@shared/hooks'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { Button } from '@shared/ui/Button'
+import { InvisibleElement } from '@shared/ui/InvisibleElement/ui'
 import { NotFound } from '@shared/ui/NotFound'
 import { Search } from '@shared/ui/Search'
 import { anotherItemsExist } from '@shared/utils/anotherItemsExist'
@@ -100,7 +101,7 @@ export const Blogs = () => {
 				) : (
 					data?.items.map(blog => <Blog key={blog.id} blog={blog} />)
 				)}
-				<div ref={bottomElement} style={{ height: 20 }} />
+				<InvisibleElement ref={bottomElement} />
 			</BlogsItems>
 		</>
 	)

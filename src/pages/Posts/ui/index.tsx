@@ -11,6 +11,7 @@ import { useObserver } from '@shared/hooks'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
 import { Button } from '@shared/ui/Button'
+import { InvisibleElement } from '@shared/ui/InvisibleElement/ui'
 import { NotFound } from '@shared/ui/NotFound'
 import { anotherItemsExist } from '@shared/utils/anotherItemsExist'
 import { useCallback, useMemo, useRef, useState } from 'react'
@@ -38,7 +39,7 @@ export const PostsPage = () => {
 
 	// Api call
 	const { data, isLoading } = useGetPostsQuery({
-		model: params,
+		model: { ...params, pageSize },
 		blogId
 	})
 	const { data: blog } = useGetBlogQuery(blogId, { skip: !!blogId })
@@ -75,7 +76,7 @@ export const PostsPage = () => {
 				{!isItemsEmpty &&
 					data?.items.map(post => <PostPreview post={post} key={post.id} />)}
 			</PostsItems>
-			<div ref={bottomElement} />
+			<InvisibleElement ref={bottomElement} />
 			{isItemsEmpty && <NotFound label={'There is no posts yet 😔'} />}
 		</>
 	)
