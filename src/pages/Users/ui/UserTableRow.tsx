@@ -25,7 +25,7 @@ export const UserTableRow: FC<IUserTableRowProps> = ({ user }) => {
 		<TableLine {...tableConfig}>
 			<UsersTableCell>{login}</UsersTableCell>
 			<UsersTableCell>{email}</UsersTableCell>
-			<UsersTableCell>{id}</UsersTableCell>
+			<UsersTableCell>{`${id.slice(0, 15)}...`}</UsersTableCell>
 			<UsersTableCell>{formatData(createdAt)}</UsersTableCell>
 			<UsersTableCell>
 				<Button

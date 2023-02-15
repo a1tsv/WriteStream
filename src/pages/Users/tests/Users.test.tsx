@@ -20,12 +20,6 @@ describe('Users page', () => {
 			createdAt: '2021-01-01',
 			email: 'test@gmail.com',
 			login: 'User 1'
-		},
-		{
-			id: '2',
-			createdAt: '2021-01-01',
-			email: 'test@gmail.com',
-			login: 'User 2'
 		}
 	]
 
@@ -91,5 +85,15 @@ describe('Users page', () => {
 		expect(
 			await screen.findByText('Do you want to delete this user?')
 		).toBeInTheDocument()
+	})
+
+	it('should change the number of items per page using pagination dropdown', async () => {
+		renderWithRouter(storeRef.wrapper({ children: <UsersPage /> }), {})
+
+		const dropdown = await screen.findByText('10')
+		await userEvent.click(dropdown)
+		await userEvent.click(screen.getByText('15'))
+
+		expect(screen.getByText('15')).toBeInTheDocument()
 	})
 })

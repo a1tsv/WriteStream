@@ -5,7 +5,8 @@ import { Transition } from '@headlessui/react'
 import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 
 jest.mock('@app/providers/ModalsProvider', () => {
@@ -119,26 +120,28 @@ describe('AddBlogModal', () => {
 		).toBeInTheDocument()
 	})
 
-	// it('submits the form correctly', async () => {
-	// 	render(
-	// 		<Transition show={true}>
-	// 			<AddBlogModal />
-	// 		</Transition>,
-	// 		{ wrapper: storeRef.wrapper }
-	// 	)
-	//
-	// 	fireEvent.change(screen.getByLabelText('Name:'), {
-	// 		target: { value: 'Test' }
-	// 	})
-	// 	fireEvent.change(screen.getByLabelText('Website:'), {
-	// 		target: { value: 'https://test.com' }
-	// 	})
-	// 	fireEvent.change(screen.getByLabelText('Description:'), {
-	// 		target: { value: 'Test description' }
-	// 	})
-	// 	const submitButton = screen.getByRole('button', { name: 'Submit' })
-	// 	expect(submitButton).toBeInTheDocument()
-	// 	fireEvent.click(submitButton)
-	// 	await waitFor(() => expect(items).toHaveLength(2), { timeout: 2000 })
-	// })
+	it('should add the blog when all fields are valid', async () => {
+		render(
+			<Transition show={true}>
+				<AddBlogModal />
+			</Transition>,
+
+			{ wrapper: storeRef.wrapper }
+		)
+
+		const nameInput = screen.getByLabelText('Name:')
+		const websiteInput = screen.getByLabelText('Website:')
+		const descriptionInput = screen.getByLabelText('Description:')
+
+		await userEvent.type(nameInput, 'Test')
+		await userEvent.type(websiteInput, 'https://test.com')
+		await userEvent.type(descriptionInput, 'Testtesttest')
+
+		const submitButton = screen.getByText('Submit')
+		await userEvent.click(submitButton)
+
+		await waitFor(() => {
+			expect(items).toHaveLength(2)
+		})
+	})
 })
