@@ -1,4 +1,5 @@
 import { rem } from '@app/styles/mixins'
+import { Button } from '@shared/ui/Button'
 import styled from 'styled-components'
 
 export const PaginationWrapper = styled.div`
@@ -14,9 +15,18 @@ export const PaginationList = styled.ul`
 `
 
 export const PaginationItem = styled.li`
-	padding: ${rem(5)};
-	min-height: 30px;
-	min-width: 30px;
+	&:disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+`
+
+export const PaginationButton = styled(Button).attrs({
+	variant: 'secondary'
+})`
+	padding: ${rem(5)} ${rem(4)};
+	max-height: 24px;
+	min-width: 23px;
 
 	display: flex;
 	align-items: center;
@@ -25,10 +35,10 @@ export const PaginationItem = styled.li`
 	border-radius: 50%;
 	cursor: pointer;
 	transition: color 0.3s ease-in-out, background 0.3s ease-in-out,
-		border 0.3s ease-in-out;
+		border 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
 	background: var(--color-main);
-	color: var(--color-primary);
+	color: #000;
 	border: 1px solid transparent;
 
 	@media (any-hover: hover) {
@@ -37,10 +47,5 @@ export const PaginationItem = styled.li`
 			color: var(--color-main);
 			border: 1px solid var(--color-main);
 		}
-	}
-
-	&:disabled {
-		pointer-events: none;
-		opacity: 0.5;
 	}
 `

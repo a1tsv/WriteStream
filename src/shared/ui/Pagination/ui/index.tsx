@@ -1,5 +1,6 @@
 import { Button } from '@shared/ui/Button'
 import {
+	PaginationButton,
 	PaginationItem,
 	PaginationList,
 	PaginationWrapper
@@ -9,7 +10,7 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 
 interface IPaginationProps {
 	currentPage: number
-	total: number
+	totalItems: number
 	itemsPerPage: number
 	onChange: (page: number) => void
 }
@@ -18,10 +19,10 @@ export const Pagination: FC<IPaginationProps> = ({
 	currentPage,
 	itemsPerPage,
 	onChange,
-	total
+	totalItems
 }) => {
 	// Pages logic
-	const numberOfPages = Math.ceil(total / itemsPerPage)
+	const numberOfPages = Math.ceil(totalItems / itemsPerPage)
 	const pages = Array.from({ length: numberOfPages }, (_, i) => i + 1)
 	const pagesAroundCurrent = 3
 	const pagesBeforeCurrentPage =
@@ -59,13 +60,14 @@ export const Pagination: FC<IPaginationProps> = ({
 			<PaginationList>
 				{pagesToShow.map(page => (
 					<PaginationItem key={page}>
-						<button
+						<PaginationButton
+							variant={'secondary'}
 							type='button'
 							onClick={() => onChange(page)}
 							disabled={currentPage === page}
 						>
 							{page}
-						</button>
+						</PaginationButton>
 					</PaginationItem>
 				))}
 			</PaginationList>
