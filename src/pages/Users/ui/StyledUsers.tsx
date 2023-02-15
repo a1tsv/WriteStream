@@ -2,7 +2,11 @@ import { rem } from '@app/styles/mixins'
 import { TableHeader, TableLine } from '@shared/ui/Table'
 import styled from 'styled-components'
 
-export const UsersWrapper = styled.div``
+export const UsersWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: ${rem(20)};
+`
 
 export const UsersHeader = styled.div`
 	display: flex;
