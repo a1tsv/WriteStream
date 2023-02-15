@@ -1,6 +1,8 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { useGetUsersQuery } from '@entities/User'
+import { FilterPagination } from '@features/FilterPagination'
+import { dropdownItems } from '@pages/Users/model'
 import { UsersHeader, UsersWrapper } from '@pages/Users/ui/StyledUsers'
 import { UserTableRow } from '@pages/Users/ui/UserTableRow'
 import { UsersTableInfo } from '@pages/Users/ui/UsersTableInfo'
@@ -10,8 +12,14 @@ import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 import { TableBody, TableWrapper } from '@shared/ui/Table'
 import { FC } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export const UsersPage: FC = () => {
+	// Params
+	const [searchParams, setSearchParams] = useSearchParams()
+	// const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
+	const params = Object.fromEntries(searchParams)
+
 	// Modal
 	const { showModal } = useModalContext()
 
@@ -19,13 +27,24 @@ export const UsersPage: FC = () => {
 	const breadcrumbs: IBreadCrumbsItem[] = [{ title: 'Users', tag: 'h1' }]
 
 	// Api requests
-	const { data, isLoading } = useGetUsersQuery()
+	const { data, isLoading } = useGetUsersQuery(params)
 	const isItemsEmpty = !data?.items.length && !isLoading
+	const { totalCount, page, pageSize } = data || {}
+
+	// Local States
 
 	// Utils
 
 	const showAddUserModal = () => {
 		showModal(ModalsEnum.ADD_USER, true, {})
+	}
+
+	const changePage = (page: number) => {
+		setSearchParams({ ...params, pageNumber: page.toString() })
+	}
+
+	const changePageSize = (pageSize: string) => {
+		setSearchParams({ ...params, pageSize })
 	}
 
 	return (
@@ -49,6 +68,17 @@ export const UsersPage: FC = () => {
 						</TableBody>
 					)}
 				</TableWrapper>
+				{!isItemsEmpty && (
+					<FilterPagination
+						currentPage={page || 0}
+						totalItems={totalCount || 0}
+						itemsPerPage={pageSize || 0}
+						onChange={changePage}
+						onChangeCb={changePageSize}
+						items={dropdownItems}
+						selected={pageSize ? `${pageSize}` : dropdownItems[0].value}
+					/>
+				)}
 			</UsersWrapper>
 		</div>
 	)

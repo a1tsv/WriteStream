@@ -1,7 +1,7 @@
 import { ILoginFields, ILoginResponse } from '.'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
-import { IGetItemsResponse } from '@shared/api/api.interface'
+import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -20,10 +20,11 @@ export const userApi = api.injectEndpoints({
 			}),
 			invalidatesTags: ['User']
 		}),
-		getUsers: build.query<IGetItemsResponse<IUser[]>, void>({
-			query: () => ({
+		getUsers: build.query<IGetItemsResponse<IUser[]>, Partial<IGetItemsModel>>({
+			query: data => ({
 				url: '/users',
-				method: 'GET'
+				method: 'GET',
+				params: data
 			}),
 			providesTags: ['User']
 		}),

@@ -4,7 +4,8 @@ import { IDropDownProps } from '@shared/ui/Dropdown/model/Dropdown.interface'
 import { IPaginationProps, Pagination } from '@shared/ui/Pagination'
 import { FC } from 'react'
 
-type IFilterPaginationProps = IPaginationProps & IDropDownProps
+type IFilterPaginationProps = IPaginationProps &
+	Omit<IDropDownProps, 'button' | 'select'>
 
 export const FilterPagination: FC<IFilterPaginationProps> = ({
 	currentPage,
@@ -12,7 +13,8 @@ export const FilterPagination: FC<IFilterPaginationProps> = ({
 	totalItems,
 	onChange,
 	onChangeCb,
-	items
+	items,
+	selected
 }) => {
 	return (
 		<FilterPaginationWrapper>
@@ -26,6 +28,7 @@ export const FilterPagination: FC<IFilterPaginationProps> = ({
 				select
 				onChangeCb={onChangeCb}
 				items={items}
+				selected={selected}
 				button={'Pagination dropdown'}
 			/>
 		</FilterPaginationWrapper>
