@@ -54,6 +54,7 @@ export const Pagination: FC<IPaginationProps> = ({
 				variant={'secondary'}
 				onClick={handlePreviousPage}
 				disabled={isFirstPage}
+				aria-label={'Previous page'}
 			>
 				<BsChevronLeft />
 			</Button>
@@ -75,6 +76,7 @@ export const Pagination: FC<IPaginationProps> = ({
 				variant={'secondary'}
 				onClick={handleNextPage}
 				disabled={isLastPage}
+				aria-label={'Next page'}
 			>
 				<BsChevronRight />
 			</Button>
