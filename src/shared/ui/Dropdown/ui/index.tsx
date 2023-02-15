@@ -1,6 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { SXType } from '@shared/types'
-import { IDropDownItem } from '@shared/ui/Dropdown/model'
+import { IDropDownProps } from '@shared/ui/Dropdown/model/Dropdown.interface'
 import {
 	DropDownButton,
 	DropDownLabel,
@@ -8,16 +7,6 @@ import {
 	DropDownWrapper
 } from '@shared/ui/Dropdown/ui/StyledDropdown'
 import { FC, memo } from 'react'
-import { IconType } from 'react-icons'
-
-interface IDropDownProps {
-	button: string | IconType
-	selected?: string
-	select?: boolean
-	onChangeCb: (value: string) => void
-	items: IDropDownItem[]
-	sx?: SXType
-}
 
 export const Dropdown: FC<IDropDownProps> = memo(
 	({ button, onChangeCb, items, selected, select, sx }) => {

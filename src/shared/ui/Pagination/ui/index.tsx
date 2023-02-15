@@ -1,4 +1,5 @@
 import { Button } from '@shared/ui/Button'
+import { IPaginationProps } from '@shared/ui/Pagination/model'
 import {
 	PaginationButton,
 	PaginationItem,
@@ -7,13 +8,6 @@ import {
 } from '@shared/ui/Pagination/ui/StyledPagination'
 import { FC } from 'react'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
-
-interface IPaginationProps {
-	currentPage: number
-	totalItems: number
-	itemsPerPage: number
-	onChange: (page: number) => void
-}
 
 export const Pagination: FC<IPaginationProps> = ({
 	currentPage,
