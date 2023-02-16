@@ -80,7 +80,7 @@ describe('UserApi', () => {
 		fetchMock.mockResponseOnce(
 			JSON.stringify({ data: { id: '1', name: 'User 1', email: '' } })
 		)
-		await store.dispatch(api.endpoints.authMe.initiate())
+		await store.dispatch(api.endpoints.authMe.initiate(''))
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
