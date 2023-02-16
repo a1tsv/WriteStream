@@ -4,6 +4,8 @@ export {
 	useGetPostQuery,
 	useCreatePostMutation,
 	useDeletePostMutation,
-	useUpdatePostMutation
+	useUpdatePostMutation,
+	useGetCommentsQuery,
+	useCreateCommentMutation
 } from './post.api'
 export { type IPost, type IUpdatePostModel } from './post.interface'

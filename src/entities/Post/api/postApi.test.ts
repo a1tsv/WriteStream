@@ -81,4 +81,31 @@ describe('post api', () => {
 		expect(url).toBe(`${baseURL}/posts/1`)
 		expect(method).toBe('DELETE')
 	})
+
+	it('should get comments for a post', async () => {
+		const comments = [
+			{ id: '1', content: 'Comment 1', postId: '1' },
+			{ id: '2', content: 'Comment 2', postId: '1' }
+		]
+		fetchMock.mockResponseOnce(JSON.stringify({ data: comments }))
+		await store.dispatch(api.endpoints.getComments.initiate('1'))
+		// expect(fetchMock).toHaveBeenCalledTimes(1)
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/posts/1/comments`)
+		expect(method).toBe('GET')
+	})
+
+	it('should create comment for a post', async () => {
+		const comment = { id: '1', content: 'Comment 1', postId: '1' }
+		fetchMock.mockResponseOnce(JSON.stringify({ data: comment }))
+		await store.dispatch(api.endpoints.createComment.initiate(comment))
+		// expect(fetchMock).toHaveBeenCalledTimes(1)
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/posts/1/comments`)
+		expect(method).toBe('POST')
+	})
 })
