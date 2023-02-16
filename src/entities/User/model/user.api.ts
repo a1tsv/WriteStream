@@ -10,6 +10,18 @@ export const userApi = api.injectEndpoints({
 				url: '/auth/login',
 				method: 'POST',
 				body: data
+			}),
+			async onQueryStarted(data, { dispatch, queryFulfilled }) {
+				const res = await queryFulfilled
+			}
+		}),
+		authMe: build.query<IUser, string>({
+			query: accessToken => ({
+				url: '/auth/me',
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${accessToken}`
+				}
 			})
 		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
@@ -18,7 +30,7 @@ export const userApi = api.injectEndpoints({
 				method: 'POST',
 				body: data
 			}),
-			invalidatesTags: ['User']
+			invalidatesTags: ['Users']
 		}),
 		getUsers: build.query<IGetItemsResponse<IUser[]>, Partial<IGetItemsModel>>({
 			query: data => ({
@@ -26,14 +38,14 @@ export const userApi = api.injectEndpoints({
 				method: 'GET',
 				params: data
 			}),
-			providesTags: ['User']
+			providesTags: ['Users']
 		}),
 		deleteUser: build.mutation<void, string>({
 			query: id => ({
 				url: `/users/${id}`,
 				method: 'DELETE'
 			}),
-			invalidatesTags: ['User']
+			invalidatesTags: ['Users']
 		})
 	})
 })
@@ -42,5 +54,7 @@ export const {
 	useLoginMutation,
 	useCreateUserMutation,
 	useDeleteUserMutation,
-	useGetUsersQuery
+	useGetUsersQuery,
+	useAuthMeQuery,
+	useLazyAuthMeQuery
 } = userApi

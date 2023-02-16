@@ -5,7 +5,8 @@ export enum RoutesEnum {
 	'POSTS' = '/posts',
 	'BLOG_PAGE' = '/blogs/:id',
 	'POST_PAGE' = '/posts/:id',
-	'USERS_PAGE' = '/users'
+	'USERS_PAGE' = '/users',
+	'LOGIN_PAGE' = '/login'
 }
 
 export interface IRoute {
@@ -14,4 +15,5 @@ export interface IRoute {
 	title: string
 	icon?: ReactNode
 	isAdmin?: boolean
+	isPrivate?: boolean
 }

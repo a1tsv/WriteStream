@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export const PaginationWrapper = styled.div`
 	display: flex;
-	aign-items: center;
+	align-items: center;
 	gap: ${rem(8)};
 `
 
@@ -32,7 +32,7 @@ export const PaginationButton = styled(Button).attrs({
 	align-items: center;
 	justify-content: center;
 
-	border-radius: 50%;
+	border-radius: var(--radius);
 	cursor: pointer;
 	transition: color 0.3s ease-in-out, background 0.3s ease-in-out,
 		border 0.3s ease-in-out, opacity 0.3s ease-in-out;

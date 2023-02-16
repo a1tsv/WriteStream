@@ -10,11 +10,20 @@ export const rtkQueryErrorLogger: Middleware =
 	(api: MiddlewareAPI) => next => action => {
 		if (isRejectedWithValue(action) && action.payload.originalStatus !== 404) {
 			const errors = action.payload.data.errorsMessages as IError[]
-			console.log('RTK QUERY ERROR', action, errors)
-			errors?.length > 0
-				? toast.error(errors[0].message, { toastId: action.payload.error })
-				: toast.error('Something went wrong', { toastId: action.payload.error })
+			const requestStatus = action.payload.originalStatus
+			const toastId = action.payload.error
+			console.log('RTK QUERY ERROR', action, errors, requestStatus)
+
+			switch (requestStatus) {
+				case 429:
+					toast.error('Too many requests', { toastId })
+					break
+				default:
+					errors?.length > 0
+						? toast.error(errors[0].message, { toastId })
+						: toast.error('Something went wrong', { toastId })
+					break
+			}
 		}
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return next(action)
 	}

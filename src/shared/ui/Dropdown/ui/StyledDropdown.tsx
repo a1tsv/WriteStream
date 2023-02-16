@@ -22,7 +22,7 @@ export const DropDownWrapper = styled.div<
 
 	& [aria-haspopup='menu'] {
 		border-bottom: ${({ isSelect }) =>
-			isSelect ? '1px solid var(--color-purple)' : 'none'};
+			isSelect ? '1px solid var(--color-main)' : 'none'};
 		padding: ${({ isSelect }) => (isSelect ? rem(5) : '0')};
 	}
 
@@ -31,7 +31,6 @@ export const DropDownWrapper = styled.div<
 export const DropDownLabel = styled(Menu.Button)`
 	cursor: pointer;
 	color: var(--color-primary);
-	border-radius: var(--radius);
 	width: 100%;
 `
 

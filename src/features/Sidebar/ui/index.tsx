@@ -5,7 +5,7 @@ import {
 	SideBarNav,
 	SideBarWrapper
 } from './StyledSideBar'
-import { routes } from '@app/providers/AppRouter/model'
+import { useGetRoutes } from '@shared/hooks'
 import { FC } from 'react'
 
 interface ISideBarProps {
@@ -13,6 +13,7 @@ interface ISideBarProps {
 }
 
 export const SideBar: FC<ISideBarProps> = ({ isOpen }) => {
+	const routes = useGetRoutes()
 	const menuItems = routes.filter(route => route.icon)
 
 	return (

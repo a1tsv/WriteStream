@@ -1,1 +1,1 @@
-export { routes } from './Routes.data'
+export { routes, publicRoutes } from './Routes.data'

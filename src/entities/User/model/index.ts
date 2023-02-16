@@ -10,5 +10,7 @@ export {
 	useLoginMutation,
 	useCreateUserMutation,
 	useDeleteUserMutation,
-	useGetUsersQuery
+	useGetUsersQuery,
+	useAuthMeQuery,
+	useLazyAuthMeQuery
 } from './user.api'
