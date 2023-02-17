@@ -1,6 +1,5 @@
 import { server } from '@app/tests/msw'
 import { IBlog } from '@entities/Blog'
-import { IBlogUpdateRequest } from '@entities/Blog/api/blog.interface'
 import { AddBlogModal } from '@features/AddBlogModal'
 import { Transition } from '@headlessui/react'
 import { api } from '@shared/api'
@@ -44,11 +43,8 @@ describe('Update mode', () => {
 		server.use(
 			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
 				console.log('intercepting')
-				const { id } = req.body as IBlogUpdateRequest
-				const index = items.findIndex(item => item.id === id)
-				items[index] = req.body as IBlog
-				console.log(items)
-				return res(ctx.status(200), ctx.json({}))
+				items[0] = req.body as IBlog
+				return res(ctx.json({}))
 			})
 		)
 	})

@@ -1,4 +1,4 @@
-import { Blog } from '@entities/Blog'
+import { Blog, IBlog } from '@entities/Blog'
 import { useGetBlogQuery } from '@entities/Blog/api'
 import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
 import { StyledBlogWrapper } from '@pages/Blog/ui/StyledBlog'
@@ -13,7 +13,7 @@ export const BlogPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const { data: blog, isLoading, error } = useGetBlogQuery(id as string)
 
-	if (error) return <Navigate to={'/blogs'} />
+	if (error && !blog) return <Navigate to={'/blogs'} />
 
 	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
 		() => [
@@ -33,7 +33,7 @@ export const BlogPage = () => {
 			{isLoading ? (
 				<BlogSkeleton count={1} />
 			) : (
-				<StyledBlogWrapper>{<Blog blog={blog} />}</StyledBlogWrapper>
+				<StyledBlogWrapper>{<Blog blog={blog as IBlog} />}</StyledBlogWrapper>
 			)}
 			<PostsPage />
 		</>

@@ -38,7 +38,7 @@ export const PostModal = () => {
 
 	// Vars
 	const submittingOperation = creatingPost || updatingPost
-	const isEdit = !!modalProps?.post.id
+	const isEdit = !!modalProps?.post?.id
 	const modalTitle = isEdit ? 'Edit post' : 'Add post'
 	const comboData =
 		data?.items.map(item => ({

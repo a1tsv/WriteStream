@@ -1,6 +1,7 @@
 import { server } from '@app/tests/msw'
 import { IComment } from '@entities/Comment'
 import { DeleteBlogModal } from '@features/DeleteBlogModal'
+import { DeleteCommentModal } from '@features/DeleteCommentModal'
 import { Transition } from '@headlessui/react'
 import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
@@ -53,7 +54,7 @@ describe('DeleteBlogModal', () => {
 	it('renders the Delete Comment modal with the title and message', () => {
 		render(
 			<Transition show={true}>
-				<DeleteBlogModal />
+				<DeleteCommentModal />
 			</Transition>,
 			{ wrapper: storeRef.wrapper }
 		)
@@ -66,7 +67,7 @@ describe('DeleteBlogModal', () => {
 	it('calls the deleteComment mutation when the delete button is clicked', async () => {
 		render(
 			<Transition show={true}>
-				<DeleteBlogModal />
+				<DeleteCommentModal />
 			</Transition>,
 			{ wrapper: storeRef.wrapper }
 		)
@@ -79,7 +80,7 @@ describe('DeleteBlogModal', () => {
 	it('calls the closeModal function when the cancel button is clicked', () => {
 		render(
 			<Transition show={true}>
-				<DeleteBlogModal />
+				<DeleteCommentModal />
 			</Transition>,
 			{ wrapper: storeRef.wrapper }
 		)

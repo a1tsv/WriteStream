@@ -26,7 +26,8 @@ export const PostPage = () => {
 
 	// Api calls
 	const { data: post, isLoading } = useGetPostQuery(id as string)
-	const { data: commentsData } = useGetCommentsQuery(id as string)
+	const { data: commentsData, isLoading: fetchingComments } =
+		useGetCommentsQuery(id as string)
 
 	// Vars
 	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
@@ -46,7 +47,7 @@ export const PostPage = () => {
 			<PostNavigation>
 				<BackTo to={'/posts'} text={'Back to posts'} />
 			</PostNavigation>
-			{post && commentsData?.items.length ? (
+			{post && !fetchingComments ? (
 				<>
 					<PostWrapper>
 						<PostBlogTitle>{post.blogName}</PostBlogTitle>
@@ -60,7 +61,7 @@ export const PostPage = () => {
 					</PostWrapper>
 					<Comments items={commentsData?.items || []} />
 				</>
-			) : isLoading ? (
+			) : isLoading || fetchingComments ? (
 				<PostSkeleton />
 			) : (
 				<NotFound label={'Post not found 😔'} />

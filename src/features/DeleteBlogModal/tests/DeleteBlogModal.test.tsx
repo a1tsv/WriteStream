@@ -44,8 +44,7 @@ describe('DeleteBlogModal', () => {
 		]
 
 		server.use(
-			rest.delete(`${baseURL}/blogs/*`, (req, res, ctx) => {
-				console.log('in blogs')
+			rest.delete(`${baseURL}/blogs/1`, (req, res, ctx) => {
 				const index = items.findIndex(item => item.id === '1')
 				items.splice(index, 1)
 				return res(ctx.json({}))

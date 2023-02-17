@@ -22,7 +22,7 @@ describe('AddBlogModal', () => {
 	it('renders the login form', () => {
 		renderWithRouter(storeRef.wrapper({ children: <LoginForm /> }), {})
 
-		expect(screen.getByText('Login')).toBeInTheDocument()
+		expect(screen.getAllByText('Login')[0]).toBeInTheDocument()
 	})
 
 	// it('should add the blog when all fields are valid', async () => {

@@ -45,7 +45,7 @@ describe('Post', () => {
 						<Routes>
 							<Route path='/posts' element={<div>Posts</div>} />
 						</Routes>
-						<PostPage />
+						<Route path='/posts/:id' element={<PostPage />} />
 					</>
 				)
 			}),
