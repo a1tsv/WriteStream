@@ -1,7 +1,7 @@
 export { Comment } from './ui'
+export { type IComment } from './model'
 export {
-	type IComment,
 	useGetCommentQuery,
 	useUpdateCommentMutation,
 	useDeleteCommentMutation
-} from './model'
+} from './api'

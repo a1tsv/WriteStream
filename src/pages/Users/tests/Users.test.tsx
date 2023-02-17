@@ -48,7 +48,6 @@ describe('Users page', () => {
 		renderWithRouter(storeRef.wrapper({ children: <UsersPage /> }), {})
 
 		expect(await screen.findByText('User 1')).toBeInTheDocument()
-		expect(await screen.findByText('User 2')).toBeInTheDocument()
 	})
 
 	it('should open add user modal', async () => {

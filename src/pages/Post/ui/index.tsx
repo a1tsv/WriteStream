@@ -15,7 +15,7 @@ import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
 import { NotFound } from '@shared/ui/NotFound'
-import { formatData } from '@shared/utils/formatData'
+import { formatDate } from '@shared/utils/formatData'
 import { Comments } from '@widgets/Comments'
 import { useMemo } from 'react'
 import { useParams } from 'react-router'
@@ -26,7 +26,8 @@ export const PostPage = () => {
 
 	// Api calls
 	const { data: post, isLoading } = useGetPostQuery(id as string)
-	const { data: commentsData } = useGetCommentsQuery(id as string)
+	const { data: commentsData, isLoading: fetchingComments } =
+		useGetCommentsQuery(id as string)
 
 	// Vars
 	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
@@ -46,21 +47,21 @@ export const PostPage = () => {
 			<PostNavigation>
 				<BackTo to={'/posts'} text={'Back to posts'} />
 			</PostNavigation>
-			{post && commentsData?.items.length ? (
+			{post && !fetchingComments ? (
 				<>
 					<PostWrapper>
 						<PostBlogTitle>{post.blogName}</PostBlogTitle>
 						<PostHeading>
 							<PostTitle>{post.title}</PostTitle>
 							<PostMembership>(For public posts)</PostMembership>
-							<PostDate>{formatData(post.createdAt)}</PostDate>
+							<PostDate>{formatDate(post.createdAt)}</PostDate>
 						</PostHeading>
 						<PostImg />
 						<PostText>{post.content}</PostText>
 					</PostWrapper>
 					<Comments items={commentsData?.items || []} />
 				</>
-			) : isLoading ? (
+			) : isLoading || fetchingComments ? (
 				<PostSkeleton />
 			) : (
 				<NotFound label={'Post not found 😔'} />

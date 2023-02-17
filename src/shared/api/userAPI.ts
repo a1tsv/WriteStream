@@ -6,7 +6,7 @@ const bearerToken = getItemFromLC('accessToken')
 	: ''
 
 export const userAPI = createApi({
-	reducerPath: 'api',
+	reducerPath: 'userAPI',
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'https://ht-02-03.vercel.app/api',
 		headers: {

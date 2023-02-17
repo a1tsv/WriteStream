@@ -15,7 +15,7 @@ import {
 import { Button } from '@shared/ui/Button'
 import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
-import { formatData } from '@shared/utils/formatData'
+import { formatDate } from '@shared/utils/formatData'
 import { ChangeEvent, FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 
@@ -79,7 +79,7 @@ export const Comment: FC<IComment> = ({
 						<CommentInfo>
 							<Typography variant={'sub-title-md'}>{userLogin}</Typography>
 							<Typography variant={'sub-title-sm'}>
-								{formatData(createdAt)}
+								{formatDate(createdAt)}
 							</Typography>
 						</CommentInfo>
 						<Dropdown

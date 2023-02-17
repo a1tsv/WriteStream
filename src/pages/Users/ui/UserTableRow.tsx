@@ -5,7 +5,7 @@ import { tableConfig } from '@pages/Users/model'
 import { UsersTableCell } from '@pages/Users/ui/StyledUsers'
 import { Button } from '@shared/ui/Button'
 import { TableLine } from '@shared/ui/Table'
-import { formatData } from '@shared/utils/formatData'
+import { formatDate } from '@shared/utils/formatData'
 import { FC } from 'react'
 import { AiFillDelete } from 'react-icons/ai'
 
@@ -26,7 +26,7 @@ export const UserTableRow: FC<IUserTableRowProps> = ({ user }) => {
 			<UsersTableCell>{login}</UsersTableCell>
 			<UsersTableCell>{email}</UsersTableCell>
 			<UsersTableCell>{`${id.slice(0, 15)}...`}</UsersTableCell>
-			<UsersTableCell>{formatData(createdAt)}</UsersTableCell>
+			<UsersTableCell>{formatDate(createdAt)}</UsersTableCell>
 			<UsersTableCell>
 				<Button
 					variant={'secondary'}

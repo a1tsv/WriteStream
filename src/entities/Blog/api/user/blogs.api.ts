@@ -1,8 +1,8 @@
 import { IBlog, IBlogRequestModel } from '@entities/Blog/api/blog.interface'
-import { adminAPI } from '@shared/api'
+import { userAPI } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
 
-export const blogsUserApi = adminAPI.injectEndpoints({
+export const blogsUserApi = userAPI.injectEndpoints({
 	endpoints: build => ({
 		getBlogs: build.query<
 			IGetItemsResponse<IBlog[]>,

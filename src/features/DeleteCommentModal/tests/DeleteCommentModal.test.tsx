@@ -2,7 +2,7 @@ import { server } from '@app/tests/msw'
 import { IComment } from '@entities/Comment'
 import { DeleteBlogModal } from '@features/DeleteBlogModal'
 import { Transition } from '@headlessui/react'
-import { adminAPI } from '@shared/api'
+import { userAPI } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -26,7 +26,7 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 }))
 
 describe('DeleteBlogModal', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+	const storeRef = setupApiStore(userAPI, {})
 
 	let items: IComment[]
 

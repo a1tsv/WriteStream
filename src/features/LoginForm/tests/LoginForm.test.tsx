@@ -1,13 +1,13 @@
 import { server } from '@app/tests/msw'
-import { AddBlogModal } from '@features/AddBlogModal'
 import { LoginForm } from '@features/LoginForm'
 import { adminAPI } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
+import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { rest } from 'msw'
 
-describe('AddBlogModal', () => {
+describe('Login Form', () => {
 	const storeRef = setupApiStore(adminAPI, {})
 
 	beforeEach(() => {
@@ -19,7 +19,7 @@ describe('AddBlogModal', () => {
 	})
 
 	it('renders the login form', () => {
-		render(<LoginForm />, { wrapper: storeRef.wrapper })
+		renderWithRouter(storeRef.wrapper({ children: <LoginForm /> }), {})
 
 		expect(screen.getByText('Login')).toBeInTheDocument()
 	})
