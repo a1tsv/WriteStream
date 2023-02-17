@@ -2,9 +2,18 @@ import { rem } from '@app/styles/mixins'
 import { Typography } from '@shared/ui/Typography'
 import styled from 'styled-components'
 
+export const PostWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	&:not(:last-child) {
+		margin-bottom: ${rem(30)};
+	}
+`
+
 export const PostNavigation = styled.div`
 	&:not(:last-child) {
-		margin-bottom: ${rem(15)};
+		margin-bottom: ${rem(40)};
 	}
 `
 
@@ -49,7 +58,8 @@ export const PostImg = styled.img`
 	width: 100%;
 	height: ${rem(400)};
 	object-fit: cover;
-	background: var(--color-primary);
+	border-radius: var(--radius);
+	background: var(--color-main);
 
 	&:not(:last-child) {
 		margin-bottom: ${rem(20)};

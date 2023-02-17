@@ -5,3 +5,5 @@ export {
 	useDeleteCommentMutation,
 	useUpdateCommentMutation
 } from './comment.api'
+export { dropdownItems } from './comment.data'
+export { useSetHeight } from './hooks'

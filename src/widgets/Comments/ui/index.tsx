@@ -10,7 +10,9 @@ interface ICommentsProps {
 export const Comments: FC<ICommentsProps> = ({ items }) => {
 	return (
 		<div>
-			<Typography variant={'title'}>Comments({items.length})</Typography>
+			<Typography variant={'title'} sx={{ marginBottom: '0.6rem' }}>
+				Comments({items.length})
+			</Typography>
 			<CommentsItems>
 				{items.map(item => (
 					<Comment key={item.id} {...item} />

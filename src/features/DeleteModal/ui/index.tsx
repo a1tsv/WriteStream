@@ -7,7 +7,7 @@ interface IDeleteModalProps {
 	isOpen: boolean
 	onClose: () => void
 	submitAction: () => void
-	entity: string
+	entity?: string
 	label: string
 	disabled?: boolean
 }
@@ -29,7 +29,7 @@ export const DeleteModal: FC<IDeleteModalProps> = ({
 			disabled={disabled}
 		>
 			<Flex fDirection={'column'} align={'center'}>
-				<Typography variant={'title'}>{entity}</Typography>
+				{entity && <Typography variant={'title'}>{entity}</Typography>}
 				Do you want to delete this {label}?
 			</Flex>
 		</ActionModal>

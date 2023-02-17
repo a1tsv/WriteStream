@@ -6,7 +6,8 @@ export enum ModalsEnum {
 	'EDIT_BLOG' = 'EDIT_BLOG',
 	'EDIT_POST' = 'EDIT_POST',
 	'ADD_USER' = 'ADD_USER',
-	'DELETE_USER' = 'DELETE_USER'
+	'DELETE_USER' = 'DELETE_USER',
+	'DELETE_COMMENT' = 'DELETE_COMMENT'
 }
 
 export interface IModalComponent {

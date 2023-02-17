@@ -45,7 +45,7 @@ export const postApi = api.injectEndpoints({
 			}),
 			invalidatesTags: ['Posts']
 		}),
-		getComments: build.query<IGetItemsResponse<IComment>, string>({
+		getComments: build.query<IGetItemsResponse<IComment[]>, string>({
 			query: id => ({
 				url: `/posts/${id}/comments`
 			}),

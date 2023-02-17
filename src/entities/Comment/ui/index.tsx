@@ -1,43 +1,57 @@
+import { useModalContext } from '@app/providers/ModalsProvider'
+import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { IComment, useUpdateCommentMutation } from '@entities/Comment'
+import { dropdownItems, useSetHeight } from '@entities/Comment/model'
 import {
 	CommentBody,
 	CommentButtons,
 	CommentContent,
+	CommentHeader,
 	CommentImgPlaceholder,
 	CommentInfo,
+	CommentTextField,
 	CommentWrapper
 } from '@entities/Comment/ui/StyledComment'
 import { Button } from '@shared/ui/Button'
-import { TextField } from '@shared/ui/Input'
+import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
 import { formatData } from '@shared/utils/formatData'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useRef, useState } from 'react'
+import { BiDotsVerticalRounded } from 'react-icons/bi'
 
 export const Comment: FC<IComment> = ({
-	commentatorInfo,
+	userLogin,
+	userId,
 	id,
 	createdAt,
 	content
 }) => {
+	// Modals
+	const { showModal } = useModalContext()
+
 	// Api calls
 	const [updateComment] = useUpdateCommentMutation()
 
 	// Vars
-	const { userLogin, userId } = commentatorInfo
+	const commentTextRef = useRef<HTMLParagraphElement>(null)
+	const commentTextFieldRef = useRef<HTMLInputElement>(null)
 
 	// Local states
 	const [editMode, setEditMode] = useState<boolean>(false)
 	const [commentText, setCommentText] = useState<string>(content)
 
 	// Handlers
-
 	const changeCurrentComment = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
+		e.target.style.height = 'inherit'
+		e.target.style.height = `${e.target.scrollHeight}px`
+
 		setCommentText(value)
 	}
 
 	const cancelEditing = () => {
 		setEditMode(false)
+		setCommentText(content)
 	}
 
 	const submitEditing = async () => {
@@ -45,30 +59,45 @@ export const Comment: FC<IComment> = ({
 		cancelEditing()
 	}
 
-	useEffect(() => {
-		setCommentText(content)
-	}, [content])
+	const onDropdownChange = (value: ModalsEnum | string) => {
+		if (Object.values(ModalsEnum).includes(value as ModalsEnum)) {
+			showModal(value as ModalsEnum, true, { comment: { id } })
+			return
+		}
+		setEditMode(true)
+	}
+
+	// Effects
+	useSetHeight(editMode, commentTextRef, commentTextFieldRef, 10)
 
 	return (
 		<CommentWrapper>
 			<CommentContent>
 				<CommentImgPlaceholder />
 				<CommentBody>
-					<CommentInfo>
-						<Typography variant={'sub-title-md'}>{userLogin}</Typography>
-						<Typography variant={'sub-title-sm'}>
-							{formatData(createdAt)}
-						</Typography>
-					</CommentInfo>
+					<CommentHeader>
+						<CommentInfo>
+							<Typography variant={'sub-title-md'}>{userLogin}</Typography>
+							<Typography variant={'sub-title-sm'}>
+								{formatData(createdAt)}
+							</Typography>
+						</CommentInfo>
+						<Dropdown
+							button={BiDotsVerticalRounded}
+							onChangeCb={onDropdownChange}
+							items={dropdownItems}
+						/>
+					</CommentHeader>
 					<>
 						{editMode ? (
-							<p>{content}</p>
-						) : (
-							<TextField
+							<CommentTextField
 								isTextarea
+								ref={commentTextFieldRef}
 								value={commentText}
 								onChange={changeCurrentComment}
 							/>
+						) : (
+							<p ref={commentTextRef}>{content}</p>
 						)}
 					</>
 				</CommentBody>

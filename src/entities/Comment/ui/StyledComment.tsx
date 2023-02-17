@@ -1,10 +1,12 @@
 import { rem } from '@app/styles/mixins'
+import { TextField } from '@shared/ui/Input'
 import styled from 'styled-components'
 
 export const CommentWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: ${rem(15)};
+	padding: ${rem(10)} ${rem(15)};
 
 	border-bottom: 1px solid var(--color-main);
 `
@@ -22,7 +24,16 @@ export const CommentImgPlaceholder = styled.div`
 	border-radius: 50%;
 `
 
-export const CommentBody = styled.div``
+export const CommentBody = styled.div`
+	flex: 1 1 auto;
+`
+
+export const CommentHeader = styled.div`
+	display: flex;
+	gap: ${rem(10)};
+	align-items: center;
+	justify-content: space-between;
+`
 
 export const CommentInfo = styled.div`
 	display: flex;
@@ -30,8 +41,14 @@ export const CommentInfo = styled.div`
 	align-items: center;
 
 	&:not(:last-child) {
-		margin-bottom: ${rem(10)};
+		margin-bottom: ${rem(5)};
 	}
+`
+
+export const CommentTextField = styled(TextField).attrs({
+	isTextarea: true
+})`
+	width: 100%;
 `
 
 export const CommentButtons = styled.div`
