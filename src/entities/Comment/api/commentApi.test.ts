@@ -1,4 +1,4 @@
-import { commentApi } from '@entities/Comment/model/comment.api'
+import { commentApi } from '@entities/Comment/api/comment.api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import fetchMock from 'jest-fetch-mock'

@@ -13,4 +13,4 @@ export {
 	useGetUsersQuery,
 	useAuthMeQuery,
 	useLazyAuthMeQuery
-} from './user.api'
+} from '../api/user.api'

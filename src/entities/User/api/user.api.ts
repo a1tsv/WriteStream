@@ -1,7 +1,9 @@
-import { ILoginFields, ILoginResponse } from '.'
+import { ILoginFields, ILoginResponse } from '../model'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
+import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
+import { setItemToLC } from '@shared/utils/localStorage'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -13,22 +15,23 @@ export const userApi = api.injectEndpoints({
 			}),
 			async onQueryStarted(data, { dispatch, queryFulfilled }) {
 				const res = await queryFulfilled
+				if (res.data) {
+					setItemToLC('accessToken', res.data.accessToken)
+				}
 			}
 		}),
-		authMe: build.query<IUser, string>({
-			query: accessToken => ({
+		authMe: build.query<IUser, void>({
+			query: () => ({
 				url: '/auth/me',
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${accessToken}`
-				}
+				method: 'GET'
 			})
 		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
 			query: data => ({
 				url: '/users',
 				method: 'POST',
-				body: data
+				body: data,
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Users']
 		}),
@@ -36,14 +39,16 @@ export const userApi = api.injectEndpoints({
 			query: data => ({
 				url: '/users',
 				method: 'GET',
-				params: data
+				params: data,
+				headers: getAdminHeaders()
 			}),
 			providesTags: ['Users']
 		}),
 		deleteUser: build.mutation<void, string>({
 			query: id => ({
 				url: `/users/${id}`,
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Users']
 		})

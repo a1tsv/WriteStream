@@ -6,6 +6,7 @@ import {
 } from '@entities/Blog/api/blog.interface'
 import { api } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
+import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
 
 export const blogsApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -32,7 +33,8 @@ export const blogsApi = api.injectEndpoints({
 				body: {
 					username: 'admin',
 					password: 'qwerty'
-				}
+				},
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Blogs', 'Blog']
 		}),
@@ -40,15 +42,18 @@ export const blogsApi = api.injectEndpoints({
 			query: data => ({
 				url: '/blogs',
 				method: 'POST',
-				body: data
+				body: data,
+				headers: getAdminHeaders()
 			}),
+
 			invalidatesTags: ['Blogs']
 		}),
 		updateBlog: build.mutation<IBlog, IBlogUpdateRequest>({
 			query: data => ({
 				url: `/blogs/${data.id}`,
 				method: 'PUT',
-				body: data
+				body: data,
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Blogs', 'Blog']
 		})

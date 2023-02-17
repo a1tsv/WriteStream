@@ -2,6 +2,7 @@ import { IComment } from '@entities/Comment'
 import { IPost, IUpdatePostModel } from '@entities/Post/api/post.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
+import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
 
 export const postApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -26,7 +27,8 @@ export const postApi = api.injectEndpoints({
 			query: data => ({
 				url: '/posts',
 				method: 'POST',
-				body: data
+				body: data,
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),
@@ -34,14 +36,16 @@ export const postApi = api.injectEndpoints({
 			query: data => ({
 				url: `/posts/${data.id}`,
 				method: 'PUT',
-				body: data
+				body: data,
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),
 		deletePost: build.mutation<IPost, string>({
 			query: id => ({
 				url: `/posts/${id}`,
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),
