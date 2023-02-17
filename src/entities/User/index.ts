@@ -1,9 +1,10 @@
+export { type IUser, type IAddUserFields } from './model'
+
 export {
-	type IUser,
-	type IAddUserFields,
-	userApi,
-	useLoginMutation,
 	useDeleteUserMutation,
 	useCreateUserMutation,
+	useLoginMutation,
+	useAuthMeQuery,
+	useLazyAuthMeQuery,
 	useGetUsersQuery
-} from './model'
+} from './api'

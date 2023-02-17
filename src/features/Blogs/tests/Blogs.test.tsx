@@ -2,7 +2,7 @@ import { Blogs } from '../ui'
 import { Modals } from '@app/providers/ModalsProvider'
 import { server } from '@app/tests/msw/server'
 import { IBlog } from '@entities/Blog/api/blog.interface'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
@@ -13,7 +13,7 @@ import { rest } from 'msw'
 import { Route, Routes } from 'react-router'
 
 describe('Blogs page', () => {
-	const storeRef = setupApiStore(api, {})
+	const storeRef = setupApiStore(adminAPI, {})
 
 	const items: IBlog[] = [
 		{

@@ -1,29 +1,9 @@
-import { ILoginFields, ILoginResponse } from '.'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 
-export const userApi = api.injectEndpoints({
+export const userAdminApi = adminAPI.injectEndpoints({
 	endpoints: build => ({
-		login: build.mutation<ILoginResponse, ILoginFields>({
-			query: data => ({
-				url: '/auth/login',
-				method: 'POST',
-				body: data
-			}),
-			async onQueryStarted(data, { dispatch, queryFulfilled }) {
-				const res = await queryFulfilled
-			}
-		}),
-		authMe: build.query<IUser, string>({
-			query: accessToken => ({
-				url: '/auth/me',
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${accessToken}`
-				}
-			})
-		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
 			query: data => ({
 				url: '/users',
@@ -51,10 +31,7 @@ export const userApi = api.injectEndpoints({
 })
 
 export const {
-	useLoginMutation,
 	useCreateUserMutation,
 	useDeleteUserMutation,
-	useGetUsersQuery,
-	useAuthMeQuery,
-	useLazyAuthMeQuery
-} = userApi
+	useGetUsersQuery
+} = userAdminApi

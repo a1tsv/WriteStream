@@ -1,14 +1,14 @@
 import { server } from '@app/tests/msw'
 import { AddBlogModal } from '@features/AddBlogModal'
 import { LoginForm } from '@features/LoginForm'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { render, screen } from '@testing-library/react'
 import { rest } from 'msw'
 
 describe('AddBlogModal', () => {
-	const storeRef = setupApiStore(api, {})
+	const storeRef = setupApiStore(adminAPI, {})
 
 	beforeEach(() => {
 		server.use(

@@ -2,7 +2,7 @@ import { UsersPage } from '../ui'
 import { Modals } from '@app/providers/ModalsProvider'
 import { server } from '@app/tests/msw/server'
 import { IUser } from '@entities/User'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
@@ -12,7 +12,7 @@ import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 
 describe('Users page', () => {
-	const storeRef = setupApiStore(api, {})
+	const storeRef = setupApiStore(adminAPI, {})
 
 	const items: IUser[] = [
 		{

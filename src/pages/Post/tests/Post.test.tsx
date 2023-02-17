@@ -1,6 +1,6 @@
 import { server } from '@app/tests/msw'
 import { PostPage } from '@pages/Post'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
@@ -10,7 +10,7 @@ import { rest } from 'msw'
 import { Route, Routes } from 'react-router'
 
 describe('Post', () => {
-	const storeRef = setupApiStore(api, {})
+	const storeRef = setupApiStore(adminAPI, {})
 
 	beforeEach(() => {
 		server.use(

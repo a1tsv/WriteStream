@@ -1,7 +1,7 @@
 import { server } from '@app/tests/msw'
 import { IPost } from '@entities/Post'
 import { PostsPage } from '@pages/Posts'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
@@ -10,7 +10,7 @@ import { screen } from '@testing-library/react'
 import { rest } from 'msw'
 
 describe('Posts', () => {
-	const storeRef = setupApiStore(api, {})
+	const storeRef = setupApiStore(adminAPI, {})
 
 	const items: IPost[] = [
 		{

@@ -2,7 +2,7 @@ import { server } from '@app/tests/msw'
 import { IPost } from '@entities/Post'
 import { DeletePostModal } from '@features/DeletePostModal'
 import { Transition } from '@headlessui/react'
-import { api } from '@shared/api'
+import { adminAPI } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -27,7 +27,7 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 }))
 
 describe('DeletePostModal', () => {
-	const storeRef = setupApiStore(api, {})
+	const storeRef = setupApiStore(adminAPI, {})
 
 	let items: IPost[]
 

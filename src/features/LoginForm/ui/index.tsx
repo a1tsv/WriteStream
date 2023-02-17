@@ -1,5 +1,5 @@
-import { useLoginMutation } from '@entities/User'
-import { ILoginFields, useLazyAuthMeQuery } from '@entities/User/model'
+import { useLazyAuthMeQuery, useLoginMutation } from '@entities/User'
+import { ILoginFields } from '@entities/User/model'
 import { rules } from '@features/LoginForm/model'
 import {
 	LoginFields,

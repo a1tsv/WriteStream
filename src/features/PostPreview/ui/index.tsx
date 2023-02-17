@@ -1,4 +1,5 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
+import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { IPost } from '@entities/Post'
 import { dropdownItems } from '@features/PostPreview/model'
 import {
@@ -24,7 +25,7 @@ export const PostPreview: FC<IPostPreviewProps> = memo(({ post }) => {
 	const { showModal } = useModalContext()
 
 	const handlePostOperation = (value: string) => {
-		showModal(value, true, { post })
+		showModal(value as ModalsEnum, true, { post })
 	}
 
 	return (

@@ -1,6 +1,6 @@
 import { IBreadCrumbsItem } from '../model'
 import { BreadCrumbsItem, BreadCrumbsItems } from './StyledBreadCrumbs'
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 import { BiRightArrow } from 'react-icons/bi'
 import { NavLink } from 'react-router-dom'
 
@@ -14,12 +14,8 @@ export const BreadCrumbs: FC<IBreadCrumbs> = ({ items }) => {
 			{items.map((item, i) => {
 				const lastItem = i + 1 === items.length
 				return (
-					<>
-						<BreadCrumbsItem
-							key={i}
-							as={item.tag ? item.tag : 'span'}
-							first={i === 0}
-						>
+					<Fragment key={i}>
+						<BreadCrumbsItem as={item.tag ? item.tag : 'span'} first={i === 0}>
 							{item.link && !lastItem ? (
 								<NavLink to={`/${item.link}`}>{item.title}</NavLink>
 							) : (
@@ -29,7 +25,7 @@ export const BreadCrumbs: FC<IBreadCrumbs> = ({ items }) => {
 						{!lastItem && (
 							<BiRightArrow aria-label='Pointer to the next item' />
 						)}
-					</>
+					</Fragment>
 				)
 			})}
 		</BreadCrumbsItems>

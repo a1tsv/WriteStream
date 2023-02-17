@@ -1,11 +1,13 @@
 export {
-	postApi,
-	useGetPostsQuery,
-	useGetPostQuery,
+	postAdminAPI,
 	useCreatePostMutation,
 	useDeletePostMutation,
-	useUpdatePostMutation,
-	useGetCommentsQuery,
-	useCreateCommentMutation
-} from './post.api'
+	useUpdatePostMutation
+} from './admin/post.api'
+export {
+	postUserApi,
+	useGetPostQuery,
+	useGetPostsQuery,
+	useGetCommentsQuery
+} from './user'
 export { type IPost, type IUpdatePostModel } from './post.interface'

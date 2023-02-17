@@ -1,18 +1,8 @@
 import { IComment } from '@entities/Comment'
-import { api } from '@shared/api'
+import { userAPI } from '@shared/api'
 
-export const commentApi = api.injectEndpoints({
+export const commentApi = userAPI.injectEndpoints({
 	endpoints: build => ({
-		// getComments: build.query<IComment[], void>({
-		// 	query: () => 'comments'
-		// }),
-		// createComment: build.mutation<IComment, IComment>({
-		// 	query: body => ({
-		// 		url: 'comments',
-		// 		method: 'POST',
-		// 		body
-		// 	})
-		// }),
 		getComment: build.query<IComment, string>({
 			query: id => `comments/${id}`
 		}),

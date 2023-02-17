@@ -1,30 +1,12 @@
 import {
 	IBlog,
 	IBlogCreateRequestModel,
-	IBlogRequestModel,
 	IBlogUpdateRequest
 } from '@entities/Blog/api/blog.interface'
-import { api } from '@shared/api'
-import { IGetItemsResponse } from '@shared/api/api.interface'
+import { adminAPI } from '@shared/api'
 
-export const blogsApi = api.injectEndpoints({
+export const blogsAdminApi = adminAPI.injectEndpoints({
 	endpoints: build => ({
-		getBlogs: build.query<
-			IGetItemsResponse<IBlog[]>,
-			Partial<IBlogRequestModel>
-		>({
-			query: data => ({
-				url: '/blogs',
-				params: data
-			}),
-			providesTags: ['Blogs', 'Blog']
-		}),
-		getBlog: build.query<IBlog, string>({
-			query: id => ({
-				url: `/blogs/${id}`
-			}),
-			providesTags: ['Blog']
-		}),
 		deleteBlog: build.mutation<void, string>({
 			query: id => ({
 				url: `/blogs/${id}`,
@@ -56,9 +38,7 @@ export const blogsApi = api.injectEndpoints({
 })
 
 export const {
-	useGetBlogsQuery,
-	useGetBlogQuery,
 	useDeleteBlogMutation,
 	useCreateBlogMutation,
 	useUpdateBlogMutation
-} = blogsApi
+} = blogsAdminApi
