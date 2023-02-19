@@ -19,3 +19,7 @@ export interface IAddUserFields {
 	email: string
 	password: string
 }
+
+export type IAuthMeResponse = Omit<IAddUserFields, 'password'> & {
+	userId: string
+}

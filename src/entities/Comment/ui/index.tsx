@@ -12,10 +12,12 @@ import {
 	CommentTextField,
 	CommentWrapper
 } from '@entities/Comment/ui/StyledComment'
+import { useAuthMeQuery } from '@entities/User/api/user.api'
 import { Button } from '@shared/ui/Button'
 import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
 import { formatData } from '@shared/utils/formatData'
+import { getItemFromLC } from '@shared/utils/localStorage'
 import { ChangeEvent, FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 
@@ -32,9 +34,13 @@ export const Comment: FC<IComment> = ({
 	// Api calls
 	const [updateComment] = useUpdateCommentMutation()
 
+	const accessToken = getItemFromLC('accessToken') as string
+	const { data } = useAuthMeQuery(accessToken)
+
 	// Vars
 	const commentTextRef = useRef<HTMLParagraphElement>(null)
 	const commentTextFieldRef = useRef<HTMLInputElement>(null)
+	const isCurrentUserOwner = data?.userId === userId
 
 	// Local states
 	const [editMode, setEditMode] = useState<boolean>(false)
@@ -82,11 +88,13 @@ export const Comment: FC<IComment> = ({
 								{formatData(createdAt)}
 							</Typography>
 						</CommentInfo>
-						<Dropdown
-							button={BiDotsVerticalRounded}
-							onChangeCb={onDropdownChange}
-							items={dropdownItems}
-						/>
+						{isCurrentUserOwner && (
+							<Dropdown
+								button={BiDotsVerticalRounded}
+								onChangeCb={onDropdownChange}
+								items={dropdownItems}
+							/>
+						)}
 					</CommentHeader>
 					<>
 						{editMode ? (

@@ -18,6 +18,8 @@ export const rtkQueryErrorLogger: Middleware =
 				case 429:
 					toast.error('Too many requests', { toastId })
 					break
+				case 401:
+					break
 				default:
 					errors?.length > 0
 						? toast.error(errors[0].message, { toastId })

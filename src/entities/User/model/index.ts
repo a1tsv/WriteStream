@@ -2,7 +2,8 @@ export {
 	type ILoginResponse,
 	type ILoginFields,
 	type IAddUserFields,
-	type IUser
+	type IUser,
+	type IAuthMeResponse
 } from './user.interface'
 
 export {

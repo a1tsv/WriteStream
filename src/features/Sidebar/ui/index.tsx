@@ -14,6 +14,7 @@ interface ISideBarProps {
 
 export const SideBar: FC<ISideBarProps> = ({ isOpen }) => {
 	const routes = useGetRoutes()
+	console.log('rerendering sidebar')
 	const menuItems = routes.filter(route => route.icon)
 
 	return (

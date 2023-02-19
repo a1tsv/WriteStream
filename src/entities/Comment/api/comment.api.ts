@@ -3,16 +3,6 @@ import { api } from '@shared/api'
 
 export const commentApi = api.injectEndpoints({
 	endpoints: build => ({
-		// getComments: build.query<IComment[], void>({
-		// 	query: () => 'comments'
-		// }),
-		// createComment: build.mutation<IComment, IComment>({
-		// 	query: body => ({
-		// 		url: 'comments',
-		// 		method: 'POST',
-		// 		body
-		// 	})
-		// }),
 		getComment: build.query<IComment, string>({
 			query: id => `comments/${id}`
 		}),
@@ -21,13 +11,15 @@ export const commentApi = api.injectEndpoints({
 				url: `comments/${body.id}`,
 				method: 'PUT',
 				body
-			})
+			}),
+			invalidatesTags: ['Comments']
 		}),
 		deleteComment: build.mutation<IComment, string>({
 			query: id => ({
 				url: `comments/${id}`,
 				method: 'DELETE'
-			})
+			}),
+			invalidatesTags: ['Comments']
 		})
 	})
 })

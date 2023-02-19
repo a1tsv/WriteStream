@@ -1,4 +1,4 @@
-import { ILoginFields, ILoginResponse } from '../model'
+import { IAuthMeResponse, ILoginFields, ILoginResponse } from '../model'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
@@ -13,6 +13,7 @@ export const userApi = api.injectEndpoints({
 				method: 'POST',
 				body: data
 			}),
+			invalidatesTags: ['Auth'],
 			async onQueryStarted(data, { dispatch, queryFulfilled }) {
 				const res = await queryFulfilled
 				if (res.data) {
@@ -20,11 +21,15 @@ export const userApi = api.injectEndpoints({
 				}
 			}
 		}),
-		authMe: build.query<IUser, void>({
-			query: () => ({
+		authMe: build.query<IAuthMeResponse, string>({
+			query: token => ({
 				url: '/auth/me',
-				method: 'GET'
-			})
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			}),
+			providesTags: ['Auth']
 		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
 			query: data => ({

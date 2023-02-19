@@ -1,8 +1,10 @@
 import { publicRoutes, routes } from '@app/providers/AppRouter/model'
 import { useAuthMeQuery } from '@entities/User/api/user.api'
+import { getItemFromLC } from '@shared/utils/localStorage'
 
 export const useGetRoutes = () => {
-	const { isSuccess: isAuth } = useAuthMeQuery()
+	const accessToken = getItemFromLC('accessToken') as string
+	const { isSuccess: isAuth } = useAuthMeQuery(accessToken)
 	// const isAuth = false
 
 	const authRoutes = routes.filter(route => route.isPrivate)
@@ -10,5 +12,6 @@ export const useGetRoutes = () => {
 	const routesForCurrentUser = isAuth ? authRoutes : nonAuthRoutes
 	const routesToRender = [...routesForCurrentUser, ...publicRoutes]
 
+	console.log('inside use get routes')
 	return routesToRender
 }

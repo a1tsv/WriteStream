@@ -12,6 +12,15 @@ export const api = createApi({
 			Authorization: bearerToken
 		}
 	}),
-	tagTypes: ['Posts', 'Blogs', 'Blog', 'Post', 'Users', 'User', 'Comments'],
+	tagTypes: [
+		'Posts',
+		'Blogs',
+		'Blog',
+		'Post',
+		'Users',
+		'User',
+		'Comments',
+		'Auth'
+	],
 	endpoints: build => ({})
 })
