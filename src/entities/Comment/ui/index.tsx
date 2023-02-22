@@ -12,7 +12,7 @@ import {
 	CommentTextField,
 	CommentWrapper
 } from '@entities/Comment/ui/StyledComment'
-import { useAuthMeQuery } from '@entities/User/api/user.api'
+import { useAuthMeQuery } from '@entities/User'
 import { Button } from '@shared/ui/Button'
 import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'

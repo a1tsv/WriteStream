@@ -42,7 +42,6 @@ describe('Update mode', () => {
 	beforeEach(() => {
 		server.use(
 			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
-				console.log('intercepting')
 				items[0] = req.body as IBlog
 				return res(ctx.json({}))
 			})

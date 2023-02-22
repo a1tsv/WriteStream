@@ -10,7 +10,7 @@ export interface ILoginFields {
 	password: string
 }
 
-export interface ILoginResponse {
+export interface ITokenResponse {
 	accessToken: string
 }
 

@@ -7,7 +7,7 @@ import { IError } from '@shared/api/api.interface'
 import { toast } from 'react-toastify'
 
 export const rtkQueryErrorLogger: Middleware =
-	(api: MiddlewareAPI) => next => action => {
+	(middlewareAPI: MiddlewareAPI) => next => action => {
 		if (isRejectedWithValue(action) && action.payload.originalStatus !== 404) {
 			const errors = action.payload.data.errorsMessages as IError[]
 			const requestStatus = action.payload.originalStatus

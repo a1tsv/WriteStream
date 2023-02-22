@@ -62,7 +62,6 @@ describe('AddPostModal', () => {
 				)
 			}),
 			rest.put(`${baseURL}/posts/*`, (req, res, ctx) => {
-				console.log('updating post')
 				items[0] = req.body as IPost
 				return res(ctx.json({}))
 			})

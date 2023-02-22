@@ -1,5 +1,5 @@
 import { AppPreloader } from '@app/providers/PreloaderProvider/ui/StyledPreloader'
-import { useAuthMeQuery } from '@entities/User/model'
+import { useAuthMeQuery } from '@entities/User'
 import { getItemFromLC } from '@shared/utils/localStorage'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 

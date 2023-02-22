@@ -1,5 +1,6 @@
 import {
 	getItemFromLC,
+	removeItemFromLC,
 	setItemToLC
 } from '@shared/utils/localStorage/localStorage'
 
@@ -34,5 +35,14 @@ describe('local storage utils', () => {
 		setItemToLC(key, value)
 		const result = getItemFromLC(key) as typeof value
 		expect(result).toEqual(value)
+	})
+
+	it('should remove an item from the localStorage using removeItemFromLC', () => {
+		const key = 'key'
+		const value = 'value'
+		setItemToLC(key, value)
+		removeItemFromLC(key)
+		const result = getItemFromLC(key) as undefined
+		expect(result).toBeUndefined()
 	})
 })

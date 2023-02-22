@@ -1,4 +1,4 @@
-import { IAuthMeResponse, ILoginFields, ILoginResponse } from '../model'
+import { IAuthMeResponse, ILoginFields, ITokenResponse } from '../model'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
@@ -7,7 +7,7 @@ import { setItemToLC } from '@shared/utils/localStorage'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
-		login: build.mutation<ILoginResponse, ILoginFields>({
+		login: build.mutation<ITokenResponse, ILoginFields>({
 			query: data => ({
 				url: '/auth/login',
 				method: 'POST',
@@ -30,6 +30,13 @@ export const userApi = api.injectEndpoints({
 				}
 			}),
 			providesTags: ['Auth']
+		}),
+		refreshToken: build.mutation<ITokenResponse, void>({
+			query: () => ({
+				url: '/auth/refresh-token',
+				method: 'POST'
+			})
+			// invalidatesTags: ['Auth']
 		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
 			query: data => ({
@@ -66,5 +73,6 @@ export const {
 	useDeleteUserMutation,
 	useGetUsersQuery,
 	useAuthMeQuery,
-	useLazyAuthMeQuery
+	useLazyAuthMeQuery,
+	useRefreshTokenMutation
 } = userApi

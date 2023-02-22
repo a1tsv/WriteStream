@@ -1,5 +1,5 @@
 import { publicRoutes, routes } from '@app/providers/AppRouter/model'
-import { useAuthMeQuery } from '@entities/User/api/user.api'
+import { useAuthMeQuery } from '@entities/User'
 import { getItemFromLC } from '@shared/utils/localStorage'
 
 export const useGetRoutes = () => {
@@ -12,6 +12,5 @@ export const useGetRoutes = () => {
 	const routesForCurrentUser = isAuth ? authRoutes : nonAuthRoutes
 	const routesToRender = [...routesForCurrentUser, ...publicRoutes]
 
-	console.log('inside use get routes')
 	return routesToRender
 }
