@@ -2,7 +2,7 @@ import { BreadCrumbs } from '../ui'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'Breadcrumbs',
+	title: 'Shared/Breadcrumbs',
 	component: BreadCrumbs
 } as ComponentMeta<typeof BreadCrumbs>
 

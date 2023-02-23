@@ -4,7 +4,7 @@ import { ComponentMeta } from '@storybook/react'
 import { useState } from 'react'
 
 export default {
-	title: 'Modal',
+	title: 'Shared/Modal',
 	component: Modal
 } as ComponentMeta<typeof Modal>
 

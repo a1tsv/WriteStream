@@ -1,8 +1,11 @@
 import { IComment } from '@entities/Comment'
+import { api } from '@shared/api'
+import { useAppDispatch } from '@shared/hooks'
 import { baseURL } from '@shared/utils/baseURL'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Comments } from '@widgets/Comments'
 import { rest } from 'msw'
+import { useEffect } from 'react'
 
 export default {
 	title: 'Widgets/Comments',
@@ -33,9 +36,16 @@ const items: IComment[] = [
 	}
 ]
 
-const Template: ComponentStory<typeof Comments> = () => (
-	<Comments items={items} />
-)
+const Template: ComponentStory<typeof Comments> = () => {
+	const dispatch = useAppDispatch()
+
+	useEffect(() => {
+		console.log('resetting api')
+		dispatch(api.util.resetApiState())
+	}, [])
+
+	return <Comments items={items} />
+}
 
 export const Authenticated = Template.bind({})
 Authenticated.parameters = {

@@ -9,7 +9,7 @@ import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
 export default {
-	title: 'DeleteUserModal',
+	title: 'Modals/DeleteUserModal',
 	component: DeleteUserModal,
 	parameters: {
 		msw: [

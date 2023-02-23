@@ -1,6 +1,5 @@
 import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
-import { DeleteBlogModal } from '@features/DeleteBlogModal'
 import { DeletePostModal } from '@features/DeletePostModal'
 import { Button } from '@shared/ui/Button'
 import { baseURL } from '@shared/utils/baseURL'
@@ -8,7 +7,7 @@ import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
 export default {
-	title: 'DeletePostModal',
+	title: 'Modals/DeletePostModal',
 	component: DeletePostModal,
 	parameters: {
 		msw: [

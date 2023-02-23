@@ -7,7 +7,7 @@ import {
 } from '@shared/ui/Table'
 
 export default {
-	title: 'Table'
+	title: 'Shared/Table'
 }
 
 export const Table = () => {

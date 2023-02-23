@@ -2,7 +2,7 @@ import { DeleteModal } from '@features/DeleteModal'
 import { ComponentMeta } from '@storybook/react'
 
 export default {
-	title: 'DeleteModal',
+	title: 'Modals/DeleteModal',
 	component: DeleteModal
 } as ComponentMeta<typeof DeleteModal>
 

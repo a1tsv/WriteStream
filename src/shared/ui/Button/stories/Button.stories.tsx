@@ -2,7 +2,7 @@ import { Button } from '@shared/ui/Button'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'Button',
+	title: 'Shared/Button',
 	component: Button
 } as ComponentMeta<typeof Button>
 

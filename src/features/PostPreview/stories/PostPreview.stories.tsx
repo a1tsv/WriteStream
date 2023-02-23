@@ -3,7 +3,7 @@ import { PostPreview } from '@features/PostPreview'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'PostPreview',
+	title: 'Features/PostPreview',
 	component: PostPreview,
 	decorators: [RouterDecorator]
 } as ComponentMeta<typeof PostPreview>

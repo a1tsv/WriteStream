@@ -6,7 +6,7 @@ import { MemoryRouter, Routes } from 'react-router'
 import { Route } from 'react-router-dom'
 
 export default {
-	title: 'Blogs',
+	title: 'Features/Blogs',
 	component: Blogs,
 	parameters: {
 		msw: [

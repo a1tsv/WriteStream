@@ -3,7 +3,7 @@ import { ComponentMeta } from '@storybook/react'
 import { useState } from 'react'
 
 export default {
-	title: 'Pagination',
+	title: 'Shared/Pagination',
 	component: Pagination
 } as ComponentMeta<typeof Pagination>
 

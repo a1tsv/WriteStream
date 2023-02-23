@@ -7,7 +7,7 @@ import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
 export default {
-	title: 'DeleteBlogModal',
+	title: 'Modals/DeleteBlogModal',
 	component: DeleteBlogModal,
 	parameters: {
 		msw: [

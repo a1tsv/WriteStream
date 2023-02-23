@@ -5,7 +5,7 @@ import { Button } from '@shared/ui/Button'
 import { ComponentMeta } from '@storybook/react'
 
 export default {
-	title: 'AddUserModal',
+	title: 'Modals/AddUserModal',
 	component: AddUserModal
 } as ComponentMeta<typeof AddUserModal>
 

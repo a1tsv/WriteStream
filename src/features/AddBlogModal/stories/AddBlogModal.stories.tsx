@@ -8,7 +8,7 @@ import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
 export default {
-	title: 'AddBlogModal',
+	title: 'Modals/AddBlogModal',
 	component: AddBlogModal,
 	parameters: {
 		msw: [
