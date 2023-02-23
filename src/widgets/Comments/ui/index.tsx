@@ -14,6 +14,7 @@ export const Comments: FC<ICommentsProps> = ({ items }) => {
 	const { isSuccess: isAuth } = useAuthMeQuery(
 		getItemFromLC('accessToken') as string
 	)
+
 	return (
 		<div>
 			<Typography variant={'title'} sx={{ marginBottom: '0.6rem' }}>

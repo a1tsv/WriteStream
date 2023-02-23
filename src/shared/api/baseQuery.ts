@@ -4,6 +4,7 @@ import {
 	fetchBaseQuery,
 	FetchBaseQueryError
 } from '@reduxjs/toolkit/dist/query/react'
+import { baseURL } from '@shared/utils/baseURL'
 import { getBearerToken } from '@shared/utils/getBearerToken'
 import { setItemToLC } from '@shared/utils/localStorage'
 import { removeItemFromLC } from '@shared/utils/localStorage/localStorage'
@@ -12,7 +13,7 @@ import { Mutex } from 'async-mutex'
 const mutex = new Mutex()
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'https://nest-js-eta.vercel.app/',
+	baseUrl: baseURL,
 	prepareHeaders: headers => {
 		const token = getBearerToken()
 		if (token) {

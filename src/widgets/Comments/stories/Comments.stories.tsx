@@ -1,0 +1,56 @@
+import { IComment } from '@entities/Comment'
+import { baseURL } from '@shared/utils/baseURL'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Comments } from '@widgets/Comments'
+import { rest } from 'msw'
+
+export default {
+	title: 'Widgets/Comments',
+	component: Comments,
+	parameters: {
+		msw: [
+			rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
+				ctx.json({})
+			})
+		]
+	}
+} as ComponentMeta<typeof Comments>
+
+const items: IComment[] = [
+	{
+		id: 'comment1',
+		content: 'This is the content of first comment',
+		userId: 'user1',
+		createdAt: '2021-01-01T00:00:00.000Z',
+		userLogin: 'user1'
+	},
+	{
+		id: 'comment2',
+		content: 'This is the content of second comment',
+		userId: 'user2',
+		createdAt: '2021-01-01T00:00:00.000Z',
+		userLogin: 'user2'
+	}
+]
+
+const Template: ComponentStory<typeof Comments> = () => (
+	<Comments items={items} />
+)
+
+export const Authenticated = Template.bind({})
+Authenticated.parameters = {
+	msw: [
+		rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
+			return res(ctx.status(200), ctx.json({}))
+		})
+	]
+}
+
+export const Unauthenticated = Template.bind({})
+Unauthenticated.parameters = {
+	msw: [
+		rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
+			return res(ctx.status(401))
+		})
+	]
+}
