@@ -51,7 +51,13 @@ export const Authenticated = Template.bind({})
 Authenticated.parameters = {
 	msw: [
 		rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
-			return res(ctx.status(200), ctx.json({}))
+			return res(
+				ctx.json({
+					email: 'user2@gmail.com',
+					login: 'user2',
+					userId: 'user2'
+				})
+			)
 		})
 	]
 }

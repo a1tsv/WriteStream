@@ -47,10 +47,9 @@ describe('Blogs page', () => {
 			rest.get(`${baseURL}/blogs`, (req, res, ctx) => {
 				const searchTermName = req.url.searchParams.get('searchNameTerm')
 				if (searchTermName) {
-					const searchItems = mockServerResponse.items.filter(item =>
+					mockServerResponse.items = mockServerResponse.items.filter(item =>
 						item.name.toLowerCase().includes(searchTermName.toLowerCase())
 					)
-					mockServerResponse.items = searchItems
 				}
 				return res(ctx.json(mockServerResponse))
 			})

@@ -17,7 +17,6 @@ import { Button } from '@shared/ui/Button'
 import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
 import { formatData } from '@shared/utils/formatData'
-import { getItemFromLC } from '@shared/utils/localStorage'
 import { ChangeEvent, FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 
@@ -34,8 +33,7 @@ export const Comment: FC<IComment> = ({
 	// Api calls
 	const [updateComment] = useUpdateCommentMutation()
 
-	const accessToken = getItemFromLC('accessToken') as string
-	const { data } = useAuthMeQuery(accessToken)
+	const { data } = useAuthMeQuery()
 
 	// Vars
 	const commentTextRef = useRef<HTMLParagraphElement>(null)

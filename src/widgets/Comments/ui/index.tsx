@@ -2,7 +2,6 @@ import { Comment, IComment } from '@entities/Comment'
 import { useAuthMeQuery } from '@entities/User/api/user.api'
 import { AddCommentForm } from '@features/AddCommentForm'
 import { Typography } from '@shared/ui/Typography'
-import { getItemFromLC } from '@shared/utils/localStorage'
 import { CommentsItems } from '@widgets/Comments/ui/StyledComments'
 import { FC } from 'react'
 
@@ -11,9 +10,9 @@ interface ICommentsProps {
 }
 
 export const Comments: FC<ICommentsProps> = ({ items }) => {
-	const { isSuccess: isAuth } = useAuthMeQuery(
-		getItemFromLC('accessToken') as string
-	)
+	const { isSuccess: isAuth, data } = useAuthMeQuery()
+
+	console.log(isAuth, data)
 
 	return (
 		<div>

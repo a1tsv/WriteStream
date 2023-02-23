@@ -21,13 +21,10 @@ export const userApi = api.injectEndpoints({
 				}
 			}
 		}),
-		authMe: build.query<IAuthMeResponse, string>({
-			query: token => ({
+		authMe: build.query<IAuthMeResponse, void>({
+			query: () => ({
 				url: '/auth/me',
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${token}`
-				}
+				method: 'GET'
 			}),
 			providesTags: ['Auth']
 		}),
