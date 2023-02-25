@@ -6,7 +6,8 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { baseURL } from '@shared/utils/baseURL'
 import { getBearerToken } from '@shared/utils/getBearerToken'
-import { removeItemFromLC, setItemToLC } from '@shared/utils/localStorage'
+import { setItemToLC } from '@shared/utils/localStorage'
+import { removeItemFromLC } from '@shared/utils/localStorage/localStorage'
 import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
