@@ -1,6 +1,6 @@
 import { server } from '@app/tests/msw'
 import { PostPage } from '@pages/Post'
-import { userAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
@@ -10,7 +10,7 @@ import { rest } from 'msw'
 import { Route, Routes } from 'react-router'
 
 describe('Post', () => {
-	const storeRef = setupApiStore(userAPI, {})
+	const storeRef = setupApiStore(api, {})
 
 	beforeEach(() => {
 		server.use(
@@ -45,7 +45,7 @@ describe('Post', () => {
 						<Routes>
 							<Route path='/posts' element={<div>Posts</div>} />
 						</Routes>
-						<PostPage />
+						<Route path='/posts/:id' element={<PostPage />} />
 					</>
 				)
 			}),

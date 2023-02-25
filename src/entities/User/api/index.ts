@@ -1,13 +1,10 @@
 export {
-	userAdminApi,
+	userApi,
+	useCreateUserMutation,
 	useDeleteUserMutation,
+	useRefreshTokenMutation,
 	useGetUsersQuery,
-	useCreateUserMutation
-} from './admin'
-
-export {
-	useLoginMutation,
-	useLazyAuthMeQuery,
 	useAuthMeQuery,
-	userUserApi
-} from './user'
+	useLazyAuthMeQuery,
+	useLoginMutation
+} from './user.api'

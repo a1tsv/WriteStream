@@ -3,8 +3,11 @@ import { useAuthMeQuery } from '@entities/User'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 
 export const PreloaderProvider: FC<PropsWithChildren> = ({ children }) => {
+	// Local States
 	const [isLoading, setIsLoading] = useState(true)
-	const { status } = useAuthMeQuery('')
+
+	// Api requests`
+	const { status } = useAuthMeQuery()
 
 	useEffect(() => {
 		if (status !== 'pending') setIsLoading(false)

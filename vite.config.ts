@@ -5,6 +5,9 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react()],
+	server: {
+		port: 5000
+	},
 	resolve: {
 		alias: {
 			'@public': path.resolve(__dirname, './public/'),
@@ -15,8 +18,5 @@ export default defineConfig({
 			'@widgets': path.resolve(__dirname, './src/widgets'),
 			'@shared': path.resolve(__dirname, './src/shared')
 		}
-	},
-	server: {
-		port: 3000
 	}
 })

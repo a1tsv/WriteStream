@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useState } from 'react'
 
 export default {
-	title: 'ComboBox',
+	title: 'Shared/ComboBox',
 	component: ComboBox
 } as ComponentMeta<typeof ComboBox>
 

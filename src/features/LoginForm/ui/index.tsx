@@ -1,4 +1,4 @@
-import { useLazyAuthMeQuery, useLoginMutation } from '@entities/User'
+import { useLoginMutation } from '@entities/User'
 import { ILoginFields } from '@entities/User/model'
 import { rules } from '@features/LoginForm/model'
 import {
@@ -17,7 +17,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 export const LoginForm = () => {
 	// API
 	const [login, { isLoading, error, data: loginResponse }] = useLoginMutation()
-	const [authMe, { isSuccess }] = useLazyAuthMeQuery()
 
 	// Form config
 	const {
@@ -34,7 +33,7 @@ export const LoginForm = () => {
 	})
 
 	const onSubmit: SubmitHandler<ILoginFields> = async fieldsData => {
-		const res = await login(fieldsData)
+		await login(fieldsData)
 	}
 
 	useEffect(() => {

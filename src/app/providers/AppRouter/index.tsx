@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router'
 import { Navigate } from 'react-router-dom'
 
 export const AppRouter: FC<PropsWithChildren> = () => {
-	// const { isSuccess: isAuth } = useAuthMeQuery()
 	const routes = useGetRoutes()
 
 	return (

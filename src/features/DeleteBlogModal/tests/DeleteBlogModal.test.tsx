@@ -2,7 +2,7 @@ import { server } from '@app/tests/msw'
 import { IBlog } from '@entities/Blog'
 import { DeleteBlogModal } from '@features/DeleteBlogModal'
 import { Transition } from '@headlessui/react'
-import { adminAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -27,7 +27,7 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => ({
 }))
 
 describe('DeleteBlogModal', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+	const storeRef = setupApiStore(api, {})
 
 	let items: IBlog[]
 
@@ -44,8 +44,7 @@ describe('DeleteBlogModal', () => {
 		]
 
 		server.use(
-			rest.delete(`${baseURL}/blogs/*`, (req, res, ctx) => {
-				console.log('in blogs')
+			rest.delete(`${baseURL}/blogs/1`, (req, res, ctx) => {
 				const index = items.findIndex(item => item.id === '1')
 				items.splice(index, 1)
 				return res(ctx.json({}))

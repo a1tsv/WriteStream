@@ -7,7 +7,7 @@ import { MemoryRouter, Routes } from 'react-router'
 import { Route } from 'react-router-dom'
 
 export default {
-	title: 'Users',
+	title: 'Pages/Users',
 	component: UsersPage,
 	parameters: {
 		msw: [

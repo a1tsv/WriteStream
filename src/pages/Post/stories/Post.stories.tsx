@@ -7,7 +7,7 @@ import { MemoryRouter, Routes } from 'react-router'
 import { Route } from 'react-router-dom'
 
 export default {
-	title: 'Post',
+	title: 'Pages/Post',
 	component: PostPage,
 	parameters: {
 		msw: [

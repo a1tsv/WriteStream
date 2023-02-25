@@ -1,6 +1,6 @@
 export {
-	useGetCommentQuery,
-	useDeleteCommentMutation,
 	commentApi,
-	useUpdateCommentMutation
+	useUpdateCommentMutation,
+	useDeleteCommentMutation,
+	useGetCommentQuery
 } from './comment.api'

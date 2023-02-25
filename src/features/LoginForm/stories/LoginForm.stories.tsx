@@ -4,7 +4,7 @@ import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
 export default {
-	title: 'LoginForm',
+	title: 'Features/LoginForm',
 	component: LoginForm,
 	parameters: {
 		msw: [

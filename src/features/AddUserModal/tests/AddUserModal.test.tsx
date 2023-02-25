@@ -2,7 +2,7 @@ import { server } from '@app/tests/msw'
 import { IUser } from '@entities/User'
 import { AddUserModal } from '@features/AddUserModal'
 import { Transition } from '@headlessui/react'
-import { adminAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -19,7 +19,7 @@ jest.mock('@app/providers/ModalsProvider', () => {
 })
 
 describe('AddUserModal', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+	const storeRef = setupApiStore(api, {})
 	const invalidData = Array(31)
 		.fill(0)
 		.map(() => 'a')

@@ -2,7 +2,7 @@ import { Search } from '@shared/ui/Search'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'Search',
+	title: 'Shared/Search',
 	component: Search
 } as ComponentMeta<typeof Search>
 

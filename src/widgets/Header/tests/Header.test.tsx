@@ -2,7 +2,7 @@ import { getItemFromLC, setItemToLC } from '@shared/utils/localStorage'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Header } from '@widgets/Header'
 
-jest.mock('@shared/utils/localStorage/', () => ({
+jest.mock('@shared/utils/localStorage', () => ({
 	getItemFromLC: jest.fn(() => 'light'),
 	setItemToLC: jest.fn()
 }))

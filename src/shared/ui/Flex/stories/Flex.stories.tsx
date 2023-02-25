@@ -2,7 +2,7 @@ import { Flex } from '@shared/ui/Flex'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'Flex block',
+	title: 'Shared/Flex block',
 	component: Flex
 } as ComponentMeta<typeof Flex>
 

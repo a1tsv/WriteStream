@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useState } from 'react'
 
 export default {
-	title: 'Dropdown',
+	title: 'Shared/Dropdown',
 	components: Dropdown
 } as ComponentMeta<typeof Dropdown>
 

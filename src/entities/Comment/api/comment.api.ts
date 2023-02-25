@@ -1,7 +1,7 @@
 import { IComment } from '@entities/Comment'
-import { userAPI } from '@shared/api'
+import { api } from '@shared/api'
 
-export const commentApi = userAPI.injectEndpoints({
+export const commentApi = api.injectEndpoints({
 	endpoints: build => ({
 		getComment: build.query<IComment, string>({
 			query: id => `comments/${id}`
@@ -11,13 +11,15 @@ export const commentApi = userAPI.injectEndpoints({
 				url: `comments/${body.id}`,
 				method: 'PUT',
 				body
-			})
+			}),
+			invalidatesTags: ['Comments']
 		}),
 		deleteComment: build.mutation<IComment, string>({
 			query: id => ({
 				url: `comments/${id}`,
 				method: 'DELETE'
-			})
+			}),
+			invalidatesTags: ['Comments']
 		})
 	})
 })

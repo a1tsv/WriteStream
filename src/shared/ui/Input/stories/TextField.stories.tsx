@@ -2,7 +2,7 @@ import { TextField } from '@shared/ui/Input'
 import { ComponentMeta } from '@storybook/react'
 
 export default {
-	title: 'TextField',
+	title: 'Shared/TextField',
 	component: TextField
 } as ComponentMeta<typeof TextField>
 

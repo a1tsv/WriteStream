@@ -3,7 +3,7 @@ import { RouterDecorator } from '@app/providers/RouterDecorator'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'Menu Link',
+	title: 'Shared/Menu Link',
 	component: MenuLink,
 	decorators: [RouterDecorator]
 } as ComponentMeta<typeof MenuLink>

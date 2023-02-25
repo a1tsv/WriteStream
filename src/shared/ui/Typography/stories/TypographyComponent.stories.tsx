@@ -2,7 +2,7 @@ import { Typography } from '@shared/ui/Typography'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'Typography',
+	title: 'Shared/Typography',
 	component: Typography
 } as ComponentMeta<typeof Typography>
 

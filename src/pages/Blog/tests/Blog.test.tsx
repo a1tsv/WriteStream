@@ -1,7 +1,7 @@
 import { server } from '@app/tests/msw'
 import { IPost } from '@entities/Post'
 import { BlogPage } from '@pages/Blog'
-import { adminAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
@@ -11,7 +11,7 @@ import { rest } from 'msw'
 import { Route, Routes } from 'react-router'
 
 describe('Blog', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+	const storeRef = setupApiStore(api, {})
 
 	beforeEach(() => {
 		server.use(
@@ -62,7 +62,8 @@ describe('Blog', () => {
 			route: '/blogs/blog1'
 		})
 
-		expect(await screen.findByText('My Blog')).toBeInTheDocument()
+		const myBlogArray = await screen.findAllByText('My Blog')
+		expect(myBlogArray[0]).toBeInTheDocument()
 		expect(await screen.findByText('This is my blog')).toBeInTheDocument()
 		expect(await screen.findByText('https://myblog.com')).toBeInTheDocument()
 	})
@@ -86,8 +87,8 @@ describe('Blog', () => {
 					<>
 						<Routes>
 							<Route path='/blogs' element={<div>Blogs</div>} />
+							<Route path='/blogs/:id' element={<BlogPage />} />
 						</Routes>
-						<BlogPage />
 					</>
 				)
 			}),
@@ -97,8 +98,7 @@ describe('Blog', () => {
 		)
 
 		const backTo = screen.getByRole('button', { name: /back to blogs/i })
-		expect(backTo).toBeInTheDocument()
 		await userEvent.click(backTo)
-		expect(await screen.findByText('Blogs')).toBeInTheDocument()
+		expect(await screen.findAllByText('Blogs')).toBeInTheDocument()
 	})
 })

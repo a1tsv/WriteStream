@@ -2,7 +2,7 @@ import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleto
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'PostPreviewSkeleton',
+	title: 'Features/PostPreviewSkeleton',
 	component: PostPreviewSkeleton
 } as ComponentMeta<typeof PostPreviewSkeleton>
 

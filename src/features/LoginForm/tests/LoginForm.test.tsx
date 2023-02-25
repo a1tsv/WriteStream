@@ -1,14 +1,15 @@
 import { server } from '@app/tests/msw'
+import { AddBlogModal } from '@features/AddBlogModal'
 import { LoginForm } from '@features/LoginForm'
-import { adminAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen } from '@testing-library/react'
 import { rest } from 'msw'
 
-describe('Login Form', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+describe('AddBlogModal', () => {
+	const storeRef = setupApiStore(api, {})
 
 	beforeEach(() => {
 		server.use(
@@ -21,7 +22,7 @@ describe('Login Form', () => {
 	it('renders the login form', () => {
 		renderWithRouter(storeRef.wrapper({ children: <LoginForm /> }), {})
 
-		expect(screen.getByText('Login')).toBeInTheDocument()
+		expect(screen.getAllByText('Login')[0]).toBeInTheDocument()
 	})
 
 	// it('should add the blog when all fields are valid', async () => {

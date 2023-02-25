@@ -7,7 +7,7 @@ import { ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
 export default {
-	title: 'DeleteCommentModal',
+	title: 'Modals/DeleteCommentModal',
 	component: DeleteCommentModal,
 	parameters: {
 		msw: [

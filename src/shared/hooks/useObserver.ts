@@ -9,12 +9,10 @@ export const useObserver = (
 	const observer = useRef<IntersectionObserver | null>(null)
 
 	useEffect(() => {
-		console.log('useEffect', isLoading, canBeLoaded, ref.current)
 		if (isLoading || !ref.current) return
 		if (observer.current) observer.current.disconnect()
 		const callWhenIntersect = ([entry]: IntersectionObserverEntry[]) => {
 			if (entry.isIntersecting && canBeLoaded) {
-				console.log(canBeLoaded, 'canBeLoaded')
 				callback()
 			}
 		}

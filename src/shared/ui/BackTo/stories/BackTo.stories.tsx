@@ -3,7 +3,7 @@ import { BackTo } from '@shared/ui/BackTo'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
-	title: 'BackTo',
+	title: 'Shared/BackTo',
 	component: BackTo,
 	decorators: [RouterDecorator]
 } as ComponentMeta<typeof BackTo>

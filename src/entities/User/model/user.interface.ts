@@ -10,7 +10,7 @@ export interface ILoginFields {
 	password: string
 }
 
-export interface ILoginResponse {
+export interface ITokenResponse {
 	accessToken: string
 }
 
@@ -18,4 +18,8 @@ export interface IAddUserFields {
 	login: string
 	email: string
 	password: string
+}
+
+export type IAuthMeResponse = Omit<IAddUserFields, 'password'> & {
+	userId: string
 }

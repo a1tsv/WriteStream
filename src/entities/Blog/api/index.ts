@@ -1,8 +1,9 @@
-export { blogsUserApi, useGetBlogsQuery, useGetBlogQuery } from './user'
 export {
-	blogsAdminApi,
+	blogsApi,
+	useGetBlogsQuery,
+	useGetBlogQuery,
 	useDeleteBlogMutation,
-	useUpdateBlogMutation,
-	useCreateBlogMutation
-} from './admin'
+	useCreateBlogMutation,
+	useUpdateBlogMutation
+} from './blogs.api'
 export { type IBlog } from './blog.interface'

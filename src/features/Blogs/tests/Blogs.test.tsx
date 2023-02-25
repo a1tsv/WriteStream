@@ -2,7 +2,7 @@ import { Blogs } from '../ui'
 import { Modals } from '@app/providers/ModalsProvider'
 import { server } from '@app/tests/msw/server'
 import { IBlog } from '@entities/Blog/api/blog.interface'
-import { adminAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
@@ -13,7 +13,7 @@ import { rest } from 'msw'
 import { Route, Routes } from 'react-router'
 
 describe('Blogs page', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+	const storeRef = setupApiStore(api, {})
 
 	const items: IBlog[] = [
 		{
@@ -47,10 +47,9 @@ describe('Blogs page', () => {
 			rest.get(`${baseURL}/blogs`, (req, res, ctx) => {
 				const searchTermName = req.url.searchParams.get('searchNameTerm')
 				if (searchTermName) {
-					const searchItems = mockServerResponse.items.filter(item =>
+					mockServerResponse.items = mockServerResponse.items.filter(item =>
 						item.name.toLowerCase().includes(searchTermName.toLowerCase())
 					)
-					mockServerResponse.items = searchItems
 				}
 				return res(ctx.json(mockServerResponse))
 			})

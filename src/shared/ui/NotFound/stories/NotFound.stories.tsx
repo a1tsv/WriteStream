@@ -3,7 +3,7 @@ import { NotFound } from '@shared/ui/NotFound'
 import { ComponentMeta } from '@storybook/react'
 
 export default {
-	title: 'NotFound',
+	title: 'Shared/NotFound',
 	decorators: [RouterDecorator],
 	component: NotFound
 } as ComponentMeta<typeof NotFound>

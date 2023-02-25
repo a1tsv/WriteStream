@@ -1,9 +1,8 @@
 import { server } from '@app/tests/msw'
 import { IBlog } from '@entities/Blog'
-import { IBlogUpdateRequest } from '@entities/Blog/api/blog.interface'
 import { AddBlogModal } from '@features/AddBlogModal'
 import { Transition } from '@headlessui/react'
-import { adminAPI } from '@shared/api'
+import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -27,7 +26,7 @@ jest.mock('@app/providers/ModalsProvider/model/modals.data.ts', () => {
 })
 
 describe('Update mode', () => {
-	const storeRef = setupApiStore(adminAPI, {})
+	const storeRef = setupApiStore(api, {})
 
 	const items: IBlog[] = [
 		{
@@ -43,12 +42,8 @@ describe('Update mode', () => {
 	beforeEach(() => {
 		server.use(
 			rest.put(`${baseURL}/blogs/*`, (req, res, ctx) => {
-				console.log('intercepting')
-				const { id } = req.body as IBlogUpdateRequest
-				const index = items.findIndex(item => item.id === id)
-				items[index] = req.body as IBlog
-				console.log(items)
-				return res(ctx.status(200), ctx.json({}))
+				items[0] = req.body as IBlog
+				return res(ctx.json({}))
 			})
 		)
 	})

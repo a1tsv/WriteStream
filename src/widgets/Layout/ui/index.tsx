@@ -9,14 +9,8 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
 	const [isSideBarOpen, setIsSidebarOpen] = useState(false)
 
 	const changeSideBarState = () => setIsSidebarOpen(p => !p)
-	const queryLoading = useAllSelector(
-		state =>
-			Object.values(state.adminAPI.queries).some(
-				entry => entry?.status == 'pending'
-			) ||
-			Object.values(state.userAPI.queries).some(
-				entry => entry?.status == 'pending'
-			)
+	const queryLoading = useAllSelector(state =>
+		Object.values(state.api.queries).some(entry => entry?.status == 'pending')
 	)
 
 	return (

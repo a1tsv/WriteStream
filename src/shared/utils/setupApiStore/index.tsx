@@ -24,7 +24,7 @@ export function withProvider(store: Store<any>) {
 
 export function setupApiStore<
 	A extends {
-		reducerPath: 'adminAPI' | 'userAPI'
+		reducerPath: 'api'
 		reducer: Reducer<any, any>
 		middleware: Middleware
 		util: { resetApiState(): any }

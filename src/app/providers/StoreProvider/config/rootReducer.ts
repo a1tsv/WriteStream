@@ -1,7 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import { adminAPI, userAPI } from '@shared/api'
+import { api } from '@shared/api'
 
 export const rootReducer = combineReducers({
-	[adminAPI.reducerPath]: adminAPI.reducer,
-	[userAPI.reducerPath]: userAPI.reducer
+	[api.reducerPath]: api.reducer
 })
