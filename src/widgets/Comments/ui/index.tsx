@@ -14,8 +14,6 @@ export const Comments: FC<ICommentsProps> = ({ items }) => {
 
 	console.log(isAuth, data)
 
-	console.log(items)
-
 	return (
 		<div>
 			<Typography variant={'title'} sx={{ marginBottom: '0.6rem' }}>

@@ -15,6 +15,7 @@ export const AddCommentForm = () => {
 
 	// Local states
 	const [commentContent, setCommentContent] = useState('')
+	const commentIsShort = commentContent.length < 20
 
 	// Handlers
 	const handleCreateComment = async () => {
@@ -39,7 +40,7 @@ export const AddCommentForm = () => {
 			/>
 			<Button
 				onClick={handleCreateComment}
-				disabled={creatingComment}
+				disabled={creatingComment || commentIsShort}
 				variant={'primary'}
 				sx={{ marginTop: '1rem', alignSelf: 'flex-end' }}
 			>
