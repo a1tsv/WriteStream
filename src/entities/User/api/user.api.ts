@@ -3,13 +3,13 @@ import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
-import { setItemToLC } from '@shared/utils/localStorage'
 import { getBearerToken } from '@shared/utils/getBearerToken'
+import { setItemToLC } from '@shared/utils/localStorage'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
 		authMe: build.query<IAuthMeResponse, string | void>({
-			query: (data) => ({
+			query: data => ({
 				url: '/auth/me',
 				method: 'GET',
 				headers: {
@@ -28,7 +28,7 @@ export const userApi = api.injectEndpoints({
 				const res = await queryFulfilled
 				if (res.data) {
 					setItemToLC('accessToken', res.data.accessToken)
-					dispatch(userApi.endpoints.authMe.initiate())
+					await dispatch(userApi.endpoints.authMe.initiate())
 				}
 			}
 		}),
@@ -40,7 +40,7 @@ export const userApi = api.injectEndpoints({
 		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
 			query: data => ({
-				url: '/users',
+				url: '/sa/users',
 				method: 'POST',
 				body: data,
 				headers: getAdminHeaders()
@@ -58,7 +58,7 @@ export const userApi = api.injectEndpoints({
 		}),
 		deleteUser: build.mutation<void, string>({
 			query: id => ({
-				url: `/users/${id}`,
+				url: `/sa/users/${id}`,
 				method: 'DELETE',
 				headers: getAdminHeaders()
 			}),

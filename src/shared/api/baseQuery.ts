@@ -13,9 +13,13 @@ const mutex = new Mutex()
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: baseURL,
+	// headers: {
+	// 	Authorization: getBearerToken() ?? ''
+	// }
 	prepareHeaders: headers => {
+		const alreadyHasHeader = headers.has('Authorization')
 		const token = getBearerToken()
-		if (token) {
+		if (token && !alreadyHasHeader) {
 			headers.set('Authorization', token)
 		}
 		return headers

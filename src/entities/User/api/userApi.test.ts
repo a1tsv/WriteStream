@@ -42,7 +42,7 @@ describe('UserApi', () => {
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/users?`)
+		expect(url).toBe(`${baseURL}/sa/users?`)
 		expect(method).toBe('GET')
 	})
 
@@ -60,7 +60,7 @@ describe('UserApi', () => {
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/users`)
+		expect(url).toBe(`${baseURL}/sa/users`)
 		expect(method).toBe('POST')
 	})
 
@@ -72,7 +72,7 @@ describe('UserApi', () => {
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/users/1`)
+		expect(url).toBe(`${baseURL}/sa/users/1`)
 		expect(method).toBe('DELETE')
 	})
 
