@@ -45,14 +45,19 @@ describe('post api', () => {
 	})
 
 	it('creates a post', async () => {
-		const post = { id: '1', title: 'Post 1', content: 'This is post 1' }
+		const post = {
+			id: '1',
+			title: 'Post 1',
+			content: 'This is post 1',
+			blogId: '1'
+		}
 		fetchMock.mockResponseOnce(JSON.stringify({ data: post }))
 		await store.dispatch(api.endpoints.createPost.initiate(post))
 		// expect(fetchMock).toHaveBeenCalledTimes(1)
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/posts`)
+		expect(url).toBe(`${baseURL}/blogger/blogs/1/posts`)
 		expect(method).toBe('POST')
 	})
 

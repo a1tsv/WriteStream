@@ -5,9 +5,6 @@ import { prepareRoutes } from '@shared/utils/prepareRoutes'
 
 export const useGetRoutes = () => {
 	const { isSuccess: isAuth } = useAuthMeQuery()
-	console.log('getting new routes');
-
-
 
 	return [...prepareRoutes(isAuth), ...publicRoutes]
 }

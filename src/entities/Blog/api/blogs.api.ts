@@ -28,19 +28,15 @@ export const blogsApi = api.injectEndpoints({
 		}),
 		deleteBlog: build.mutation<void, string>({
 			query: id => ({
-				url: `/blogs/${id}`,
+				url: `/blogger/blogs/${id}`,
 				method: 'DELETE',
-				body: {
-					username: 'admin',
-					password: 'qwerty'
-				},
 				headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Blogs', 'Blog']
 		}),
 		createBlog: build.mutation<IBlog, IBlogCreateRequestModel>({
 			query: data => ({
-				url: '/blogs',
+				url: '/blogger/blogs',
 				method: 'POST',
 				body: data,
 				headers: getAdminHeaders()
@@ -50,7 +46,7 @@ export const blogsApi = api.injectEndpoints({
 		}),
 		updateBlog: build.mutation<IBlog, IBlogUpdateRequest>({
 			query: data => ({
-				url: `/blogs/${data.id}`,
+				url: `/blogger/blogs/${data.id}`,
 				method: 'PUT',
 				body: data,
 				headers: getAdminHeaders()

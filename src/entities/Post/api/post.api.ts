@@ -23,12 +23,12 @@ export const postApi = api.injectEndpoints({
 				method: 'GET'
 			})
 		}),
-		createPost: build.mutation<IPost, Partial<IPost>>({
+		createPost: build.mutation<IPost, IUpdatePostModel>({
 			query: data => ({
-				url: '/posts',
+				url: `/blogger/blogs/${data.blogId}/posts`,
 				method: 'POST',
-				body: data,
-				headers: getAdminHeaders()
+				body: data
+				// headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),

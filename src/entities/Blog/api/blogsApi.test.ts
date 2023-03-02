@@ -62,7 +62,7 @@ describe('blogsApi', () => {
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/blogs/1`)
+		expect(url).toBe(`${baseURL}/blogger/blogs/1`)
 		expect(method).toBe('DELETE')
 	})
 
@@ -84,7 +84,7 @@ describe('blogsApi', () => {
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/blogs`)
+		expect(url).toBe(`${baseURL}/blogger/blogs`)
 		expect(method).toBe('POST')
 	})
 
@@ -107,7 +107,7 @@ describe('blogsApi', () => {
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/blogs/1`)
+		expect(url).toBe(`${baseURL}/blogger/blogs/1`)
 		expect(method).toBe('PUT')
 	})
 })

@@ -6,6 +6,7 @@ import { PostsPage } from '@pages/Posts'
 import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
+import { Flex } from '@shared/ui/Flex'
 import { useMemo } from 'react'
 import { Navigate, useParams } from 'react-router'
 
@@ -28,8 +29,12 @@ export const BlogPage = () => {
 
 	return (
 		<>
-			<BreadCrumbs items={breadcrumbs} />
-			<BackTo to={'/blogs'} text={'Back to blogs'} />
+			<Flex sx={{ marginBottom: '0.8rem' }}>
+				<BreadCrumbs items={breadcrumbs} />
+			</Flex>
+			<Flex sx={{ marginBottom: '1.2rem' }}>
+				<BackTo to={'/blogs'} text={'Back to blogs'} />
+			</Flex>
 			{isLoading ? (
 				<BlogSkeleton count={1} />
 			) : (
