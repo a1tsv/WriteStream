@@ -1,5 +1,10 @@
 import { IComment } from '@entities/Comment'
-import { IPost, IUpdatePostModel } from '@entities/Post/api/post.interface'
+import {
+	ICreatePostModel,
+	IDeletePostModel,
+	IPost,
+	IUpdatePostModel
+} from '@entities/Post/api/post.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
@@ -23,7 +28,7 @@ export const postApi = api.injectEndpoints({
 				method: 'GET'
 			})
 		}),
-		createPost: build.mutation<IPost, IUpdatePostModel>({
+		createPost: build.mutation<IPost, ICreatePostModel>({
 			query: data => ({
 				url: `/blogger/blogs/${data.blogId}/posts`,
 				method: 'POST',
@@ -34,18 +39,22 @@ export const postApi = api.injectEndpoints({
 		}),
 		updatePost: build.mutation<IPost, IUpdatePostModel>({
 			query: data => ({
-				url: `/posts/${data.id}`,
+				url: `/blogger/blogs/${data.blogId}/posts/${data.id}`,
 				method: 'PUT',
-				body: data,
-				headers: getAdminHeaders()
+				body: {
+					shortDescription: data.shortDescription,
+					title: data.title,
+					content: data.content
+				}
+				// headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),
-		deletePost: build.mutation<IPost, string>({
-			query: id => ({
-				url: `/posts/${id}`,
-				method: 'DELETE',
-				headers: getAdminHeaders()
+		deletePost: build.mutation<IPost, IDeletePostModel>({
+			query: data => ({
+				url: `blogger/blogs/${data.blogId}/posts/${data.id}`,
+				method: 'DELETE'
+				// headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),

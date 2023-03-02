@@ -1,14 +1,15 @@
 import { useGetModalProps } from '@app/providers/ModalsProvider/hooks'
-import { useDeletePostMutation } from '@entities/Post/api'
+import { IDeletePostModel, useDeletePostMutation } from '@entities/Post/api'
 import { DeleteModal } from '@features/DeleteModal'
 
 export const DeletePostModal = () => {
 	const { modalProps, isOpen, closeModal } = useGetModalProps()
-	const { title, id } = modalProps.post || {}
+	const { title, id, blogId } = modalProps.post || {}
 	const [deletePost, { isLoading }] = useDeletePostMutation()
 
 	const deletePostHandler = async () => {
-		await deletePost(id as string)
+		const config: IDeletePostModel = { id, blogId }
+		await deletePost(config)
 		closeModal()
 	}
 

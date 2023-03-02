@@ -8,4 +8,9 @@ export {
 	useGetCommentsQuery,
 	useCreateCommentMutation
 } from './post.api'
-export { type IPost, type IUpdatePostModel } from './post.interface'
+export {
+	type IPost,
+	type IUpdatePostModel,
+	type ICreatePostModel,
+	type IDeletePostModel
+} from './post.interface'

@@ -11,6 +11,8 @@ export interface IPost {
 }
 
 export type IUpdatePostModel = Omit<IPost, 'blogName' | 'createdAt'>
+export type ICreatePostModel = Omit<IUpdatePostModel, 'id'>
+export type IDeletePostModel = Pick<IPost, 'id' | 'blogId'>
 
 export interface IUpdatePostFields {
 	title: string

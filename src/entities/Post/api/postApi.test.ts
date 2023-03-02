@@ -1,5 +1,9 @@
 import { postApi } from './post.api'
-import { IUpdatePostModel } from '@entities/Post/api/post.interface'
+import {
+	ICreatePostModel,
+	IDeletePostModel,
+	IUpdatePostModel
+} from '@entities/Post/api/post.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import fetchMock from 'jest-fetch-mock'
@@ -45,11 +49,11 @@ describe('post api', () => {
 	})
 
 	it('creates a post', async () => {
-		const post = {
-			id: '1',
+		const post: ICreatePostModel = {
 			title: 'Post 1',
 			content: 'This is post 1',
-			blogId: '1'
+			blogId: '1',
+			shortDescription: 'short description'
 		}
 		fetchMock.mockResponseOnce(JSON.stringify({ data: post }))
 		await store.dispatch(api.endpoints.createPost.initiate(post))
@@ -62,28 +66,33 @@ describe('post api', () => {
 	})
 
 	it('updates a post', async () => {
-		const post = { id: '1', title: 'Post 1', content: 'This is post 1' }
+		const post: IUpdatePostModel = {
+			id: '1',
+			title: 'Post 1',
+			content: 'This is post 1',
+			blogId: '1',
+			shortDescription: 'desc'
+		}
 		fetchMock.mockResponseOnce(JSON.stringify({ data: post }))
-		await store.dispatch(
-			api.endpoints.updatePost.initiate(post as IUpdatePostModel)
-		)
+		await store.dispatch(api.endpoints.updatePost.initiate(post))
 		// expect(fetchMock).toHaveBeenCalledTimes(1)
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/posts/1`)
+		expect(url).toBe(`${baseURL}/blogger/blogs/1/posts/1`)
 		expect(method).toBe('PUT')
 	})
 
 	it('deletes a post', async () => {
 		const post = { id: '1', title: 'Post 1', content: 'This is post 1' }
 		fetchMock.mockResponseOnce(JSON.stringify({ data: post }))
-		await store.dispatch(api.endpoints.deletePost.initiate('1'))
+		const deleteConfig: IDeletePostModel = { id: '1', blogId: '1' }
+		await store.dispatch(api.endpoints.deletePost.initiate(deleteConfig))
 		// expect(fetchMock).toHaveBeenCalledTimes(1)
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
-		expect(url).toBe(`${baseURL}/posts/1`)
+		expect(url).toBe(`${baseURL}/blogger/blogs/1/posts/1`)
 		expect(method).toBe('DELETE')
 	})
 
