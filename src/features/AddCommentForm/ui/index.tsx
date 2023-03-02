@@ -3,15 +3,27 @@ import { AddCommentFormWrapper } from '@features/AddCommentForm/ui/StyledAddComm
 import { Button } from '@shared/ui/Button'
 import { TextField } from '@shared/ui/Input'
 import { ChangeEvent, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const AddCommentForm = () => {
+	// Vars
+	const { id } = useParams()
+
 	// Api calls
-	const [createComment, { isLoading }] = useCreateCommentMutation()
+	const [createComment, { isLoading: creatingComment }] =
+		useCreateCommentMutation()
 
 	// Local states
 	const [commentContent, setCommentContent] = useState('')
 
 	// Handlers
+	const handleCreateComment = async () => {
+		if (id && commentContent) {
+			await createComment({ id, content: commentContent })
+			setCommentContent('')
+		}
+	}
+
 	const handleCommentContentChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setCommentContent(e.target.value)
 	}
@@ -26,7 +38,8 @@ export const AddCommentForm = () => {
 				sx={{ minHeight: '100px' }}
 			/>
 			<Button
-				disabled={isLoading}
+				onClick={handleCreateComment}
+				disabled={creatingComment}
 				variant={'primary'}
 				sx={{ marginTop: '1rem', alignSelf: 'flex-end' }}
 			>

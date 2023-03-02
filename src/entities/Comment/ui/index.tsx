@@ -21,12 +21,13 @@ import { ChangeEvent, FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 
 export const Comment: FC<IComment> = ({
-	userLogin,
-	userId,
 	id,
 	createdAt,
+	commentatorInfo,
 	content
 }) => {
+	console.log('USER DATA', commentatorInfo, createdAt, content)
+
 	// Modals
 	const { showModal } = useModalContext()
 
@@ -36,6 +37,7 @@ export const Comment: FC<IComment> = ({
 	const { data } = useAuthMeQuery()
 
 	// Vars
+	const { userId, userLogin } = commentatorInfo
 	const commentTextRef = useRef<HTMLParagraphElement>(null)
 	const commentTextFieldRef = useRef<HTMLInputElement>(null)
 	const isCurrentUserOwner = data?.userId === userId

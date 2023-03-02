@@ -57,7 +57,7 @@ export const UsersPage: FC = () => {
 				<TableWrapper>
 					<UsersTableInfo />
 					{isItemsEmpty ? (
-						<NotFound label={'Users not found ☹️'} />
+						<NotFound label={'Users not found 😔'} />
 					) : (
 						<TableBody>
 							{isLoading && <UserTableSkeleton count={10} />}

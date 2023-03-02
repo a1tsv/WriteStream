@@ -97,7 +97,7 @@ export const Blogs = () => {
 			<BlogsItems>
 				{isLoading && <BlogSkeleton count={3} />}
 				{isItemsEmpty ? (
-					<NotFound label={'There is no blogs yet 😔'} />
+					<NotFound label={'Blogs not found 😔'} />
 				) : (
 					data?.items.map(blog => <Blog key={blog.id} blog={blog} />)
 				)}
