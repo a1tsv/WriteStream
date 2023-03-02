@@ -17,7 +17,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 export const LoginForm = () => {
 	// API
 	const [login, { isLoading, error, data: loginResponse }] = useLoginMutation()
-	const [authMe] = useLazyAuthMeQuery()
 
 	// Form config
 	const {
@@ -49,11 +48,6 @@ export const LoginForm = () => {
 		}
 	}, [error])
 
-	useEffect(() => {
-		if (loginResponse?.accessToken) {
-			authMe(`Bearer ${loginResponse?.accessToken}`)
-		}
-	}, [loginResponse])
 
 	return (
 		<LoginFormWrapper>

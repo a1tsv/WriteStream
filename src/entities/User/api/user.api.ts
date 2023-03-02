@@ -8,30 +8,29 @@ import { getBearerToken } from '@shared/utils/getBearerToken'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
+		authMe: build.query<IAuthMeResponse, string | void>({
+			query: (data) => ({
+				url: '/auth/me',
+				method: 'GET',
+				headers: {
+					Authorization: data ?? getBearerToken()
+				}
+			}),
+			providesTags: ['Auth']
+		}),
 		login: build.mutation<ITokenResponse, ILoginFields>({
 			query: data => ({
 				url: '/auth/login',
 				method: 'POST',
 				body: data
 			}),
-			// invalidatesTags: ['Auth'],
 			async onQueryStarted(data, { dispatch, queryFulfilled }) {
 				const res = await queryFulfilled
 				if (res.data) {
-					console.log('setting token TO LOCAL STORAGE');
 					setItemToLC('accessToken', res.data.accessToken)
+					dispatch(userApi.endpoints.authMe.initiate())
 				}
 			}
-		}),
-		authMe: build.query<IAuthMeResponse, string | void>({
-			query: (data) => ({
-				url: '/auth/me',
-				method: 'GET',
-				headers: {
-					Authorization: data ? data : getBearerToken()
-				}
-			}),
-			// providesTags: ['Auth']
 		}),
 		refreshToken: build.mutation<ITokenResponse, void>({
 			query: () => ({
