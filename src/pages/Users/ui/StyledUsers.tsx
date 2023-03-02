@@ -24,6 +24,9 @@ export const UsersTableLine = styled(TableLine)``
 export const UserHeaderItem = styled.div``
 
 export const UsersTableCell = styled.div`
+	display: flex;
+	align-items: center;
+
 	&:last-child {
 		display: flex;
 		justify-content: flex-end;

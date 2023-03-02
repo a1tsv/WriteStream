@@ -7,7 +7,6 @@ import {
 import { baseURL } from '@shared/utils/baseURL'
 import { getBearerToken } from '@shared/utils/getBearerToken'
 import { setItemToLC } from '@shared/utils/localStorage'
-import { removeItemFromLC } from '@shared/utils/localStorage/localStorage'
 import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
@@ -35,20 +34,11 @@ export const baseQueryWithReAuth: BaseQueryFn<
 		if (!mutex.isLocked()) {
 			const release = await mutex.acquire()
 			try {
-				const refreshResult = await baseQuery(
-					{
-						url: '/auth/refresh-token',
-						method: 'POST'
-					},
-					api,
-					extraOptions
-				)
+				const request = { url: '/auth/refresh-token', method: 'POST' }
+				const refreshResult = await baseQuery(request, api, extraOptions)
 				if (refreshResult.data) {
 					setItemToLC('accessToken', refreshResult.data)
 					await baseQuery(args, api, extraOptions)
-				} else {
-					removeItemFromLC('accessToken')
-					await baseQuery('/auth/me', api, extraOptions)
 				}
 			} finally {
 				release()

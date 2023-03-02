@@ -4,6 +4,7 @@ import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
 import { setItemToLC } from '@shared/utils/localStorage'
+import { getBearerToken } from '@shared/utils/getBearerToken'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -13,27 +14,30 @@ export const userApi = api.injectEndpoints({
 				method: 'POST',
 				body: data
 			}),
-			invalidatesTags: ['Auth'],
+			// invalidatesTags: ['Auth'],
 			async onQueryStarted(data, { dispatch, queryFulfilled }) {
 				const res = await queryFulfilled
 				if (res.data) {
+					console.log('setting token TO LOCAL STORAGE');
 					setItemToLC('accessToken', res.data.accessToken)
 				}
 			}
 		}),
-		authMe: build.query<IAuthMeResponse, void>({
-			query: () => ({
+		authMe: build.query<IAuthMeResponse, string | void>({
+			query: (data) => ({
 				url: '/auth/me',
-				method: 'GET'
+				method: 'GET',
+				headers: {
+					Authorization: data ? data : getBearerToken()
+				}
 			}),
-			providesTags: ['Auth']
+			// providesTags: ['Auth']
 		}),
 		refreshToken: build.mutation<ITokenResponse, void>({
 			query: () => ({
 				url: '/auth/refresh-token',
 				method: 'POST'
 			})
-			// invalidatesTags: ['Auth']
 		}),
 		createUser: build.mutation<IUser, IAddUserFields>({
 			query: data => ({
@@ -46,7 +50,7 @@ export const userApi = api.injectEndpoints({
 		}),
 		getUsers: build.query<IGetItemsResponse<IUser[]>, Partial<IGetItemsModel>>({
 			query: data => ({
-				url: '/users',
+				url: '/sa/users',
 				method: 'GET',
 				params: data,
 				headers: getAdminHeaders()
