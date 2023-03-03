@@ -6,8 +6,6 @@ import { Navigate } from 'react-router-dom'
 
 export const AppRouter: FC<PropsWithChildren> = () => {
 	const routes = useGetRoutes()
-	console.log('changing routes IN APP ROUTER', routes);
-
 
 	return (
 		<>

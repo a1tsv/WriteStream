@@ -30,3 +30,8 @@ export const LoginOffer = styled.div`
 	gap: ${rem(10)};
 	align-items: center;
 `
+export const LoginShowPassword = styled.div`
+	display: flex;
+	gap: ${rem(5)};
+	align-items: center;
+`

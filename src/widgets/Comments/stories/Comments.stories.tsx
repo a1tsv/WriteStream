@@ -40,7 +40,6 @@ const Template: ComponentStory<typeof Comments> = () => {
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		console.log('resetting api')
 		dispatch(api.util.resetApiState())
 	}, [])
 

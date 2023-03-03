@@ -10,7 +10,12 @@ import { FC, memo } from 'react'
 
 export const Dropdown: FC<IDropDownProps> = memo(
 	({ button, onChangeCb, items, selected, select, sx }) => {
-		const dropdownLabel = select ? selected || button : button
+		// Button configuration
+		const ButtonComponent = button
+		const DropdownButton = <ButtonComponent aria-label='dropdown button' />
+
+		// Vars
+		const dropdownLabel = select ? selected || DropdownButton : DropdownButton
 
 		return (
 			<div>

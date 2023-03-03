@@ -26,8 +26,6 @@ export const Comment: FC<IComment> = ({
 	commentatorInfo,
 	content
 }) => {
-	console.log('USER DATA', commentatorInfo, createdAt, content)
-
 	// Modals
 	const { showModal } = useModalContext()
 

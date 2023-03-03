@@ -2,12 +2,13 @@ import { useCreateCommentMutation } from '@entities/Post'
 import { AddCommentFormWrapper } from '@features/AddCommentForm/ui/StyledAddCommentForm'
 import { Button } from '@shared/ui/Button'
 import { TextField } from '@shared/ui/Input'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, MouseEvent } from 'react'
 import { useParams } from 'react-router-dom'
 
 export const AddCommentForm = () => {
 	// Vars
 	const { id } = useParams()
+	console.log('CURRENT ID IS', id)
 
 	// Api calls
 	const [createComment, { isLoading: creatingComment }] =
@@ -18,7 +19,8 @@ export const AddCommentForm = () => {
 	const commentIsShort = commentContent.length < 20
 
 	// Handlers
-	const handleCreateComment = async () => {
+	const handleCreateComment = async (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault()
 		if (id && commentContent) {
 			await createComment({ id, content: commentContent })
 			setCommentContent('')

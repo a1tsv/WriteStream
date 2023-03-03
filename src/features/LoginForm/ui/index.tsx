@@ -5,18 +5,22 @@ import {
 	LoginFields,
 	LoginFormWrapper,
 	LoginOffer,
+	LoginShowPassword,
 	LoginSignUp
 } from '@features/LoginForm/ui/StyledLoginForm'
+import { Switch } from '@headlessui/react'
 import { Button } from '@shared/ui/Button'
+import { Checkbox } from '@shared/ui/Checkbox'
+import { CheckBox } from '@shared/ui/Checkbox/ui'
 import { FormField, FormLayout } from '@shared/ui/FormLayout'
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
-import { useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const LoginForm = () => {
 	// API
-	const [login, { isLoading, error, data: loginResponse }] = useLoginMutation()
+	const [login, { isLoading, error }] = useLoginMutation()
 
 	// Form config
 	const {
@@ -32,9 +36,19 @@ export const LoginForm = () => {
 		mode: 'onBlur'
 	})
 
+	// Local States
+	const [showPassword, setShowPassword] = useState(false)
+
 	const onSubmit: SubmitHandler<ILoginFields> = async fieldsData => {
 		await login(fieldsData)
 	}
+
+	const changePasswordVisibility = () => {
+		setShowPassword(!showPassword)
+	}
+
+	// Vars
+	const passwordType = !showPassword ? 'password' : 'text'
 
 	useEffect(() => {
 		if (error) {
@@ -47,7 +61,6 @@ export const LoginForm = () => {
 			setError('password', fieldError)
 		}
 	}, [error])
-
 
 	return (
 		<LoginFormWrapper>
@@ -75,11 +88,20 @@ export const LoginForm = () => {
 						rules={rules.password}
 						render={({ field, fieldState: { error } }) => (
 							<FormField error={error} label='Password:'>
-								<TextField {...field} />
+								<TextField {...field} type={passwordType} />
 							</FormField>
 						)}
 					/>
+					<LoginShowPassword>
+						<CheckBox
+							checked={showPassword}
+							onChange={changePasswordVisibility}
+						>
+							Show password
+						</CheckBox>
+					</LoginShowPassword>
 				</LoginFields>
+
 				<Button
 					variant={'primary'}
 					type={'submit'}

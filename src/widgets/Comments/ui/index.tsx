@@ -10,9 +10,7 @@ interface ICommentsProps {
 }
 
 export const Comments: FC<ICommentsProps> = ({ items }) => {
-	const { isSuccess: isAuth, data } = useAuthMeQuery()
-
-	console.log(isAuth, data)
+	const { isSuccess: isAuth } = useAuthMeQuery()
 
 	return (
 		<div>
