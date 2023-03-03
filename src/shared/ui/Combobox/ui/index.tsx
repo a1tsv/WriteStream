@@ -22,7 +22,7 @@ interface IComboBoxProps {
 }
 
 export const ComboBox: FC<IComboBoxProps> = forwardRef(
-	({ items, onChange, value, query, setQuery, isLoading }, ref) => {
+	({ items, onChange, value, query, setQuery, isLoading }) => {
 		// Vars
 		const itemsMatched = useMemo(
 			() =>
