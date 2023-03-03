@@ -54,6 +54,7 @@ export const ComboBoxOptions = styled(Combobox.Options)`
 	border-radius: var(--radius);
 	box-shadow: var(--shadow-modal);
 	max-height: ${rem(200)};
+	overflow: auto;
 `
 
 export const ComboBoxItem = styled.span<IComboboxItem>`
