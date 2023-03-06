@@ -14,6 +14,7 @@ import {
 import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
+import { Flex } from '@shared/ui/Flex'
 import { NotFound } from '@shared/ui/NotFound'
 import { formatData } from '@shared/utils/formatData'
 import { Comments } from '@widgets/Comments'
@@ -43,10 +44,13 @@ export const PostPage = () => {
 
 	return (
 		<div>
-			<BreadCrumbs items={breadcrumbs} />
-			<PostNavigation>
+			<Flex sx={{ marginBottom: '0.8rem' }}>
+				<BreadCrumbs items={breadcrumbs} />
+			</Flex>
+			<Flex sx={{ marginBottom: '1.2rem' }}>
 				<BackTo to={'/posts'} text={'Back to posts'} />
-			</PostNavigation>
+			</Flex>
+
 			{post && !fetchingComments ? (
 				<>
 					<PostWrapper>

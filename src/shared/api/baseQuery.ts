@@ -13,9 +13,6 @@ const mutex = new Mutex()
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: baseURL,
-	// headers: {
-	// 	Authorization: getBearerToken() ?? ''
-	// }
 	prepareHeaders: headers => {
 		const alreadyHasHeader = headers.has('Authorization')
 		const token = getBearerToken()
@@ -38,7 +35,11 @@ export const baseQueryWithReAuth: BaseQueryFn<
 		if (!mutex.isLocked()) {
 			const release = await mutex.acquire()
 			try {
-				const request = { url: '/auth/refresh-token', method: 'POST' }
+				const request = {
+					url: '/auth/refresh-token',
+					method: 'POST',
+					credentials: 'include' as RequestCredentials
+				}
 				const refreshResult = await baseQuery(request, api, extraOptions)
 				if (refreshResult.data) {
 					setItemToLC('accessToken', refreshResult.data)

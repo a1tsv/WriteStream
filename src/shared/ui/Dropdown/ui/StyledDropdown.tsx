@@ -11,12 +11,16 @@ interface IDropDownWrapper {
 	isSelect: boolean
 }
 
+interface IDropDownContent {
+	dropdownIndent: string
+}
+
 export const DropDownWrapper = styled.div<
 	SxComponent<object> & IDropDownWrapper
 >`
 	position: relative;
 
-	& [role='menu'] {
+	& > div {
 		width: ${({ isSelect }) => (isSelect ? '100%' : 'max-content')};
 	}
 
@@ -34,6 +38,16 @@ export const DropDownLabel = styled(Menu.Button)`
 	width: 100%;
 `
 
+export const DropdownContent = styled.div<IDropDownContent>`
+	display: flex;
+	position: absolute;
+	top: calc(100% + 1px - ${({ dropdownIndent }) => dropdownIndent});
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 50;
+	background: red;
+`
+
 export const DropDownMenu = styled(Menu.Items)`
 	border-radius: var(--radius);
 	background: var(--color-secondary);
@@ -41,12 +55,7 @@ export const DropDownMenu = styled(Menu.Items)`
 	display: flex;
 	flex-direction: column;
 	gap: 0.3rem;
-
-	position: absolute;
-	top: calc(100% + 1px);
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 50;
+	width: 100%;
 `
 
 export const DropDownButton = styled.button<IDropDownButton>`

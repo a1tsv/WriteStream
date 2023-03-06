@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom'
 export const AddCommentForm = () => {
 	// Vars
 	const { id } = useParams()
-	console.log('CURRENT ID IS', id)
 
 	// Api calls
 	const [createComment, { isLoading: creatingComment }] =

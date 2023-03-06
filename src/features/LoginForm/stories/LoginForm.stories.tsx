@@ -10,6 +10,12 @@ export default {
 		msw: [
 			rest.post(`${baseURL}/auth/login`, (req, res, ctx) => {
 				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
+				return res(ctx.json({}))
+			}),
+			rest.get(`${baseURL}/auth/refresh-token`, (req, res, ctx) => {
+				return res(ctx.status(401))
 			})
 		]
 	}
