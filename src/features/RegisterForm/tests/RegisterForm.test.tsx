@@ -10,13 +10,16 @@ import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
+import { ToastContainer } from 'react-toastify'
 
 describe('RegisterForm', () => {
 	const storeRef = setupApiStore(api, {})
 
 	beforeEach(() => {
 		server.use(
-			rest.post(`${baseURL}/auth/register`, (req, res, ctx) => {
+			rest.post(`${baseURL}/auth/registration`, (req, res, ctx) => {
+				console.log('in registration interceptor')
+
 				return res(ctx.json({}))
 			})
 		)
@@ -59,31 +62,36 @@ describe('RegisterForm', () => {
 		).toBeInTheDocument()
 	})
 
-	// it('should authenticate the user when all fields are valid', async () => {
-	// 	server.use(
-	// 		rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
-	// 			return res.once(ctx.status(401))
-	// 		})
-	// 	)
+	it('should register the user when all fields are valid', async () => {
+		renderWithRouter(
+			storeRef.wrapper({
+				children: (
+					<>
+						<RegisterForm />
+						<ToastContainer />
+					</>
+				)
+			}),
+			{}
+		)
 
-	// 	renderWithRouter(
-	// 		storeRef.wrapper({
-	// 			children: <AppRouter />
-	// 		}),
-	// 		{ route: '/login' }
-	// 	)
+		const email = 'email@gmail.com'
+		const usernameInput = screen.getByLabelText('Username:')
+		const emailInput = screen.getByLabelText('Email:')
+		const passwordInput = screen.getByLabelText('Password:')
 
-	// 	const nameInput = screen.getByLabelText('Name:')
-	// 	const passwordInput = screen.getByLabelText('Password:')
+		await userEvent.type(usernameInput, 'test5')
+		await userEvent.type(emailInput, email)
+		await userEvent.type(passwordInput, 'testtesttesttest')
 
-	// 	await userEvent.type(nameInput, 'test')
-	// 	await userEvent.type(passwordInput, 'testtesttest')
+		await userEvent.click(screen.getByRole('button', { name: 'Register' }))
 
-	// 	await userEvent.click(screen.getByRole('button', { name: 'Login' }))
-
-	// 	expect(await screen.findByText('Blogs')).toBeInTheDocument()
-	// 	expect(getItemFromLC('accessToken')).toBe(accessToken)
-	// })
+		expect(
+			await screen.findByText(
+				`We have sent a link to confirm you email to ${email}`
+			)
+		).toBeInTheDocument()
+	})
 })
 
 const pressTabTimes = async (times: number) => {

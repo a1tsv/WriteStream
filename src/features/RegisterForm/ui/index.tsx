@@ -11,18 +11,20 @@ import {
 } from '@shared/ui/FormLayout/ui'
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 export const RegisterForm = () => {
 	// API
-	const [register, { isLoading }] = useRegisterMutation()
+	const [register, { isLoading, isSuccess, data }] = useRegisterMutation()
 
 	// Form config
 	const {
 		formState: { isValid },
 		control,
+		reset,
+		getValues,
 		handleSubmit
 	} = useForm<IRegisterFields>({
 		defaultValues: {
@@ -38,9 +40,6 @@ export const RegisterForm = () => {
 
 	const onSubmit: SubmitHandler<IRegisterFields> = async fieldsData => {
 		await register(fieldsData)
-		toast.success(
-			`We have sent a link to confirm you email to ${fieldsData.email}`
-		)
 	}
 
 	const changePasswordVisibility = () => {
@@ -49,6 +48,16 @@ export const RegisterForm = () => {
 
 	// Vars
 	const passwordType = !showPassword ? 'password' : 'text'
+
+	// Effects
+
+	useEffect(() => {
+		if (isSuccess) {
+			const email = getValues().email
+			toast.success(`We have sent a link to confirm you email to ${email}`)
+			reset()
+		}
+	}, [isSuccess])
 
 	return (
 		<FormCard>

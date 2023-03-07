@@ -10,7 +10,7 @@ export const rules: IFieldRules = {
 		},
 		maxLength: {
 			value: 20,
-			message: 'Username can not be longer than 20 characters'
+			message: 'Username can not be longer than 10 characters'
 		}
 	},
 	email: {
