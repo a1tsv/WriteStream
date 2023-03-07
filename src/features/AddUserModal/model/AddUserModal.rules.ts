@@ -1,11 +1,11 @@
+import { emailPattern } from './../../../shared/patterns/email'
 import { IFieldRules } from '@shared/types/forms.interface'
 
 export const rules: IFieldRules = {
 	email: {
 		required: { value: true, message: 'Email is required' },
 		pattern: {
-			value:
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			value: emailPattern,
 			message: 'Email is not valid'
 		},
 		maxLength: {

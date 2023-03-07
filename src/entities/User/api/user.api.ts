@@ -87,6 +87,8 @@ export const {
 	useCreateUserMutation,
 	useDeleteUserMutation,
 	useGetUsersQuery,
+	useRegisterMutation,
+	useResendRegisterEmailMutation,
 	useAuthMeQuery,
 	useLazyAuthMeQuery,
 	useRefreshTokenMutation

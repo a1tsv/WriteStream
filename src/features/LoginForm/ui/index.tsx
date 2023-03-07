@@ -1,16 +1,14 @@
 import { useLoginMutation } from '@entities/User'
 import { ILoginFields } from '@entities/User/model'
 import { rules } from '@features/LoginForm/model'
-import {
-	LoginFields,
-	LoginFormWrapper,
-	LoginOffer,
-	LoginShowPassword,
-	LoginSignUp
-} from '@features/LoginForm/ui/StyledLoginForm'
+import { LoginOffer, LoginSignUp } from '@features/LoginForm/ui/StyledLoginForm'
 import { Button } from '@shared/ui/Button'
-import { CheckBox } from '@shared/ui/Checkbox/ui'
 import { FormField, FormLayout } from '@shared/ui/FormLayout'
+import {
+	FormCard,
+	FormFields,
+	FormShowPassword
+} from '@shared/ui/FormLayout/ui'
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
 import { useEffect, useState } from 'react'
@@ -61,7 +59,7 @@ export const LoginForm = () => {
 	}, [error])
 
 	return (
-		<LoginFormWrapper>
+		<FormCard>
 			<Typography
 				variant={'title'}
 				sx={{ marginBottom: '0.6rem', textAlign: 'center' }}
@@ -69,7 +67,7 @@ export const LoginForm = () => {
 				Login
 			</Typography>
 			<FormLayout onSubmit={handleSubmit(onSubmit)}>
-				<LoginFields>
+				<FormFields offset={20}>
 					<Controller
 						control={control}
 						name={'loginOrEmail'}
@@ -90,15 +88,13 @@ export const LoginForm = () => {
 							</FormField>
 						)}
 					/>
-					<LoginShowPassword>
-						<CheckBox
-							checked={showPassword}
-							onChange={changePasswordVisibility}
-						>
-							Show password
-						</CheckBox>
-					</LoginShowPassword>
-				</LoginFields>
+					<FormShowPassword
+						shouldShow={showPassword}
+						onChange={changePasswordVisibility}
+					>
+						Show password
+					</FormShowPassword>
+				</FormFields>
 
 				<Button
 					variant={'primary'}
@@ -115,6 +111,6 @@ export const LoginForm = () => {
 					<LoginSignUp to={'/register'}>Sign up</LoginSignUp>
 				</LoginOffer>
 			</FormLayout>
-		</LoginFormWrapper>
+		</FormCard>
 	)
 }

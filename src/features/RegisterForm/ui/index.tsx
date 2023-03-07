@@ -1,5 +1,5 @@
-import { useLoginMutation } from '@entities/User'
-import { ILoginFields } from '@entities/User/model'
+import { IRegisterFields } from '@entities/User'
+import { useRegisterMutation } from '@entities/User/api'
 import { rules } from '@features/LoginForm/model'
 import {
 	LoginFields,
@@ -13,22 +13,22 @@ import { CheckBox } from '@shared/ui/Checkbox/ui'
 import { FormField, FormLayout } from '@shared/ui/FormLayout'
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const RegisterForm = () => {
 	// API
-	const [login, { isLoading, error }] = useLoginMutation()
+	const [register, { isLoading, error }] = useRegisterMutation()
 
 	// Form config
 	const {
 		formState: { isValid },
-		setError,
 		control,
 		handleSubmit
-	} = useForm<ILoginFields>({
+	} = useForm<IRegisterFields>({
 		defaultValues: {
-			loginOrEmail: '',
+			login: '',
+			email: '',
 			password: ''
 		},
 		mode: 'onBlur'
@@ -37,8 +37,8 @@ export const RegisterForm = () => {
 	// Local States
 	const [showPassword, setShowPassword] = useState(false)
 
-	const onSubmit: SubmitHandler<ILoginFields> = async fieldsData => {
-		await login(fieldsData)
+	const onSubmit: SubmitHandler<IRegisterFields> = async fieldsData => {
+		await register(fieldsData)
 	}
 
 	const changePasswordVisibility = () => {
@@ -47,18 +47,6 @@ export const RegisterForm = () => {
 
 	// Vars
 	const passwordType = !showPassword ? 'password' : 'text'
-
-	useEffect(() => {
-		if (error) {
-			const fieldError = {
-				type: 'server',
-				message: 'Invalid login or password'
-			}
-
-			setError('loginOrEmail', fieldError)
-			setError('password', fieldError)
-		}
-	}, [error])
 
 	return (
 		<LoginFormWrapper>
@@ -72,10 +60,10 @@ export const RegisterForm = () => {
 				<LoginFields>
 					<Controller
 						control={control}
-						name={'loginOrEmail'}
+						name={'login'}
 						rules={rules.loginOrEmail}
 						render={({ field, fieldState: { error } }) => (
-							<FormField error={error} label='Name:'>
+							<FormField error={error} label='Username:'>
 								<TextField {...field} />
 							</FormField>
 						)}
