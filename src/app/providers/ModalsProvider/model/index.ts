@@ -1,8 +1,4 @@
-export {
-	ModalsEnum,
-	type IModalComponent,
-	type IModalContext
-} from './modals.interface'
+export * from './modals.interface'
 
 export {
 	initialState,

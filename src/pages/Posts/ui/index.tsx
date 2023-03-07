@@ -2,6 +2,7 @@ import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { useGetBlogQuery } from '@entities/Blog/api'
 import { useGetPostsQuery } from '@entities/Post'
+import { useAuthMeQuery } from '@entities/User'
 import { NavigationDropdown } from '@features/FilterDropdown'
 import { PostPreview } from '@features/PostPreview'
 import { PostPreviewSkeleton } from '@features/PostPreview/ui/PostPreviewSkeleton'
@@ -68,9 +69,6 @@ export const PostsPage = () => {
 					setSearchParams={setSearchParams}
 				/>
 			</PostsFilters>
-			<Button variant={'primary'} onClick={openCreatePostModal}>
-				New post
-			</Button>
 			<PostsItems>
 				{isLoading && <PostPreviewSkeleton count={3} />}
 				{!isItemsEmpty &&

@@ -45,7 +45,6 @@ export const DropdownContent = styled.div<IDropDownContent>`
 	left: 50%;
 	transform: translateX(-50%);
 	z-index: 50;
-	background: red;
 `
 
 export const DropDownMenu = styled(Menu.Items)`

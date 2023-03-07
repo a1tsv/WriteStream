@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { useCheckBottomSpacing } from '@shared/hooks/useCheckBottomSpacing'
+import { useCheckBottomSpacing } from '@shared/hooks'
 import { IDropDownProps } from '@shared/ui/Dropdown/model/Dropdown.interface'
 import {
 	DropDownButton,

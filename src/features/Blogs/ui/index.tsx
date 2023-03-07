@@ -47,8 +47,6 @@ export const Blogs = () => {
 	const isItemsEmpty = !data?.items.length && !isLoading
 	const anotherBlogsExist = anotherItemsExist(data)
 
-	const { isSuccess: isAuth } = useAuthMeQuery()
-
 	const openNewBlogModal = () => {
 		showModal(ModalsEnum.ADD_BLOG, true, {})
 	}
@@ -80,15 +78,13 @@ export const Blogs = () => {
 				Unleash Your Creativity, Share Your Story. Join the Blogging Community
 				Today!
 			</BlogsSubTitle>
-			{isAuth && (
-				<Button
-					sx={{ marginBottom: '0.6rem' }}
-					onClick={openNewBlogModal}
-					variant={'primary'}
-				>
-					New Blog
-				</Button>
-			)}
+			<Button
+				sx={{ marginBottom: '0.6rem' }}
+				onClick={openNewBlogModal}
+				variant={'primary'}
+			>
+				New Blog
+			</Button>
 			<BlogsFilters>
 				<BlogsSearch>
 					<Search value={searchValue} onChange={changeSearchValue} />

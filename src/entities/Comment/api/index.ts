@@ -1,6 +1,1 @@
-export {
-	commentApi,
-	useUpdateCommentMutation,
-	useDeleteCommentMutation,
-	useGetCommentQuery
-} from './comment.api'
+export * from './comment.api'

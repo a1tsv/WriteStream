@@ -1,1 +1,1 @@
-export { getItemFromLC, setItemToLC, removeItemFromLC } from './localStorage'
+export * from './localStorage'
