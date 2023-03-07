@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
+import { useCheckBottomSpacing } from '@shared/hooks/useCheckBottomSpacing'
 import { IDropDownProps } from '@shared/ui/Dropdown/model/Dropdown.interface'
 import {
 	DropDownButton,
@@ -7,7 +8,7 @@ import {
 	DropDownMenu,
 	DropDownWrapper
 } from '@shared/ui/Dropdown/ui/StyledDropdown'
-import { FC, Fragment, memo, useEffect, useRef, useState } from 'react'
+import { FC, Fragment, memo, useRef, useState } from 'react'
 
 export const Dropdown: FC<IDropDownProps> = memo(
 	({ button, onChangeCb, items, selected, select, sx }) => {
@@ -22,8 +23,8 @@ export const Dropdown: FC<IDropDownProps> = memo(
 		// Vars
 		const dropdownLabel = select ? selected || DropdownButton : DropdownButton
 		const dropdownContentRef = useRef<HTMLDivElement>(null)
-		const dropdownContentEl = dropdownContentRef.current
 		const dropdownWrapperRef = useRef<HTMLDivElement>(null)
+		const dropdownWrapperHeight = dropdownWrapperRef.current?.scrollHeight
 
 		// handlers
 
@@ -31,31 +32,24 @@ export const Dropdown: FC<IDropDownProps> = memo(
 			setOpenState(open)
 		}
 
-		useEffect(() => {
-			const dropdownHeight = dropdownContentRef.current?.scrollHeight
-			if (dropdownContentEl && dropdownHeight) {
-				const dropdownCords = dropdownContentEl?.getBoundingClientRect()
-				if (dropdownCords.bottom > window.innerHeight) {
-					setOffset(`${dropdownCords.bottom - window.innerHeight}px`)
-				}
-			} else {
-				setOffset(`0px`)
-			}
-		}, [openState])
+		useCheckBottomSpacing(
+			dropdownContentRef,
+			setOffset,
+			openState,
+			dropdownWrapperHeight
+		)
 
 		return (
 			<div>
 				<Menu>
 					{({ open }) => (
-						<DropDownWrapper
-							isSelect={!!select}
-							sx={sx}
-							ref={dropdownWrapperRef}
-						>
-							<DropDownLabel>
-								{dropdownLabel}
-								{open ? 'true' : 'false'}
-							</DropDownLabel>
+						<DropDownWrapper isSelect={!!select} sx={sx}>
+							<div ref={dropdownWrapperRef}>
+								<DropDownLabel>
+									{dropdownLabel}
+									{open ? 'true' : 'false'}
+								</DropDownLabel>
+							</div>
 							<Transition
 								as={Fragment}
 								enter='transition-opacity'

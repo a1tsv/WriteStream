@@ -86,7 +86,7 @@ export const Comment: FC<IComment> = ({
 								{formatData(createdAt)}
 							</Typography>
 						</CommentInfo>
-						{true && (
+						{isCurrentUserOwner && (
 							<Dropdown
 								button={BiDotsVerticalRounded}
 								onChangeCb={onDropdownChange}
