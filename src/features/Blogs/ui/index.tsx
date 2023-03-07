@@ -3,6 +3,7 @@ import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { Blog, useGetBlogsQuery } from '@entities/Blog'
 import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
+import { useAuthMeQuery } from '@entities/User'
 import {
 	BlogsFilters,
 	BlogsItems,
@@ -46,6 +47,8 @@ export const Blogs = () => {
 	const isItemsEmpty = !data?.items.length && !isLoading
 	const anotherBlogsExist = anotherItemsExist(data)
 
+	const { isSuccess: isAuth } = useAuthMeQuery()
+
 	const openNewBlogModal = () => {
 		showModal(ModalsEnum.ADD_BLOG, true, {})
 	}
@@ -77,13 +80,15 @@ export const Blogs = () => {
 				Unleash Your Creativity, Share Your Story. Join the Blogging Community
 				Today!
 			</BlogsSubTitle>
-			<Button
-				sx={{ marginBottom: '0.6rem' }}
-				onClick={openNewBlogModal}
-				variant={'primary'}
-			>
-				New Blog
-			</Button>
+			{isAuth && (
+				<Button
+					sx={{ marginBottom: '0.6rem' }}
+					onClick={openNewBlogModal}
+					variant={'primary'}
+				>
+					New Blog
+				</Button>
+			)}
 			<BlogsFilters>
 				<BlogsSearch>
 					<Search value={searchValue} onChange={changeSearchValue} />

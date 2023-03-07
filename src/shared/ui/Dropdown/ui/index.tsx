@@ -45,10 +45,7 @@ export const Dropdown: FC<IDropDownProps> = memo(
 					{({ open }) => (
 						<DropDownWrapper isSelect={!!select} sx={sx}>
 							<div ref={dropdownWrapperRef}>
-								<DropDownLabel>
-									{dropdownLabel}
-									{open ? 'true' : 'false'}
-								</DropDownLabel>
+								<DropDownLabel>{dropdownLabel}</DropDownLabel>
 							</div>
 							<Transition
 								as={Fragment}
