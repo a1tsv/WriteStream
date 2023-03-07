@@ -1,16 +1,14 @@
+import { rules } from '../model'
+import { RegisterOffer, RegisterSignIn } from './StyledRegisterForm'
 import { IRegisterFields } from '@entities/User'
 import { useRegisterMutation } from '@entities/User/api'
-import { rules } from '@features/LoginForm/model'
-import {
-	LoginFields,
-	LoginFormWrapper,
-	LoginOffer,
-	LoginShowPassword,
-	LoginSignUp
-} from '@features/LoginForm/ui/StyledLoginForm'
 import { Button } from '@shared/ui/Button'
-import { CheckBox } from '@shared/ui/Checkbox/ui'
 import { FormField, FormLayout } from '@shared/ui/FormLayout'
+import {
+	FormCard,
+	FormFields,
+	FormShowPassword
+} from '@shared/ui/FormLayout/ui'
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
 import { useState } from 'react'
@@ -18,7 +16,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const RegisterForm = () => {
 	// API
-	const [register, { isLoading, error }] = useRegisterMutation()
+	const [register, { isLoading }] = useRegisterMutation()
 
 	// Form config
 	const {
@@ -49,21 +47,31 @@ export const RegisterForm = () => {
 	const passwordType = !showPassword ? 'password' : 'text'
 
 	return (
-		<LoginFormWrapper>
+		<FormCard>
 			<Typography
 				variant={'title'}
 				sx={{ marginBottom: '0.6rem', textAlign: 'center' }}
 			>
-				Login
+				Register
 			</Typography>
 			<FormLayout onSubmit={handleSubmit(onSubmit)}>
-				<LoginFields>
+				<FormFields offset={20}>
 					<Controller
 						control={control}
 						name={'login'}
-						rules={rules.loginOrEmail}
+						rules={rules.login}
 						render={({ field, fieldState: { error } }) => (
 							<FormField error={error} label='Username:'>
+								<TextField {...field} />
+							</FormField>
+						)}
+					/>
+					<Controller
+						control={control}
+						name={'login'}
+						rules={rules.email}
+						render={({ field, fieldState: { error } }) => (
+							<FormField error={error} label='Email:'>
 								<TextField {...field} />
 							</FormField>
 						)}
@@ -78,15 +86,11 @@ export const RegisterForm = () => {
 							</FormField>
 						)}
 					/>
-					<LoginShowPassword>
-						<CheckBox
-							checked={showPassword}
-							onChange={changePasswordVisibility}
-						>
-							Show password
-						</CheckBox>
-					</LoginShowPassword>
-				</LoginFields>
+					<FormShowPassword
+						shouldShow={showPassword}
+						onChange={changePasswordVisibility}
+					/>
+				</FormFields>
 
 				<Button
 					variant={'primary'}
@@ -94,15 +98,15 @@ export const RegisterForm = () => {
 					disabled={!isValid || isLoading}
 					sx={{ marginBottom: '0.6rem' }}
 				>
-					Login
+					Register
 				</Button>
-				<LoginOffer>
+				<RegisterOffer>
 					<Typography variant={'sub-title-sm'}>
 						Already have an account?
 					</Typography>
-					<LoginSignUp to={'/login'}>Sign in</LoginSignUp>
-				</LoginOffer>
+					<RegisterSignIn to={'/login'}>Sign in</RegisterSignIn>
+				</RegisterOffer>
 			</FormLayout>
-		</LoginFormWrapper>
+		</FormCard>
 	)
 }
