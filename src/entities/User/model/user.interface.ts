@@ -10,6 +10,12 @@ export interface ILoginFields {
 	password: string
 }
 
+export interface IRegisterFields {
+	login: string
+	email: string
+	password: string
+}
+
 export interface ITokenResponse {
 	accessToken: string
 }

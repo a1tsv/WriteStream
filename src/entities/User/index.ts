@@ -1,4 +1,4 @@
-export { type IUser, type IAddUserFields } from './model'
+export * from './model'
 
 export {
 	useLoginMutation,

@@ -1,4 +1,5 @@
 import { IAuthMeResponse, ILoginFields, ITokenResponse } from '../model'
+import { IRegisterFields } from './../model/user.interface'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
@@ -31,6 +32,20 @@ export const userApi = api.injectEndpoints({
 					await dispatch(userApi.endpoints.authMe.initiate())
 				}
 			}
+		}),
+		register: build.mutation<string, IRegisterFields>({
+			query: body => ({
+				url: '/auth/registration',
+				method: 'POST',
+				body
+			})
+		}),
+		resendRegisterEmail: build.mutation<string, string>({
+			query: body => ({
+				url: '/auth/registration-email-resending',
+				method: 'POST',
+				body
+			})
 		}),
 		refreshToken: build.mutation<ITokenResponse, void>({
 			query: () => ({

@@ -16,7 +16,7 @@ import { Typography } from '@shared/ui/Typography'
 import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
 	// API
 	const [login, { isLoading, error }] = useLoginMutation()
 
@@ -110,9 +110,9 @@ export const LoginForm = () => {
 				</Button>
 				<LoginOffer>
 					<Typography variant={'sub-title-sm'}>
-						Don&rsquo;t have an&nbsp;account?
+						Already have an account?
 					</Typography>
-					<LoginSignUp to={'/register'}>Sign up</LoginSignUp>
+					<LoginSignUp to={'/login'}>Sign in</LoginSignUp>
 				</LoginOffer>
 			</FormLayout>
 		</LoginFormWrapper>

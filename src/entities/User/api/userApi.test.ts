@@ -1,3 +1,4 @@
+import { IRegisterFields } from './../model/user.interface'
 import { userApi } from '@entities/User'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
@@ -11,7 +12,7 @@ describe('UserApi', () => {
 		fetchMock.enableMocks()
 	})
 
-	afterEach(() => {
+	beforeEach(() => {
 		fetchMock.resetMocks()
 	})
 
@@ -86,5 +87,35 @@ describe('UserApi', () => {
 		const { url, method } = calls
 		expect(url).toBe(`${baseURL}/auth/me`)
 		expect(method).toBe('GET')
+	})
+
+	it('should register a user on successful register POST request', async () => {
+		const registerData: IRegisterFields = {
+			login: 'test',
+			email: 'test',
+			password: 'test'
+		}
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
+
+		await store.dispatch(api.endpoints.register.initiate(registerData))
+
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+
+		expect(url).toBe(`${baseURL}/auth/registration`)
+		expect(method).toBe('POST')
+	})
+
+	it('should resend verification email on successful resendRegisterEmail POST request', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
+		await store.dispatch(
+			api.endpoints.resendRegisterEmail.initiate('email@gmail.com')
+		)
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/auth/registration-email-resending`)
+		expect(method).toBe('POST')
 	})
 })
