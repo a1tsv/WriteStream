@@ -1,10 +1,12 @@
 import { IRoute, RoutesEnum } from '../types'
+import { Register } from '@features/Register'
 import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
 import { LoginPage } from '@pages/Login'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
 import { UsersPage } from '@pages/Users'
+import { BiUserPlus } from 'react-icons/bi'
 import { FiLogIn, FiUsers } from 'react-icons/fi'
 import { MdOutlineTableRows } from 'react-icons/md'
 import { RxRows } from 'react-icons/rx'
@@ -48,5 +50,11 @@ export const routes: IRoute[] = [
 		title: 'Login',
 		icon: <FiLogIn />,
 		component: <LoginPage />
+	},
+	{
+		path: RoutesEnum.REGISTER_PAGE,
+		title: 'Register',
+		icon: <BiUserPlus />,
+		component: <Register />
 	}
 ]

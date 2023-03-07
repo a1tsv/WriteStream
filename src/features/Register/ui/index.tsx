@@ -1,15 +1,15 @@
-import { LoginForm } from '@features/LoginForm'
-import { LoginImg } from '@pages/Login/ui/StyledLogin'
+import { RegisterImg } from './StyledRegister'
+import { RegisterForm } from '@features/RegisterForm'
 import GraphsSvg from '@public/img/rafiki.svg'
 import { FormWithImage } from '@shared/ui/FormLayout/ui'
 
-export const LoginPage = () => {
+export const Register = () => {
 	return (
 		<FormWithImage>
-			<LoginForm />
-			<LoginImg>
+			<RegisterForm />
+			<RegisterImg>
 				<img src={GraphsSvg} alt='' />
-			</LoginImg>
+			</RegisterImg>
 		</FormWithImage>
 	)
 }

@@ -6,12 +6,11 @@ import { baseURL } from '@shared/utils/baseURL'
 import { getItemFromLC } from '@shared/utils/localStorage'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
-import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
-import { Route, Routes } from 'react-router-dom'
 
-describe('AddBlogModal', () => {
+describe('LoginForm', () => {
 	const storeRef = setupApiStore(api, {})
 	const accessToken = 'test'
 

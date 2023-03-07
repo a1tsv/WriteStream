@@ -17,7 +17,7 @@ export const rules: IFieldRules = {
 		required: { value: true, message: 'Email is required' },
 		pattern: {
 			value: emailPattern,
-			message: 'Email is not valid'
+			message: 'Email is invalid'
 		},
 		maxLength: {
 			value: 30,
@@ -28,7 +28,7 @@ export const rules: IFieldRules = {
 		required: { value: true, message: 'Password is required' },
 		minLength: {
 			value: 8,
-			message: 'Password should be at least 5 characters'
+			message: 'Password should be at least 8 characters'
 		}
 	}
 }

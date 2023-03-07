@@ -13,6 +13,7 @@ import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 export const RegisterForm = () => {
 	// API
@@ -37,6 +38,9 @@ export const RegisterForm = () => {
 
 	const onSubmit: SubmitHandler<IRegisterFields> = async fieldsData => {
 		await register(fieldsData)
+		toast.success(
+			`We have sent a link to confirm you email to ${fieldsData.email}`
+		)
 	}
 
 	const changePasswordVisibility = () => {
@@ -68,7 +72,7 @@ export const RegisterForm = () => {
 					/>
 					<Controller
 						control={control}
-						name={'login'}
+						name={'email'}
 						rules={rules.email}
 						render={({ field, fieldState: { error } }) => (
 							<FormField error={error} label='Email:'>
@@ -89,7 +93,9 @@ export const RegisterForm = () => {
 					<FormShowPassword
 						shouldShow={showPassword}
 						onChange={changePasswordVisibility}
-					/>
+					>
+						Show password
+					</FormShowPassword>
 				</FormFields>
 
 				<Button
