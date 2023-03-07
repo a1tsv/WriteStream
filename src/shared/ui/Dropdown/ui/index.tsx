@@ -28,48 +28,20 @@ export const Dropdown: FC<IDropDownProps> = memo(
 		// handlers
 
 		const handleDropdownToggle = (open: boolean) => {
-			console.log('in handle dropdown open', open, dropdownContentRef.current)
 			setOpenState(open)
 		}
 
 		useEffect(() => {
 			const dropdownHeight = dropdownContentRef.current?.scrollHeight
 			if (dropdownContentEl && dropdownHeight) {
-				const bottomIndent =
-					dropdownContentEl.getBoundingClientRect().bottom -
-					window.innerHeight +
-					dropdownHeight
-				console.log(
-					bottomIndent,
-					dropdownContentEl.getBoundingClientRect().bottom
-				)
-				// console.log(
-				// 	bottomIndent,
-				// 	window.innerHeight,
-				// 	dropdownContentEl.getBoundingClientRect()
-				// )
-				// const jawf =
-				// 	dropdownHeight + dropdownContentEl.getBoundingClientRect().top
-				// const aowh = window.scrollY + window.innerHeight
-				// console.log(jawf > aowh, jawf, aowh)
-				// console.log(
-				// 	'WINDOW SCROLL Y',
-				// 	window.scrollY,
-				// 	'WINDOW INNER HEIGHT',
-				// 	window.innerHeight
-				// )
-				// const invisiblePart = dropdownHeight - bottomIndent
-				if (bottomIndent > 0) {
-					setOffset(`${bottomIndent}px`)
-				} else {
-					setOffset(`${0}px`)
+				const dropdownCords = dropdownContentEl?.getBoundingClientRect()
+				if (dropdownCords.bottom > window.innerHeight) {
+					setOffset(`${dropdownCords.bottom - window.innerHeight}px`)
 				}
-				// setOffset(`${invisiblePart}px`)
-				// console.log(bottomIndent, dropdownContentEl.offsetHeight, invisiblePart)
+			} else {
+				setOffset(`0px`)
 			}
 		}, [openState])
-
-		// console.log('rerender', dropdownContentRef.current)
 
 		return (
 			<div>
