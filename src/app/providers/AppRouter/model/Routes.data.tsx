@@ -2,6 +2,7 @@ import { IRoute, RoutesEnum } from '../types'
 import { Register } from '@features/Register'
 import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
+import { EmailVerified } from '@pages/EmailVerified/ui'
 import { LoginPage } from '@pages/Login'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
@@ -56,5 +57,10 @@ export const routes: IRoute[] = [
 		title: 'Register',
 		icon: <BiUserPlus />,
 		component: <Register />
+	},
+	{
+		path: RoutesEnum.EMAIL_VERIFIED,
+		title: 'Email verified',
+		component: <EmailVerified />
 	}
 ]
