@@ -7,10 +7,14 @@ import {
 import SuccessVerification from '@public/img/bro.svg'
 import { Button } from '@shared/ui/Button'
 import { Typography } from '@shared/ui/Typography'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 export const EmailVerified = () => {
 	const navigate = useNavigate()
+	const location = useLocation()
+	const email = location?.state?.email as string | undefined
+
+	if (!email) return <Navigate to={'/blogs'} />
 
 	const redirectToLogin = () => {
 		navigate('/login')

@@ -3,7 +3,7 @@ import { api } from '@shared/api'
 import { getItemFromLC, setItemToLC } from '@shared/utils/localStorage'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { Route, Routes } from 'react-router-dom'
 
 jest.mock('@shared/utils/localStorage', () => ({

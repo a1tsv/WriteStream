@@ -1,7 +1,7 @@
 import { useRegisterConfirmationMutation } from '@entities/User/api'
-import { getItemFromLC } from '@shared/utils/localStorage'
+import { getItemFromLC, removeItemFromLC } from '@shared/utils/localStorage'
 import { useEffect, useMemo } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 
 export const ConfgirmRegistration = () => {
 	// Vars
@@ -14,27 +14,27 @@ export const ConfgirmRegistration = () => {
 	const code = params.code
 	console.log(code)
 
+	if (!code || !email) {
+		return <Navigate to={'/blogs'} />
+	}
+
 	// API calls
 	const [confirmRegistration, { isSuccess }] = useRegisterConfirmationMutation()
-	confirmRegistration(code)
 
 	// Effects
 	useEffect(() => {
-		if (!code || !email) {
-			navigate('/blogs')
-			console.log('navigation to blogs')
-
-			return null
-		}
+		confirmRegistration(code)
 	}, [])
 
 	useEffect(() => {
+		const state = { email }
 		if (isSuccess) {
-			navigate('/email-verified')
+			navigate('/email-verified', { state })
 			return
 		}
-		navigate('/email-resend')
-	}, [isSuccess, navigate])
+		navigate('/email-resend', { state })
+		removeItemFromLC('email')
+	}, [isSuccess])
 
 	return null
 }

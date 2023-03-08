@@ -8,16 +8,20 @@ import resend from '@public/img/resend.svg'
 import { Button } from '@shared/ui/Button'
 import { Typography } from '@shared/ui/Typography'
 import { getItemFromLC } from '@shared/utils/localStorage'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export const ResendEmail = () => {
 	// Vars
 	const navigate = useNavigate()
+	const location = useLocation()
+	const email = location?.state?.email as string | undefined
 
 	// API calls
 	const [resendEmail, { isLoading: resendingEmail }] =
 		useResendRegisterEmailMutation()
+
+	if (!email) return <Navigate to={'/blogs'} />
 
 	// Handlers
 	const handleRequestError = () => {
@@ -26,7 +30,6 @@ export const ResendEmail = () => {
 	}
 
 	const handleEmailResend = () => {
-		const email = getItemFromLC('email') as string
 		if (email) {
 			resendEmail(email)
 			return
