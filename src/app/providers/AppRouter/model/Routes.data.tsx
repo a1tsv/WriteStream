@@ -2,10 +2,11 @@ import { IRoute, RoutesEnum } from '../types'
 import { Register } from '@features/Register'
 import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
-import { EmailVerified } from '@pages/EmailVerified/ui'
+import { EmailVerified } from '@pages/EmailVerified'
 import { LoginPage } from '@pages/Login'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
+import { ResendEmail } from '@pages/ResendEmail'
 import { UsersPage } from '@pages/Users'
 import { BiUserPlus } from 'react-icons/bi'
 import { FiLogIn, FiUsers } from 'react-icons/fi'
@@ -62,5 +63,10 @@ export const routes: IRoute[] = [
 		path: RoutesEnum.EMAIL_VERIFIED,
 		title: 'Email verified',
 		component: <EmailVerified />
+	},
+	{
+		path: RoutesEnum.RESEND_EMAIL,
+		title: 'Resend email',
+		component: <ResendEmail />
 	}
 ]
