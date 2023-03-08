@@ -2,6 +2,7 @@ import { IRoute, RoutesEnum } from '../types'
 import { Register } from '@features/Register'
 import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
+import { ConfgirmRegistration } from '@pages/ConfirmRegistration'
 import { EmailVerified } from '@pages/EmailVerified'
 import { LoginPage } from '@pages/Login'
 import { PostPage } from '@pages/Post'
@@ -68,5 +69,10 @@ export const routes: IRoute[] = [
 		path: RoutesEnum.RESEND_EMAIL,
 		title: 'Resend email',
 		component: <ResendEmail />
+	},
+	{
+		path: RoutesEnum.CONFIRM_REGISTRATION,
+		title: 'Confirm registration',
+		component: <ConfgirmRegistration />
 	}
 ]

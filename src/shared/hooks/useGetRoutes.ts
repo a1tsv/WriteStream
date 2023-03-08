@@ -1,6 +1,5 @@
-import { publicRoutes, routes } from '@app/providers/AppRouter/model'
+import { publicRoutes } from '@app/providers/AppRouter/model'
 import { useAuthMeQuery } from '@entities/User'
-import { getBearerToken } from '@shared/utils/getBearerToken'
 import { prepareRoutes } from '@shared/utils/prepareRoutes'
 
 export const useGetRoutes = () => {

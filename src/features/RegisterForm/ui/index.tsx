@@ -11,13 +11,14 @@ import {
 } from '@shared/ui/FormLayout/ui'
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
+import { setItemToLC } from '@shared/utils/localStorage'
 import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 export const RegisterForm = () => {
 	// API
-	const [register, { isLoading, isSuccess, data }] = useRegisterMutation()
+	const [register, { isLoading, isSuccess }] = useRegisterMutation()
 
 	// Form config
 	const {
@@ -40,6 +41,7 @@ export const RegisterForm = () => {
 
 	const onSubmit: SubmitHandler<IRegisterFields> = async fieldsData => {
 		await register(fieldsData)
+		setItemToLC('email', fieldsData.email)
 	}
 
 	const changePasswordVisibility = () => {

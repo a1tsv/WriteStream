@@ -1,0 +1,1 @@
+export { ConfgirmRegistration } from './ui'
