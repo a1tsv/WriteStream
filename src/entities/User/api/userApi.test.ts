@@ -118,4 +118,14 @@ describe('UserApi', () => {
 		expect(url).toBe(`${baseURL}/auth/registration-email-resending`)
 		expect(method).toBe('POST')
 	})
+
+	it('should confirm registration on successful registerConfirmation POST request', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
+		await store.dispatch(api.endpoints.registerConfirmation.initiate('token'))
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/auth/registration-confirmation`)
+		expect(method).toBe('POST')
+	})
 })

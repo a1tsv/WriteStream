@@ -40,6 +40,13 @@ export const userApi = api.injectEndpoints({
 				body
 			})
 		}),
+		registerConfirmation: build.mutation<string, string>({
+			query: body => ({
+				url: '/auth/registration-confirmation',
+				method: 'POST',
+				body
+			})
+		}),
 		resendRegisterEmail: build.mutation<string, string>({
 			query: body => ({
 				url: '/auth/registration-email-resending',
@@ -91,5 +98,6 @@ export const {
 	useResendRegisterEmailMutation,
 	useAuthMeQuery,
 	useLazyAuthMeQuery,
+	useRegisterConfirmationMutation,
 	useRefreshTokenMutation
 } = userApi
