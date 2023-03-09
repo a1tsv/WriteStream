@@ -30,7 +30,7 @@ export const ConfgirmRegistration = () => {
 	useEffect(() => {
 		const state = { email }
 		if (!isSuccess && !isLoading) {
-			console.log('redirecting to email resend')
+			console.log('redirecting to email resend', isSuccess, isLoading)
 			navigate('/email-resend', { state })
 			removeItemFromLC('email')
 			return

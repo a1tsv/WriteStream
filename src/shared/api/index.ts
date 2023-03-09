@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReAuth } from '@shared/api/baseQuery'
 
 export const api = createApi({
@@ -12,7 +12,8 @@ export const api = createApi({
 		'Users',
 		'User',
 		'Comments',
-		'Auth'
+		'Auth',
+		'Devices'
 	],
 	endpoints: build => ({})
 })
