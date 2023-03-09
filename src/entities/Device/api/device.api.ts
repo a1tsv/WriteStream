@@ -23,4 +23,8 @@ export const deviceApi = api.injectEndpoints({
 	})
 })
 
-export const { useGetDevicesQuery } = deviceApi
+export const {
+	useGetDevicesQuery,
+	useTerminateAllDevicesMutation,
+	useTerminateDeviceMutation
+} = deviceApi
