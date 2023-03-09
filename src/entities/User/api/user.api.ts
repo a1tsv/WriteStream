@@ -44,7 +44,8 @@ export const userApi = api.injectEndpoints({
 				if (res.data) {
 					removeItemFromLC('accessToken')
 				}
-			}
+			},
+			invalidatesTags: ['Auth']
 		}),
 		register: build.mutation<string, IRegisterFields>({
 			query: body => ({
