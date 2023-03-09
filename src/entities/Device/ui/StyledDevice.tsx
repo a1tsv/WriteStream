@@ -10,6 +10,7 @@ export const DeviceWrapper = styled.div`
 	background: var(--color-bg);
 	border: 1px solid var(--color-main);
 	padding: ${rem(10)} ${rem(15)};
+	border-radius: var(--radius);
 `
 
 export const DeviceIcon = styled.div`
@@ -18,7 +19,9 @@ export const DeviceIcon = styled.div`
 
 export const DeviceContent = styled.div`
 	display: flex;
+	flex: 1;
 	justify-content: space-between;
+	align-items: center;
 	flex-wrap: wrap;
 	gap: ${rem(10)};
 `
@@ -55,5 +58,6 @@ export const TerminateButton = styled(Button).attrs({
 })`
 	font-weight: var(--fw-bold);
 	display: flex;
+	align-items: center;
 	gap: ${rem(5)};
 `

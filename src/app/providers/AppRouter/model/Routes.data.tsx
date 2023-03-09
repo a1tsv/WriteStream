@@ -11,6 +11,7 @@ import { ProfilePage } from '@pages/Profile'
 import { ResendEmail } from '@pages/ResendEmail'
 import { UsersPage } from '@pages/Users'
 import { BiUserPlus } from 'react-icons/bi'
+import { CgProfile } from 'react-icons/cg'
 import { FiLogIn, FiUsers } from 'react-icons/fi'
 import { MdOutlineTableRows } from 'react-icons/md'
 import { RxRows } from 'react-icons/rx'
@@ -52,7 +53,7 @@ export const routes: IRoute[] = [
 	{
 		path: RoutesEnum.PROFILE,
 		title: 'Profile',
-		icon: <FiUsers />,
+		icon: <CgProfile />,
 		component: <ProfilePage />,
 		isPrivate: true
 	},

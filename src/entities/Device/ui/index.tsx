@@ -34,7 +34,7 @@ export const Device: FC<IProps> = ({ device }) => {
 	return (
 		<DeviceWrapper>
 			<DeviceIcon>
-				<FaFirefoxBrowser />
+				<FaFirefoxBrowser fontSize={40} />
 			</DeviceIcon>
 			<DeviceContent>
 				<DeviceInfo>
