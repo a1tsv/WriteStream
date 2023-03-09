@@ -5,7 +5,7 @@ import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
 import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
 import { getBearerToken } from '@shared/utils/getBearerToken'
-import { setItemToLC } from '@shared/utils/localStorage'
+import { removeItemFromLC, setItemToLC } from '@shared/utils/localStorage'
 
 export const userApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -33,6 +33,19 @@ export const userApi = api.injectEndpoints({
 				}
 			}
 		}),
+		logout: build.mutation<string, void>({
+			query: data => ({
+				url: '/auth/login',
+				method: 'POST',
+				body: data
+			}),
+			async onQueryStarted(data, { queryFulfilled }) {
+				const res = await queryFulfilled
+				if (res.data) {
+					removeItemFromLC('accessToken')
+				}
+			}
+		}),
 		register: build.mutation<string, IRegisterFields>({
 			query: body => ({
 				url: '/auth/registration',
@@ -45,7 +58,13 @@ export const userApi = api.injectEndpoints({
 				url: '/auth/registration-confirmation',
 				method: 'POST',
 				body
-			})
+			}),
+			async onQueryStarted(data, { queryFulfilled }) {
+				const res = await queryFulfilled
+				if (res.data) {
+					removeItemFromLC('email')
+				}
+			}
 		}),
 		resendRegisterEmail: build.mutation<string, string>({
 			query: body => ({

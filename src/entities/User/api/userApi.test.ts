@@ -128,4 +128,14 @@ describe('UserApi', () => {
 		expect(url).toBe(`${baseURL}/auth/registration-confirmation`)
 		expect(method).toBe('POST')
 	})
+
+	it('should log out the user on successful logout POST request', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
+		await store.dispatch(api.endpoints.logout.initiate())
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/auth/logout`)
+		expect(method).toBe('POST')
+	})
 })

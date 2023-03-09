@@ -7,6 +7,7 @@ import { EmailVerified } from '@pages/EmailVerified'
 import { LoginPage } from '@pages/Login'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
+import { ProfilePage } from '@pages/Profile'
 import { ResendEmail } from '@pages/ResendEmail'
 import { UsersPage } from '@pages/Users'
 import { BiUserPlus } from 'react-icons/bi'
@@ -47,6 +48,13 @@ export const routes: IRoute[] = [
 		component: <UsersPage />,
 		isPrivate: true,
 		isAdmin: true
+	},
+	{
+		path: RoutesEnum.PROFILE,
+		title: 'Profile',
+		icon: <FiUsers />,
+		component: <ProfilePage />,
+		isPrivate: true
 	},
 	{
 		path: RoutesEnum.LOGIN_PAGE,

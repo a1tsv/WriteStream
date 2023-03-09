@@ -7,7 +7,7 @@ import { useResendRegisterEmailMutation } from '@entities/User'
 import resend from '@public/img/resend.svg'
 import { Button } from '@shared/ui/Button'
 import { Typography } from '@shared/ui/Typography'
-import { getItemFromLC } from '@shared/utils/localStorage'
+import { useEffect } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -18,24 +18,23 @@ export const ResendEmail = () => {
 	const email = location?.state?.email as string | undefined
 
 	// API calls
-	const [resendEmail, { isLoading: resendingEmail }] =
+	const [resendEmail, { isLoading: resendingEmail, isSuccess }] =
 		useResendRegisterEmailMutation()
 
 	if (!email) return <Navigate to={'/blogs'} />
 
 	// Handlers
-	const handleRequestError = () => {
-		toast.error('Something went wrong')
-		navigate('/blogs')
-	}
 
 	const handleEmailResend = () => {
-		if (email) {
-			resendEmail(email)
-			return
-		}
-		handleRequestError()
+		resendEmail(email)
 	}
+
+	useEffect(() => {
+		if (!isSuccess && !resendingEmail) {
+			toast.error('Something went wrong')
+			navigate('/blogs')
+		}
+	}, [isSuccess, resendEmail])
 
 	return (
 		<ResendEmailWrapper>

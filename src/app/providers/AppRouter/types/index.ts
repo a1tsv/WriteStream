@@ -10,7 +10,8 @@ export enum RoutesEnum {
 	'REGISTER_PAGE' = '/register',
 	'EMAIL_VERIFIED' = '/email-verified',
 	'RESEND_EMAIL' = '/email-resend',
-	'CONFIRM_REGISTRATION' = '/confirm-registration'
+	'CONFIRM_REGISTRATION' = '/confirm-registration',
+	'PROFILE' = '/profile'
 }
 
 export interface IRoute {
