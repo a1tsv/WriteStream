@@ -35,7 +35,7 @@ export const userApi = api.injectEndpoints({
 		}),
 		logout: build.mutation<string, void>({
 			query: data => ({
-				url: '/auth/login',
+				url: '/auth/logout',
 				method: 'POST',
 				body: data
 			}),
