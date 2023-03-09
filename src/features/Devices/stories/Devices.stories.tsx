@@ -1,0 +1,42 @@
+import { Devices } from '../ui'
+import { IDevice } from '@entities/Device'
+import { baseURL } from '@shared/utils/baseURL'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { rest } from 'msw'
+
+export default {
+	title: 'Features/Devices',
+	component: Devices,
+	parameters: {
+		msw: [
+			rest.get(`${baseURL}/security/devices`, (req, res, ctx) => {
+				const devices: IDevice[] = [
+					{
+						deviceId: '1',
+						title: 'Google Chrome',
+						lastActiveDate: '11.11.11',
+						ip: '11.11.11.11'
+					},
+					{
+						deviceId: '2',
+						title: 'Firefox',
+						lastActiveDate: '22.22.22',
+						ip: '22.22.22.22'
+					}
+				]
+				return res(ctx.status(200), ctx.json(devices))
+			}),
+			rest.delete(`${baseURL}/security/devices`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
+			}),
+			rest.delete(`${baseURL}/security/devices/*`, (req, res, ctx) => {
+				return res(ctx.status(200), ctx.json({}))
+			})
+		]
+	}
+} as ComponentMeta<typeof Devices>
+
+const Template: ComponentStory<typeof Devices> = () => <Devices />
+
+export const Default = Template.bind({})
+Default.args = {}
