@@ -1,7 +1,12 @@
-import { DevicesCurrentSession, DevicesList } from './StyledDevices'
+import {
+	DevicesCurrentSession,
+	DevicesCurrentSessionTitle,
+	DevicesList
+} from './StyledDevices'
 import { Device, useGetDevicesQuery } from '@entities/Device'
 import { useAuthMeQuery } from '@entities/User'
 import { NotFound } from '@shared/ui/NotFound'
+import { Typography } from '@shared/ui/Typography'
 
 export const Devices = () => {
 	// API calls
@@ -17,6 +22,9 @@ export const Devices = () => {
 	return (
 		<div>
 			<DevicesCurrentSession>
+				<DevicesCurrentSessionTitle>
+					Current session:
+				</DevicesCurrentSessionTitle>
 				{currentSessionIsReady ? (
 					<Device device={devices[0]} />
 				) : (

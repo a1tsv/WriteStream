@@ -1,3 +1,5 @@
+import { rem } from '@app/styles/mixins'
+import { Typography } from '@shared/ui/Typography'
 import styled from 'styled-components'
 
 export const DevicesList = styled.ul`
@@ -6,10 +8,19 @@ export const DevicesList = styled.ul`
 	gap: 1rem;
 `
 
-export const DevicesCurrentSession = styled.div`
+export const DevicesCurrentSessionTitle = styled(Typography).attrs({
+	variant: 'sub-title-md'
+})`
 	&:not(:last-child) {
 		margin-bottom: 1rem;
 	}
+`
 
-	border-bottom: 1px solid var(--color-gray);
+export const DevicesCurrentSession = styled.div`
+	border-bottom: 1px solid var(--color-light);
+	padding-bottom: ${rem(10)};
+
+	&:not(:last-child) {
+		margin-bottom: 2rem;
+	}
 `
