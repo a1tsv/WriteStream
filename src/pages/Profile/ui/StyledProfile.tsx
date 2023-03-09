@@ -15,13 +15,3 @@ export const ProfileTitle = styled(Typography).attrs({
 		margin-bottom: ${rem(20)};
 	}
 `
-
-export const ProfileLogout = styled(Button).attrs({
-	variant: 'primary'
-})`
-	align-self: flex-end;
-
-	&:not(:last-child) {
-		margin-bottom: ${rem(20)};
-	}
-`

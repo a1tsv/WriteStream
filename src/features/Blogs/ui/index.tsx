@@ -3,7 +3,6 @@ import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { Blog, useGetBlogsQuery } from '@entities/Blog'
 import { BlogSkeleton } from '@entities/Blog/ui/BlogSkeleton'
-import { useAuthMeQuery } from '@entities/User'
 import {
 	BlogsFilters,
 	BlogsItems,

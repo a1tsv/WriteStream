@@ -1,3 +1,4 @@
+import { useTerminateDeviceMutation } from '../api'
 import { IDevice } from '../model'
 import {
 	DeviceContent,
@@ -18,7 +19,17 @@ interface IProps {
 }
 
 export const Device: FC<IProps> = ({ device }) => {
+	// Vars
 	const { ip, title, lastActiveDate, deviceId } = device
+
+	// API calls
+	const [terminate, { isLoading: terminatingSession }] =
+		useTerminateDeviceMutation()
+
+	// Handlers
+	const terminateSession = () => {
+		terminate(deviceId)
+	}
 
 	return (
 		<DeviceWrapper>
@@ -33,7 +44,10 @@ export const Device: FC<IProps> = ({ device }) => {
 						<DeviceStat>Last seen: {lastActiveDate}</DeviceStat>
 					</DeviceStats>
 				</DeviceInfo>
-				<TerminateButton>
+				<TerminateButton
+					onClick={terminateSession}
+					disabled={terminatingSession}
+				>
 					<BiLogOut />
 					Terminate
 				</TerminateButton>

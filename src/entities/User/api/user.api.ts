@@ -118,6 +118,7 @@ export const {
 	useResendRegisterEmailMutation,
 	useAuthMeQuery,
 	useLazyAuthMeQuery,
+	useLogoutMutation,
 	useRegisterConfirmationMutation,
 	useRefreshTokenMutation
 } = userApi
