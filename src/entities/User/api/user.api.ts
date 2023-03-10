@@ -47,6 +47,13 @@ export const userApi = api.injectEndpoints({
 			},
 			invalidatesTags: ['Auth']
 		}),
+		passwordRecovery: build.mutation<string, string>({
+			query: body => ({
+				url: '/auth/password-recovery',
+				method: 'POST',
+				body
+			})
+		}),
 		register: build.mutation<string, IRegisterFields>({
 			query: body => ({
 				url: '/auth/registration',

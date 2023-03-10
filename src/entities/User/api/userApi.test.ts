@@ -138,4 +138,16 @@ describe('UserApi', () => {
 		expect(url).toBe(`${baseURL}/auth/logout`)
 		expect(method).toBe('POST')
 	})
+
+	it('should send recovery email on successful passwordRecovery POST request', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
+		await store.dispatch(
+			api.endpoints.passwordRecovery.initiate('email@gmail.com')
+		)
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/auth/password-recovery`)
+		expect(method).toBe('POST')
+	})
 })
