@@ -8,6 +8,7 @@ interface ICheckBoxButtonProps {
 export const CheckBoxButton = styled.button<ICheckBoxButtonProps>`
 	display: flex;
 	gap: ${rem(5)};
+	color: var(--color-primary);
 
 	&:before {
 		content: '';

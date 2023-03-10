@@ -1,9 +1,16 @@
-import { IForgotPasswordFields, rules } from '../model'
+import { rules } from '../model'
 import {
 	ForgotPasswordBackTo,
+	ForgotPasswordContent,
 	ForgotPasswordInfo,
-	ForgotPasswordTitle
+	ForgotPasswordTitle,
+	ForgotPasswordWrapper
 } from './StyledForgotPassword'
+import {
+	IForgotPasswordFields,
+	usePasswordRecoveryMutation
+} from '@entities/User'
+import { useShowToastOnSuccess } from '@shared/hooks/useShowToastOnSuccess'
 import { Button } from '@shared/ui/Button'
 import {
 	FormCard,
@@ -12,13 +19,20 @@ import {
 	FormLayout
 } from '@shared/ui/FormLayout/ui'
 import { TextField } from '@shared/ui/Input'
+import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const ForgotPassword = () => {
+	// API calls
+	const [recovery, { isLoading: sendingRecoveryEmail, isSuccess }] =
+		usePasswordRecoveryMutation()
+
+	// Form config
 	const {
 		formState: { isValid },
-		setError,
 		control,
+		reset,
+		getValues,
 		handleSubmit
 	} = useForm<{ email: string }>({
 		defaultValues: {
@@ -26,43 +40,60 @@ export const ForgotPassword = () => {
 		},
 		mode: 'onBlur'
 	})
+	const { email } = getValues()
 
+	// Handlers
 	const onSubmit: SubmitHandler<IForgotPasswordFields> = async fieldsData => {
-		// await login(fieldsData)
+		await recovery(fieldsData)
 	}
 
+	useShowToastOnSuccess(isSuccess, `We have sent a recovery link`, email, reset)
+
+	// Effects
+	// useEffect(() => {
+	// 	if (isSuccess) {
+	// 		const email = getValues().email
+	// 		toast.success(`We have sent a link to confirm you email to ${email}`)
+	// 		reset()
+	// 	}
+	// }, [isSuccess])
+
 	return (
-		<FormLayout onSubmit={handleSubmit(onSubmit)}>
+		<ForgotPasswordWrapper>
 			<FormCard>
-				<ForgotPasswordTitle variant='title'>
-					Forgot password
-				</ForgotPasswordTitle>
-				<FormFields offset={5}>
-					<Controller
-						control={control}
-						name={'email'}
-						rules={rules.loginOrEmail}
-						render={({ field, fieldState: { error } }) => (
-							<FormField error={error} label='Email:'>
-								<TextField {...field} />
-							</FormField>
-						)}
-					/>
-				</FormFields>
-				<ForgotPasswordInfo>
-					Enter your email address and we will send you further instructions
-				</ForgotPasswordInfo>
-				<Button
-					variant='primary'
-					disabled={isValid}
-					sx={{ marginBottom: '0.6rem' }}
-				>
-					Send instructions
-				</Button>
-				<ForgotPasswordBackTo to={'/login'}>
-					Back to sign in
-				</ForgotPasswordBackTo>
+				<ForgotPasswordContent>
+					<FormLayout onSubmit={handleSubmit(onSubmit)}>
+						<ForgotPasswordTitle variant='title'>
+							Forgot password
+						</ForgotPasswordTitle>
+						<FormFields offset={5}>
+							<Controller
+								control={control}
+								name={'email'}
+								rules={rules.loginOrEmail}
+								render={({ field, fieldState: { error } }) => (
+									<FormField error={error} label='Email:'>
+										<TextField {...field} />
+									</FormField>
+								)}
+							/>
+						</FormFields>
+						<ForgotPasswordInfo>
+							Enter your email address and we will send you further instructions
+						</ForgotPasswordInfo>
+						<Button
+							variant='primary'
+							disabled={!isValid || sendingRecoveryEmail}
+							sx={{ marginBottom: '0.6rem' }}
+						>
+							Send instructions
+						</Button>
+						<ForgotPasswordBackTo to={'/login'}>
+							Back to sign in
+						</ForgotPasswordBackTo>
+					</FormLayout>
+				</ForgotPasswordContent>
 			</FormCard>
-		</FormLayout>
+		</ForgotPasswordWrapper>
 	)
 }

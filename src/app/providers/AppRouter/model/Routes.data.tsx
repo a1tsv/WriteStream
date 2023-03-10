@@ -4,6 +4,7 @@ import { BlogPage } from '@pages/Blog'
 import { BlogsPage } from '@pages/Blogs'
 import { ConfgirmRegistration } from '@pages/ConfirmRegistration'
 import { EmailVerified } from '@pages/EmailVerified'
+import { ForgotPassword } from '@pages/ForgotPassword'
 import { LoginPage } from '@pages/Login'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
@@ -83,5 +84,10 @@ export const routes: IRoute[] = [
 		path: RoutesEnum.CONFIRM_REGISTRATION,
 		title: 'Confirm registration',
 		component: <ConfgirmRegistration />
+	},
+	{
+		path: RoutesEnum.PASSWORD_RECOVERY,
+		title: 'Password recovery',
+		component: <ForgotPassword />
 	}
 ]

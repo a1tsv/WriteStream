@@ -1,7 +1,11 @@
 import { useLoginMutation } from '@entities/User'
 import { ILoginFields } from '@entities/User/model'
 import { rules } from '@features/LoginForm/model'
-import { LoginOffer, LoginSignUp } from '@features/LoginForm/ui/StyledLoginForm'
+import {
+	LoginForgotPassword,
+	LoginOffer,
+	LoginSignUp
+} from '@features/LoginForm/ui/StyledLoginForm'
 import { Button } from '@shared/ui/Button'
 import { FormField, FormLayout } from '@shared/ui/FormLayout'
 import {
@@ -13,6 +17,7 @@ import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
 import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 export const LoginForm = () => {
 	// API
@@ -35,6 +40,11 @@ export const LoginForm = () => {
 	// Local States
 	const [showPassword, setShowPassword] = useState(false)
 
+	// Vars
+	const passwordType = !showPassword ? 'password' : 'text'
+	const navigate = useNavigate()
+
+	// Handlers
 	const onSubmit: SubmitHandler<ILoginFields> = async fieldsData => {
 		await login(fieldsData)
 	}
@@ -43,8 +53,9 @@ export const LoginForm = () => {
 		setShowPassword(!showPassword)
 	}
 
-	// Vars
-	const passwordType = !showPassword ? 'password' : 'text'
+	const redirectToForgotPassword = () => {
+		navigate('/password-recovery')
+	}
 
 	useEffect(() => {
 		if (error) {
@@ -94,6 +105,9 @@ export const LoginForm = () => {
 					>
 						Show password
 					</FormShowPassword>
+					<LoginForgotPassword onClick={redirectToForgotPassword}>
+						Forgot password?
+					</LoginForgotPassword>
 				</FormFields>
 
 				<Button

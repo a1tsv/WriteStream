@@ -16,6 +16,10 @@ export interface IRegisterFields {
 	password: string
 }
 
+export interface IForgotPasswordFields {
+	email: string
+}
+
 export interface ITokenResponse {
 	accessToken: string
 }

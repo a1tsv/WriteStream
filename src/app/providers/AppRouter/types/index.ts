@@ -11,6 +11,7 @@ export enum RoutesEnum {
 	'EMAIL_VERIFIED' = '/email-verified',
 	'RESEND_EMAIL' = '/email-resend',
 	'CONFIRM_REGISTRATION' = '/confirm-registration',
+	'PASSWORD_RECOVERY' = '/password-recovery',
 	'PROFILE' = '/profile'
 }
 

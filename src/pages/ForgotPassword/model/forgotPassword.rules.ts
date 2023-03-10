@@ -7,10 +7,6 @@ export const rules: IFieldRules = {
 		pattern: {
 			value: emailPattern,
 			message: 'Email is invalid'
-		},
-		maxLength: {
-			value: 30,
-			message: 'Email can not be longer than 30 charachters'
 		}
 	}
 }
