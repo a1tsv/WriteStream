@@ -5,7 +5,7 @@ import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { rest } from 'msw'
 
 describe('Devices', () => {
@@ -35,15 +35,14 @@ describe('Devices', () => {
 
 		server.use(
 			rest.get(`${baseURL}/security/devices`, (req, res, ctx) => {
-				console.log('In interceptor')
-
 				return res(ctx.status(200), ctx.json(items))
 			}),
 			rest.delete(`${baseURL}/security/devices`, (req, res, ctx) => {
-				items = items.filter(device => device.title !== 'Chrome')
+				items = items.filter(device => device.title === 'Chrome')
 				return res(ctx.status(200), ctx.json({}))
 			}),
 			rest.delete(`${baseURL}/security/devices/*`, (req, res, ctx) => {
+				items = items.filter(device => device.deviceId === req.params[0])
 				return res(ctx.status(200), ctx.json({}))
 			})
 		)
@@ -77,9 +76,8 @@ describe('Devices', () => {
 
 		screen.getByText(/Terminate all sessions/i).click()
 
-		await waitFor(() => {
-			expect(items).toHaveLength(1)
-			// expect(screen.getByText(/No other sessions found/i)).toBeInTheDocument()
-		})
+		expect(
+			await screen.findByText(/No other sessions found/i)
+		).toBeInTheDocument()
 	})
 })

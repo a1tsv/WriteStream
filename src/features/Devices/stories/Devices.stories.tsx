@@ -33,8 +33,7 @@ export default {
 				return res(ctx.status(200), ctx.json({}))
 			}),
 			rest.delete(`${baseURL}/security/devices/*`, (req, res, ctx) => {
-				console.log(req)
-
+				devices = devices.filter(device => device.deviceId !== req.params[0])
 				return res(ctx.status(200), ctx.json({}))
 			})
 		]

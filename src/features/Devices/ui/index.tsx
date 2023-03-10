@@ -9,7 +9,6 @@ import {
 	useGetDevicesQuery,
 	useTerminateAllDevicesMutation
 } from '@entities/Device'
-import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 
 export const Devices = () => {
