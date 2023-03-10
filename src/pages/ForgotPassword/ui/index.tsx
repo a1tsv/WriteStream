@@ -46,7 +46,11 @@ export const ForgotPassword = () => {
 		await recovery(fieldsData)
 	}
 
-	useShowToastOnSuccess(isSuccess, `We have sent a recovery link`, email, reset)
+	useShowToastOnSuccess(
+		isSuccess,
+		`We have sent a recovery link to ${email}`,
+		reset
+	)
 
 	return (
 		<ForgotPasswordWrapper>

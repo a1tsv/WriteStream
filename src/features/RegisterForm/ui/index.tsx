@@ -50,13 +50,13 @@ export const RegisterForm = () => {
 
 	// Vars
 	const passwordType = !showPassword ? 'password' : 'text'
+	const { email } = getValues()
 
 	// Effects
 
 	useShowToastOnSuccess(
 		isSuccess,
-		`We have sent a link to confirm you email`,
-		getValues().email,
+		`We have sent a link to confirm you email to ${email}`,
 		reset
 	)
 

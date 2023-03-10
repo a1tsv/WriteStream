@@ -42,6 +42,7 @@ export const NewPassword = () => {
 		formState: { isValid },
 		control,
 		watch,
+		reset,
 		handleSubmit
 	} = useForm<INewPasswordFields>({
 		defaultValues: {
@@ -68,7 +69,11 @@ export const NewPassword = () => {
 		setShowPassword(!showPassword)
 	}
 
-	// useShowToastOnSuccess(isSuccess, `We have sent a recovery link`, email, reset)
+	useShowToastOnSuccess(
+		isSuccess,
+		`Your password has been successfully recovered!`,
+		reset
+	)
 
 	return (
 		<NewPasswordWrapper>
