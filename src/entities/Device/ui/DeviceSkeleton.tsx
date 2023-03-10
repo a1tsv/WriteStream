@@ -26,19 +26,19 @@ export const DeviceSkeleton: FC<ISkeletonProps> = ({ count }) => {
 					<DeviceContent>
 						<DeviceInfo>
 							<DeviceName>
-								<Skeleton width={100} />
+								<Skeleton width={300} />
 							</DeviceName>
 							<DeviceStats>
 								<DeviceStat>
-									<Skeleton width={100} />
+									<Skeleton width={150} />
 								</DeviceStat>
 								<DeviceStat>
-									<Skeleton width={100} />
+									<Skeleton width={150} />
 								</DeviceStat>
 							</DeviceStats>
 						</DeviceInfo>
 						<TerminateButton>
-							<Skeleton width={100} />
+							<Skeleton width={125} />
 						</TerminateButton>
 					</DeviceContent>
 				</DeviceWrapper>

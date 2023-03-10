@@ -7,6 +7,7 @@ const StyledShowPassword = styled.div`
 	display: flex;
 	gap: ${rem(5)};
 	align-items: center;
+	color: var(--color-main);
 `
 
 interface Props {
