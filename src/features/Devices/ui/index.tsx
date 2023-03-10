@@ -4,20 +4,25 @@ import {
 	DevicesList
 } from './StyledDevices'
 import { Device, useGetDevicesQuery } from '@entities/Device'
-import { useAuthMeQuery } from '@entities/User'
 import { NotFound } from '@shared/ui/NotFound'
-import { Typography } from '@shared/ui/Typography'
 
 export const Devices = () => {
 	// API calls
 	const { data: devices, isLoading: fetchingDevices } = useGetDevicesQuery()
-	const { data: userData, isLoading: fetchingAuthMe } = useAuthMeQuery()
-
-	console.log(userData)
 
 	// Vars
 	const isItemsEmpty = !devices?.length && !fetchingDevices
-	const currentSessionIsReady = devices?.length && !fetchingAuthMe
+	const userAgent = window.navigator.userAgent
+	const currentSession = devices?.find(device => device.title === userAgent)
+	const otherSessions = devices?.filter(device => device.title !== userAgent)
+	console.log(
+		otherSessions,
+		devices,
+		isItemsEmpty,
+		devices?.length,
+		fetchingDevices,
+		devices?.length && !fetchingDevices
+	)
 
 	return (
 		<div>
@@ -25,8 +30,8 @@ export const Devices = () => {
 				<DevicesCurrentSessionTitle>
 					Current session:
 				</DevicesCurrentSessionTitle>
-				{currentSessionIsReady ? (
-					<Device device={devices[0]} />
+				{currentSession ? (
+					<Device device={currentSession} />
 				) : (
 					<div>Loading...</div>
 				)}
@@ -36,7 +41,7 @@ export const Devices = () => {
 				{isItemsEmpty ? (
 					<NotFound label='No other sessions found 🙂' />
 				) : (
-					devices?.map(device => (
+					otherSessions?.map(device => (
 						<Device key={device.deviceId} device={device} />
 					))
 				)}

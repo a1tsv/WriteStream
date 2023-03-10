@@ -10,10 +10,11 @@ export default {
 	parameters: {
 		msw: [
 			rest.get(`${baseURL}/security/devices`, (req, res, ctx) => {
+				const userAgent = window.navigator.userAgent
 				const devices: IDevice[] = [
 					{
 						deviceId: '1',
-						title: 'Google Chrome',
+						title: userAgent,
 						lastActiveDate: '11.11.11',
 						ip: '11.11.11.11'
 					},
