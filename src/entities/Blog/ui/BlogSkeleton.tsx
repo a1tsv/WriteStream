@@ -7,11 +7,12 @@ import {
 	BlogWrapper
 } from '@entities/Blog/ui/StyledBlog'
 import { ISkeletonProps } from '@shared/types'
+import { getArrayFromLength } from '@shared/utils/getArrayFromLength'
 import { FC } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 export const BlogSkeleton: FC<ISkeletonProps> = ({ count }) => {
-	const countArray = Array.from(Array(count).keys())
+	const countArray = getArrayFromLength(count)
 
 	return (
 		<>

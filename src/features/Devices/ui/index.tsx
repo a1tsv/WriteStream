@@ -1,3 +1,4 @@
+import { CurrentSessionContent } from './CurrentSessionContent'
 import {
 	DevicesCurrentSession,
 	DevicesCurrentSessionTitle,
@@ -6,6 +7,7 @@ import {
 } from './StyledDevices'
 import {
 	Device,
+	DeviceSkeleton,
 	useGetDevicesQuery,
 	useTerminateAllDevicesMutation
 } from '@entities/Device'
@@ -22,7 +24,7 @@ export const Devices = () => {
 	const currentSession = devices?.find(device => device.title === userAgent)
 	const otherSessions = devices?.filter(device => device.title !== userAgent)
 	const isItemsEmpty = !otherSessions?.length && !fetchingDevices
-	console.log(devices, fetchingDevices)
+	const isCurrentSessionReady = currentSession && !fetchingDevices
 
 	// Handlers
 	const handleTerminateAllSessions = () => {
@@ -35,10 +37,13 @@ export const Devices = () => {
 				<DevicesCurrentSessionTitle>
 					Current session:
 				</DevicesCurrentSessionTitle>
-				{currentSession ? (
-					<Device isCurrentSession device={currentSession} />
+				{fetchingDevices ? (
+					<DeviceSkeleton count={1} />
 				) : (
-					<div>Loading...</div>
+					<CurrentSessionContent
+						isCurrentSessionReady={!!isCurrentSessionReady}
+						device={currentSession}
+					/>
 				)}
 			</DevicesCurrentSession>
 			<DevicesTerminateAllSessions
@@ -49,7 +54,7 @@ export const Devices = () => {
 				Terminate all sessions
 			</DevicesTerminateAllSessions>
 			<DevicesList>
-				{fetchingDevices && <div>Loading...</div>}
+				{fetchingDevices && <DeviceSkeleton count={3} />}
 				{isItemsEmpty ? (
 					<NotFound label='No other sessions found 🙂' />
 				) : (
