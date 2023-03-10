@@ -16,9 +16,10 @@ import { FaFirefoxBrowser } from 'react-icons/fa'
 
 interface IProps {
 	device: IDevice
+	isCurrentSession?: boolean
 }
 
-export const Device: FC<IProps> = ({ device }) => {
+export const Device: FC<IProps> = ({ device, isCurrentSession }) => {
 	// Vars
 	const { ip, title, lastActiveDate, deviceId } = device
 
@@ -44,13 +45,15 @@ export const Device: FC<IProps> = ({ device }) => {
 						<DeviceStat>Last seen: {lastActiveDate}</DeviceStat>
 					</DeviceStats>
 				</DeviceInfo>
-				<TerminateButton
-					onClick={terminateSession}
-					disabled={terminatingSession}
-				>
-					<BiLogOut />
-					Terminate
-				</TerminateButton>
+				{!isCurrentSession && (
+					<TerminateButton
+						onClick={terminateSession}
+						disabled={terminatingSession}
+					>
+						<BiLogOut />
+						Terminate
+					</TerminateButton>
+				)}
 			</DeviceContent>
 		</DeviceWrapper>
 	)

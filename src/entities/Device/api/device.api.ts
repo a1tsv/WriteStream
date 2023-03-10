@@ -4,7 +4,8 @@ import { api } from '@shared/api'
 export const deviceApi = api.injectEndpoints({
 	endpoints: build => ({
 		getDevices: build.query<IDevice[], void>({
-			query: () => '/security/devices'
+			query: () => '/security/devices',
+			providesTags: ['Devices']
 		}),
 		terminateDevice: build.mutation<void, string>({
 			query: id => ({

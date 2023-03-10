@@ -1,28 +1,34 @@
 import {
 	DevicesCurrentSession,
 	DevicesCurrentSessionTitle,
-	DevicesList
+	DevicesList,
+	DevicesTerminateAllSessions
 } from './StyledDevices'
-import { Device, useGetDevicesQuery } from '@entities/Device'
+import {
+	Device,
+	useGetDevicesQuery,
+	useTerminateAllDevicesMutation
+} from '@entities/Device'
+import { Button } from '@shared/ui/Button'
 import { NotFound } from '@shared/ui/NotFound'
 
 export const Devices = () => {
 	// API calls
 	const { data: devices, isLoading: fetchingDevices } = useGetDevicesQuery()
+	const [terminateAllSessions, { isLoading: terminatingSessions }] =
+		useTerminateAllDevicesMutation()
 
 	// Vars
-	const isItemsEmpty = !devices?.length && !fetchingDevices
 	const userAgent = window.navigator.userAgent
 	const currentSession = devices?.find(device => device.title === userAgent)
 	const otherSessions = devices?.filter(device => device.title !== userAgent)
-	console.log(
-		otherSessions,
-		devices,
-		isItemsEmpty,
-		devices?.length,
-		fetchingDevices,
-		devices?.length && !fetchingDevices
-	)
+	const isItemsEmpty = !otherSessions?.length && !fetchingDevices
+	console.log(devices, fetchingDevices)
+
+	// Handlers
+	const handleTerminateAllSessions = () => {
+		terminateAllSessions()
+	}
 
 	return (
 		<div>
@@ -31,11 +37,18 @@ export const Devices = () => {
 					Current session:
 				</DevicesCurrentSessionTitle>
 				{currentSession ? (
-					<Device device={currentSession} />
+					<Device isCurrentSession device={currentSession} />
 				) : (
 					<div>Loading...</div>
 				)}
 			</DevicesCurrentSession>
+			<DevicesTerminateAllSessions
+				variant='primary'
+				onClick={handleTerminateAllSessions}
+				disabled={terminatingSessions}
+			>
+				Terminate all sessions
+			</DevicesTerminateAllSessions>
 			<DevicesList>
 				{fetchingDevices && <div>Loading...</div>}
 				{isItemsEmpty ? (
