@@ -19,7 +19,6 @@ import {
 	FormLayout
 } from '@shared/ui/FormLayout/ui'
 import { TextField } from '@shared/ui/Input'
-import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 export const ForgotPassword = () => {
@@ -48,15 +47,6 @@ export const ForgotPassword = () => {
 	}
 
 	useShowToastOnSuccess(isSuccess, `We have sent a recovery link`, email, reset)
-
-	// Effects
-	// useEffect(() => {
-	// 	if (isSuccess) {
-	// 		const email = getValues().email
-	// 		toast.success(`We have sent a link to confirm you email to ${email}`)
-	// 		reset()
-	// 	}
-	// }, [isSuccess])
 
 	return (
 		<ForgotPasswordWrapper>

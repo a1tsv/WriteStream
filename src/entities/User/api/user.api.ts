@@ -3,8 +3,10 @@ import {
 	ILoginFields,
 	ITokenResponse,
 	IForgotPasswordFields,
-	IRegisterFields
+	IRegisterFields,
+	INewPasswordPayload
 } from '../model'
+import './../model/user.interface'
 import { IAddUserFields, IUser } from '@entities/User/model/user.interface'
 import { api } from '@shared/api'
 import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
@@ -55,6 +57,13 @@ export const userApi = api.injectEndpoints({
 		passwordRecovery: build.mutation<string, IForgotPasswordFields>({
 			query: body => ({
 				url: '/auth/password-recovery',
+				method: 'POST',
+				body
+			})
+		}),
+		newPassword: build.mutation<string, INewPasswordPayload>({
+			query: body => ({
+				url: '/auth/new-password',
 				method: 'POST',
 				body
 			})

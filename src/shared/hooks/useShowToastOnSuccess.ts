@@ -9,8 +9,8 @@ export const useShowToastOnSuccess = (
 ) => {
 	useEffect(() => {
 		if (isSuccess) {
-			toast.success(`${text} to the ${email}}`)
-			if (reset) reset()
+			toast.success(`${text} to the ${email}`)
+			reset?.()
 		}
 	}, [isSuccess])
 }

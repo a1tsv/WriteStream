@@ -20,6 +20,18 @@ export interface IForgotPasswordFields {
 	email: string
 }
 
+export interface INewPassword {
+	newPassword: string
+}
+
+export interface INewPasswordFields extends INewPassword {
+	repeatPassword: string
+}
+
+export interface INewPasswordPayload extends INewPassword {
+	code: string
+}
+
 export interface ITokenResponse {
 	accessToken: string
 }

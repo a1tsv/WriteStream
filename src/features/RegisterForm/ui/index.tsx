@@ -2,6 +2,7 @@ import { rules } from '../model'
 import { RegisterOffer, RegisterSignIn } from './StyledRegisterForm'
 import { IRegisterFields } from '@entities/User'
 import { useRegisterMutation } from '@entities/User/api'
+import { useShowToastOnSuccess } from '@shared/hooks/useShowToastOnSuccess'
 import { Button } from '@shared/ui/Button'
 import { FormField, FormLayout } from '@shared/ui/FormLayout'
 import {
@@ -12,9 +13,8 @@ import {
 import { TextField } from '@shared/ui/Input'
 import { Typography } from '@shared/ui/Typography'
 import { setItemToLC } from '@shared/utils/localStorage'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 
 export const RegisterForm = () => {
 	// API
@@ -53,13 +53,12 @@ export const RegisterForm = () => {
 
 	// Effects
 
-	useEffect(() => {
-		if (isSuccess) {
-			const email = getValues().email
-			toast.success(`We have sent a link to confirm you email to ${email}`)
-			reset()
-		}
-	}, [isSuccess])
+	useShowToastOnSuccess(
+		isSuccess,
+		`We have sent a link to confirm you email`,
+		getValues().email,
+		reset
+	)
 
 	return (
 		<FormCard>

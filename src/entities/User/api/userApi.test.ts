@@ -1,4 +1,4 @@
-import { IRegisterFields } from './../model/user.interface'
+import { INewPasswordPayload, IRegisterFields } from './../model/user.interface'
 import { userApi } from '@entities/User'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
@@ -142,12 +142,23 @@ describe('UserApi', () => {
 	it('should send recovery email on successful passwordRecovery POST request', async () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
 		await store.dispatch(
-			api.endpoints.passwordRecovery.initiate('email@gmail.com')
+			api.endpoints.passwordRecovery.initiate({ email: 'email@gmail.com' })
 		)
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls
 		expect(url).toBe(`${baseURL}/auth/password-recovery`)
+		expect(method).toBe('POST')
+	})
+
+	it('should set new password on successful logout POST request', async () => {
+		const data: INewPasswordPayload = { code: 'code', newPassword: 'test' }
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }))
+		await store.dispatch(api.endpoints.newPassword.initiate(data))
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/auth/new-password`)
 		expect(method).toBe('POST')
 	})
 })
