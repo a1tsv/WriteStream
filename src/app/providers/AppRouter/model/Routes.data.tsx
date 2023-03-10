@@ -6,6 +6,7 @@ import { ConfgirmRegistration } from '@pages/ConfirmRegistration'
 import { EmailVerified } from '@pages/EmailVerified'
 import { ForgotPassword } from '@pages/ForgotPassword'
 import { LoginPage } from '@pages/Login'
+import { NewPassword } from '@pages/NewPassword'
 import { PostPage } from '@pages/Post'
 import { PostsPage } from '@pages/Posts'
 import { ProfilePage } from '@pages/Profile'
@@ -89,5 +90,10 @@ export const routes: IRoute[] = [
 		path: RoutesEnum.PASSWORD_RECOVERY,
 		title: 'Password recovery',
 		component: <ForgotPassword />
+	},
+	{
+		path: RoutesEnum.NEW_PASSWORD,
+		title: 'New password',
+		component: <NewPassword />
 	}
 ]

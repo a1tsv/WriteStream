@@ -140,6 +140,7 @@ export const {
 	usePasswordRecoveryMutation,
 	useAuthMeQuery,
 	useLazyAuthMeQuery,
+	useNewPasswordMutation,
 	useLogoutMutation,
 	useRegisterConfirmationMutation,
 	useRefreshTokenMutation

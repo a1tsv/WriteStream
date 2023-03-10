@@ -12,6 +12,7 @@ export enum RoutesEnum {
 	'RESEND_EMAIL' = '/email-resend',
 	'CONFIRM_REGISTRATION' = '/confirm-registration',
 	'PASSWORD_RECOVERY' = '/password-recovery',
+	'NEW_PASSWORD' = '/new-password',
 	'PROFILE' = '/profile'
 }
 

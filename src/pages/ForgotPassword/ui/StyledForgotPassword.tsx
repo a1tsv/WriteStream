@@ -14,7 +14,9 @@ export const ForgotPasswordContent = styled.div`
 	align-items: center;
 `
 
-export const ForgotPasswordTitle = styled(Typography)`
+export const ForgotPasswordTitle = styled(Typography).attrs({
+	variant: 'title'
+})`
 	&:not(:first-child) {
 		margin-bottom: ${rem(20)};
 	}
