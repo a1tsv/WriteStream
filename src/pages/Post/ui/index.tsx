@@ -1,4 +1,5 @@
 import { useGetCommentsQuery, useGetPostQuery } from '@entities/Post'
+import { useRatePostMutation } from '@entities/Post/api'
 import { PostSkeleton } from '@pages/Post/ui/PostSkeleton'
 import {
 	PostBlogTitle,
@@ -6,11 +7,11 @@ import {
 	PostHeading,
 	PostImg,
 	PostMembership,
-	PostNavigation,
 	PostText,
 	PostTitle,
 	PostWrapper
 } from '@pages/Post/ui/StyledPost'
+import { TRateStatuses } from '@shared/api/api.interface'
 import { BackTo } from '@shared/ui/BackTo'
 import { IBreadCrumbsItem } from '@shared/ui/Breadcrumbs/model'
 import { BreadCrumbs } from '@shared/ui/Breadcrumbs/ui'
@@ -18,6 +19,7 @@ import { Flex } from '@shared/ui/Flex'
 import { NotFound } from '@shared/ui/NotFound'
 import { formatData } from '@shared/utils/formatData'
 import { Comments } from '@widgets/Comments'
+import { Rates } from '@widgets/Rates'
 import { useMemo } from 'react'
 import { useParams } from 'react-router'
 
@@ -29,6 +31,7 @@ export const PostPage = () => {
 	const { data: post, isLoading } = useGetPostQuery(id as string)
 	const { data: commentsData, isLoading: fetchingComments } =
 		useGetCommentsQuery(id as string)
+	const [ratePost, { isLoading: ratingPost }] = useRatePostMutation()
 
 	// Vars
 	const breadcrumbs: IBreadCrumbsItem[] = useMemo(
@@ -41,6 +44,14 @@ export const PostPage = () => {
 		],
 		[post]
 	)
+
+	// Handlers
+	const handleRatePost = (likeStatus: TRateStatuses) => {
+		const myStatus = post?.extendedLikesInfo.myStatus
+		const currentRate = myStatus === likeStatus ? 'None' : likeStatus
+		const ratePayload = { id: id as string, likeStatus: currentRate }
+		ratePost(ratePayload)
+	}
 
 	return (
 		<div>
@@ -59,6 +70,11 @@ export const PostPage = () => {
 							<PostTitle>{post.title}</PostTitle>
 							<PostMembership>(For public posts)</PostMembership>
 							<PostDate>{formatData(post.createdAt)}</PostDate>
+							<Rates
+								{...post.extendedLikesInfo}
+								isLoading={ratingPost}
+								handleRate={handleRatePost}
+							/>
 						</PostHeading>
 						<PostImg />
 						<PostText>{post.content}</PostText>

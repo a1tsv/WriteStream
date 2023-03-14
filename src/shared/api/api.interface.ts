@@ -24,3 +24,9 @@ export interface IRatePayload {
 	id: string
 	likeStatus: TRateStatuses
 }
+
+export interface IRateUser {
+	userId: string
+	userLogin: string
+	addedAt: string
+}

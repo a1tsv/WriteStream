@@ -1,3 +1,5 @@
+import { TRateStatuses } from './../../../shared/api/api.interface'
+import { IRateUser } from '@shared/api/api.interface'
 import { IComboBoxItem } from '@shared/ui/Combobox/model'
 
 export interface IPost {
@@ -8,6 +10,12 @@ export interface IPost {
 	blogId: string
 	blogName: string
 	createdAt: string
+	extendedLikesInfo: {
+		likesCount: number
+		dislikesCount: number
+		myStatus: TRateStatuses
+		newestLikes: IRateUser[]
+	}
 }
 
 export type IUpdatePostModel = Omit<IPost, 'blogName' | 'createdAt'>

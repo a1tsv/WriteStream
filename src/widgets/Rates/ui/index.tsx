@@ -1,5 +1,5 @@
 import { RatesButton, RatesText, RatesWrapper } from './StyledRates'
-import { TRateStatuses } from '@shared/api/api.interface'
+import { IRateUser, TRateStatuses } from '@shared/api/api.interface'
 import { FC } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { TbHeartOff } from 'react-icons/tb'
@@ -9,6 +9,7 @@ interface IProps {
 	myStatus: TRateStatuses
 	likesCount: number
 	dislikesCount: number
+	newestLikes: IRateUser[]
 	handleRate: (status: TRateStatuses) => void
 }
 
@@ -17,7 +18,8 @@ export const Rates: FC<IProps> = ({
 	myStatus,
 	likesCount,
 	handleRate,
-	dislikesCount
+	dislikesCount,
+	newestLikes
 }) => {
 	return (
 		<RatesWrapper>
@@ -30,6 +32,9 @@ export const Rates: FC<IProps> = ({
 			>
 				<AiOutlineHeart />
 				<RatesText>{likesCount}</RatesText>
+				<RatesText>
+					{newestLikes.map(user => user.userLogin).join(', ')}
+				</RatesText>
 			</RatesButton>
 			<RatesButton
 				variant={'secondary'}

@@ -70,8 +70,6 @@ export const Comment: FC<IComment> = ({
 	}
 
 	const rateCommentHandler = (likeStatus: TRateStatuses) => {
-		console.log('in RATE COMMENT HANDLER', id, likeStatus)
-
 		const currentRate = myStatus === likeStatus ? 'None' : likeStatus
 		const ratePayload = { id, likeStatus: currentRate }
 		rateComment(ratePayload)

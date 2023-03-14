@@ -20,6 +20,7 @@ export const RatesButton = styled(Button).attrs({
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: ${rem(5)};
 `
 
 export const RatesText = styled(Typography)`
