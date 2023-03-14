@@ -4,11 +4,13 @@ import { toast } from 'react-toastify'
 export const useShowToastOnSuccess = (
 	isSuccess: boolean,
 	text: string,
-	reset?: () => void
+	reset?: () => void,
+	callback?: () => void
 ) => {
 	useEffect(() => {
 		if (isSuccess) {
 			toast.success(text)
+			callback?.()
 			reset?.()
 		}
 	}, [isSuccess])

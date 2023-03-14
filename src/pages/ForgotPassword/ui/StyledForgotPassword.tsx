@@ -17,7 +17,7 @@ export const ForgotPasswordContent = styled.div`
 export const ForgotPasswordTitle = styled(Typography).attrs({
 	variant: 'title'
 })`
-	&:not(:first-child) {
+	&:not(:last-child) {
 		margin-bottom: ${rem(20)};
 	}
 `
@@ -32,6 +32,6 @@ export const ForgotPasswordInfo = styled(Typography)`
 export const ForgotPasswordBackTo = styled(NavLink)`
 	color: var(--color-light);
 	border-bottom: 1px solid var(--color-light);
-	display: flex;
-	justify-content: center;
+	max-width: max-content;
+	margin: 0 auto;
 `

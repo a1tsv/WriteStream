@@ -4,11 +4,7 @@ import {
 	NewPasswordTitle,
 	NewPasswordWrapper
 } from './StyledNewPassword'
-import {
-	IForgotPasswordFields,
-	INewPasswordFields,
-	useNewPasswordMutation
-} from '@entities/User'
+import { INewPasswordFields, useNewPasswordMutation } from '@entities/User'
 import { useShowToastOnSuccess } from '@shared/hooks/useShowToastOnSuccess'
 import { Button } from '@shared/ui/Button'
 import {
@@ -21,7 +17,7 @@ import {
 import { TextField } from '@shared/ui/Input'
 import { useMemo, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 
 export const NewPassword = () => {
 	// Params
@@ -58,6 +54,7 @@ export const NewPassword = () => {
 	// Vars
 	const rules = rulesCreator(watch)
 	const passwordType = !showPassword ? 'password' : 'text'
+	const navigate = useNavigate()
 
 	// Handlers
 	const onSubmit: SubmitHandler<INewPasswordFields> = async fieldsData => {
@@ -69,10 +66,15 @@ export const NewPassword = () => {
 		setShowPassword(!showPassword)
 	}
 
+	const redirectToLoginPage = () => {
+		navigate('/login')
+	}
+
 	useShowToastOnSuccess(
 		isSuccess,
 		`Your password has been successfully recovered!`,
-		reset
+		reset,
+		redirectToLoginPage
 	)
 
 	return (

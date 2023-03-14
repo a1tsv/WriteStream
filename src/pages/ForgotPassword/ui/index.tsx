@@ -56,15 +56,15 @@ export const ForgotPassword = () => {
 		<ForgotPasswordWrapper>
 			<FormCard>
 				<ForgotPasswordContent>
+					<ForgotPasswordTitle variant='title'>
+						Forgot password
+					</ForgotPasswordTitle>
 					<FormLayout onSubmit={handleSubmit(onSubmit)}>
-						<ForgotPasswordTitle variant='title'>
-							Forgot password
-						</ForgotPasswordTitle>
 						<FormFields offset={5}>
 							<Controller
 								control={control}
 								name={'email'}
-								rules={rules.loginOrEmail}
+								rules={rules.email}
 								render={({ field, fieldState: { error } }) => (
 									<FormField error={error} label='Email:'>
 										<TextField {...field} />
