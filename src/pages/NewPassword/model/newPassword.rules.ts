@@ -14,9 +14,9 @@ export const rulesCreator = (
 			}
 		},
 		repeatPassword: {
-			required: { value: true, message: 'Password is required' },
+			required: { value: true, message: 'Repeat password is required' },
 			validate: (val: string) => {
-				if (watch('newPassword') != val) {
+				if (watch('newPassword') !== val) {
 					return 'Your passwords do not match'
 				}
 			}
