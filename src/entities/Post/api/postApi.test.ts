@@ -4,6 +4,7 @@ import {
 	IDeletePostModel,
 	IUpdatePostModel
 } from '@entities/Post/api/post.interface'
+import { IRatePayload } from '@shared/api/api.interface'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import fetchMock from 'jest-fetch-mock'
@@ -121,5 +122,17 @@ describe('post api', () => {
 		const { url, method } = calls
 		expect(url).toBe(`${baseURL}/posts/1/comments`)
 		expect(method).toBe('POST')
+	})
+
+	it('should rate the post in successful PUT request', async () => {
+		const ratePayload: IRatePayload = { id: '1', likeStatus: 'Like' }
+		fetchMock.mockResponseOnce(JSON.stringify({}))
+		await store.dispatch(api.endpoints.ratePost.initiate(ratePayload))
+		// expect(fetchMock).toHaveBeenCalledTimes(1)
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/posts/1/like-status`)
+		expect(method).toBe('PUT')
 	})
 })

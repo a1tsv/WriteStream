@@ -1,4 +1,4 @@
-export type TCommentRateStatuses = 'Like' | 'Dislike' | 'None'
+import { TRateStatuses } from '@shared/api/api.interface'
 
 export interface IComment {
 	id: string
@@ -11,11 +11,6 @@ export interface IComment {
 	likesInfo: {
 		likesCount: number
 		dislikesCount: number
-		myStatus: TCommentRateStatuses
+		myStatus: TRateStatuses
 	}
-}
-
-export interface IRatePayload {
-	id: string
-	likeStatus: TCommentRateStatuses
 }

@@ -17,3 +17,10 @@ export interface IError {
 	message: string
 	field: string
 }
+
+export type TRateStatuses = 'Like' | 'Dislike' | 'None'
+
+export interface IRatePayload {
+	id: string
+	likeStatus: TRateStatuses
+}

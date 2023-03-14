@@ -6,8 +6,11 @@ import {
 	IUpdatePostModel
 } from '@entities/Post/api/post.interface'
 import { api } from '@shared/api'
-import { IGetItemsModel, IGetItemsResponse } from '@shared/api/api.interface'
-import { getAdminHeaders } from '@shared/utils/getAdminHeaders'
+import {
+	IGetItemsModel,
+	IGetItemsResponse,
+	IRatePayload
+} from '@shared/api/api.interface'
 
 export const postApi = api.injectEndpoints({
 	endpoints: build => ({
@@ -33,7 +36,6 @@ export const postApi = api.injectEndpoints({
 				url: `/blogger/blogs/${data.blogId}/posts`,
 				method: 'POST',
 				body: data
-				// headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),
@@ -46,7 +48,6 @@ export const postApi = api.injectEndpoints({
 					title: data.title,
 					content: data.content
 				}
-				// headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
 		}),
@@ -54,9 +55,15 @@ export const postApi = api.injectEndpoints({
 			query: data => ({
 				url: `blogger/blogs/${data.blogId}/posts/${data.id}`,
 				method: 'DELETE'
-				// headers: getAdminHeaders()
 			}),
 			invalidatesTags: ['Posts']
+		}),
+		ratePost: build.mutation<string, IRatePayload>({
+			query: ({ id, likeStatus }) => ({
+				url: `/posts/${id}/like-status`,
+				method: 'PUT',
+				body: { likeStatus }
+			})
 		}),
 		getComments: build.query<IGetItemsResponse<IComment[]>, string>({
 			query: id => ({
@@ -81,6 +88,7 @@ export const {
 	useCreatePostMutation,
 	useUpdatePostMutation,
 	useDeletePostMutation,
+	useRatePostMutation,
 	useCreateCommentMutation,
 	useGetCommentsQuery
 } = postApi
