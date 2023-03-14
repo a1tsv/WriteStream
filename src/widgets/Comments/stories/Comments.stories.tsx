@@ -1,25 +1,12 @@
 import { IComment } from '@entities/Comment'
-import { api } from '@shared/api'
-import { useAppDispatch } from '@shared/hooks'
+import { IRatePayload } from '@entities/Comment/model'
 import { baseURL } from '@shared/utils/baseURL'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Comments } from '@widgets/Comments'
 import { rest } from 'msw'
 import { useEffect } from 'react'
 
-export default {
-	title: 'Widgets/Comments',
-	component: Comments,
-	parameters: {
-		msw: [
-			rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
-				ctx.json({})
-			})
-		]
-	}
-} as ComponentMeta<typeof Comments>
-
-const items: IComment[] = [
+let items: IComment[] = [
 	{
 		id: 'comment1',
 		content: 'This is the content of first comment',
@@ -30,7 +17,7 @@ const items: IComment[] = [
 		likesInfo: {
 			likesCount: 10,
 			dislikesCount: 5,
-			myStatus: 'Like'
+			myStatus: 'None'
 		},
 		createdAt: '2021-01-01T00:00:00.000Z'
 	},
@@ -44,25 +31,74 @@ const items: IComment[] = [
 		likesInfo: {
 			likesCount: 10,
 			dislikesCount: 5,
-			myStatus: 'Like'
+			myStatus: 'None'
 		},
 		createdAt: '2021-01-01T00:00:00.000Z'
 	}
 ]
 
-const Template: ComponentStory<typeof Comments> = () => {
-	const dispatch = useAppDispatch()
+const baseMSWParametrs = [
+	rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
+		return res(ctx.status(401))
+	}),
+	rest.put(`${baseURL}/comments/*/like-status`, (req, res, ctx) => {
+		const { likeStatus: sendedLikeStatus } = req.body as IRatePayload
+		items = items.map(comment => {
+			const currentMyStatus = comment.likesInfo.myStatus
+			let likesCount = comment.likesInfo.likesCount
+			let dislikesCount = comment.likesInfo.dislikesCount
+
+			if (sendedLikeStatus !== 'None') {
+				sendedLikeStatus === 'Like' ? likesCount++ : dislikesCount++
+			}
+
+			if (currentMyStatus !== 'None') {
+				currentMyStatus === 'Like' ? likesCount-- : dislikesCount--
+			}
+
+			const newComment: IComment = {
+				...comment,
+				likesInfo: { likesCount, dislikesCount, myStatus: sendedLikeStatus }
+			}
+
+			return comment.id === req.params[0] ? newComment : comment
+		})
+
+		return res(ctx.json({}))
+	})
+]
+
+export default {
+	title: 'Widgets/Comments',
+	component: Comments,
+	parameters: {
+		msw: baseMSWParametrs
+	}
+} as ComponentMeta<typeof Comments>
+
+const Template: ComponentStory<typeof Comments> = args => {
+	// const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		dispatch(api.util.resetApiState())
-	}, [])
+		console.log('in use effect')
 
-	return <Comments items={items} />
+		// dispatch(api.util.resetApiState())
+	}, [items])
+
+	console.log('rerendering component')
+
+	return <Comments {...args} />
 }
 
 export const Authenticated = Template.bind({})
+console.log('args is changing')
+
+Authenticated.args = {
+	items
+}
 Authenticated.parameters = {
 	msw: [
+		...baseMSWParametrs,
 		rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
 			return res(
 				ctx.json({
@@ -76,8 +112,12 @@ Authenticated.parameters = {
 }
 
 export const Unauthenticated = Template.bind({})
+Unauthenticated.args = {
+	items
+}
 Unauthenticated.parameters = {
 	msw: [
+		...baseMSWParametrs,
 		rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
 			return res(ctx.status(401))
 		})

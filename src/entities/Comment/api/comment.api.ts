@@ -5,7 +5,8 @@ import { api } from '@shared/api'
 export const commentApi = api.injectEndpoints({
 	endpoints: build => ({
 		getComment: build.query<IComment, string>({
-			query: id => `comments/${id}`
+			query: id => `comments/${id}`,
+			providesTags: ['Comments']
 		}),
 		updateComment: build.mutation<void, { id: string; content: string }>({
 			query: body => ({

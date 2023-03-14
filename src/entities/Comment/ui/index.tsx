@@ -26,7 +26,7 @@ import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
 import { formatData } from '@shared/utils/formatData'
 import { ChangeEvent, FC, useRef, useState } from 'react'
-import { AiOutlineLike, AiOutlineDislike, AiOutlineHeart } from 'react-icons/ai'
+import { AiOutlineHeart } from 'react-icons/ai'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { TbHeartOff } from 'react-icons/tb'
 
@@ -77,6 +77,8 @@ export const Comment: FC<IComment> = ({
 	}
 
 	const rateCommentHandler = (likeStatus: TCommentRateStatuses) => {
+		console.log('in RATE COMMENT HANDLER', id, likeStatus)
+
 		const currentRate = myStatus === likeStatus ? 'None' : likeStatus
 		const ratePayload = { id, likeStatus: currentRate }
 		rateComment(ratePayload)
@@ -130,6 +132,7 @@ export const Comment: FC<IComment> = ({
 							variant={'secondary'}
 							disabled={ratingComment}
 							selected={myStatus === 'Like'}
+							aria-label={'Like the comment'}
 							onClick={() => rateCommentHandler('Like')}
 						>
 							<AiOutlineHeart />
@@ -140,6 +143,7 @@ export const Comment: FC<IComment> = ({
 							disabled={ratingComment}
 							selected={myStatus === 'Dislike'}
 							onClick={() => rateCommentHandler('Dislike')}
+							aria-label={'Dislike the comment'}
 						>
 							<TbHeartOff />
 							<CommentLikeText>{dislikesCount}</CommentLikeText>
@@ -150,7 +154,7 @@ export const Comment: FC<IComment> = ({
 			{editMode && (
 				<CommentButtons>
 					<Button variant={'secondary'} onClick={submitEditing}>
-						Edit
+						Edit comment
 					</Button>
 					<Button variant={'primary'} onClick={cancelEditing}>
 						Cancel

@@ -2,6 +2,7 @@ import { Comments } from '../ui'
 import { Modals } from '@app/providers/ModalsProvider'
 import { server } from '@app/tests/msw'
 import { IComment } from '@entities/Comment'
+import { IRatePayload } from '@entities/Comment/model'
 import { api } from '@shared/api'
 import { IGetItemsResponse } from '@shared/api/api.interface'
 import { baseURL } from '@shared/utils/baseURL'
@@ -26,6 +27,11 @@ describe('Comments', () => {
 				commentatorInfo: {
 					userLogin: 'user1',
 					userId: '1'
+				},
+				likesInfo: {
+					likesCount: 10,
+					dislikesCount: 5,
+					myStatus: 'None'
 				}
 			},
 			{
@@ -35,6 +41,25 @@ describe('Comments', () => {
 				commentatorInfo: {
 					userId: '2',
 					userLogin: 'user2'
+				},
+				likesInfo: {
+					likesCount: 20,
+					dislikesCount: 15,
+					myStatus: 'Dislike'
+				}
+			},
+			{
+				id: '3',
+				content: 'Comment 3',
+				createdAt: '2021-01-31',
+				commentatorInfo: {
+					userId: '3',
+					userLogin: 'user3'
+				},
+				likesInfo: {
+					likesCount: 12,
+					dislikesCount: 1,
+					myStatus: 'Like'
 				}
 			}
 		]
@@ -48,24 +73,56 @@ describe('Comments', () => {
 		}
 
 		server.use(
-			rest.get(`${baseURL}/posts/1/comments`, (req, res, ctx) => {
+			rest.get(`${baseURL}/posts/*/comments`, (req, res, ctx) => {
 				return res(ctx.json(mockServerResponse))
 			}),
-			rest.post(`${baseURL}/posts/1/comments`, (req, res, ctx) => {
+			rest.post(`${baseURL}/posts/*/comments`, (req, res, ctx) => {
 				items.push(req.body as IComment)
 				return res(ctx.json({}))
 			}),
-			rest.delete(`${baseURL}/comments/1`, (req, res, ctx) => {
-				items.splice(0, 1)
-				return res(ctx.json({}))
-			}),
-			rest.put(`${baseURL}/comments/1`, (req, res, ctx) => {
-				const body = req.body as IComment
-				items[0].content = body.content
+
+			rest.put(`${baseURL}/comments/*/like-status`, (req, res, ctx) => {
+				const { likeStatus: sendedLikeStatus } = req.body as IRatePayload
+				console.log('IN INTERCEPTOR')
+
+				items = items.map(comment => {
+					const currentMyStatus = comment.likesInfo.myStatus
+					let likesCount = comment.likesInfo.likesCount
+					let dislikesCount = comment.likesInfo.dislikesCount
+
+					if (sendedLikeStatus !== 'None') {
+						sendedLikeStatus === 'Like' ? likesCount++ : dislikesCount++
+					}
+
+					if (currentMyStatus !== 'None') {
+						currentMyStatus === 'Like' ? likesCount-- : dislikesCount--
+					}
+
+					const newComment: IComment = {
+						...comment,
+						likesInfo: { likesCount, dislikesCount, myStatus: sendedLikeStatus }
+					}
+
+					console.log(comment.id === req.params[0], 'FIND COMMENT')
+
+					return comment.id === req.params[0] ? newComment : comment
+				})
+
+				console.log(items)
+
 				return res(ctx.json({}))
 			}),
 			rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
 				return res(ctx.status(200), ctx.json({ userId: '1', login: 'user1' }))
+			}),
+			rest.delete(`${baseURL}/comments/*`, (req, res, ctx) => {
+				items.splice(0, 1)
+				return res(ctx.json({}))
+			}),
+			rest.put(`${baseURL}/comments/*`, (req, res, ctx) => {
+				const body = req.body as IComment
+				items[0].content = body.content
+				return res(ctx.json({}))
 			})
 		)
 	})
@@ -94,7 +151,7 @@ describe('Comments', () => {
 		userEvent.click(button)
 
 		await waitFor(() => {
-			expect(items).toHaveLength(3)
+			expect(items).toHaveLength(4)
 		})
 	})
 
@@ -158,7 +215,7 @@ describe('Comments', () => {
 		await userEvent.click(submitButton)
 
 		await waitFor(() => {
-			expect(items).toHaveLength(1)
+			expect(items).toHaveLength(2)
 		})
 	})
 
@@ -174,7 +231,97 @@ describe('Comments', () => {
 		userEvent.click(button)
 
 		await waitFor(() => {
-			expect(items).toHaveLength(2)
+			expect(items).toHaveLength(3)
+		})
+	})
+
+	it('should change the likes count when pressed like button', async () => {
+		renderWithRouter(
+			storeRef.wrapper({ children: <Comments items={items} /> }),
+			{}
+		)
+
+		const likeButtons = screen.getAllByLabelText('Like the comment')
+		await userEvent.click(likeButtons[0])
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '1')?.likesInfo.likesCount).toBe(11)
+		})
+	})
+
+	it('should remove the like when pressed like button after already liking the comment', async () => {
+		renderWithRouter(
+			storeRef.wrapper({ children: <Comments items={items} /> }),
+			{}
+		)
+
+		const likeButtons = screen.getAllByLabelText('Like the comment')
+		await userEvent.click(likeButtons[2])
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '3')?.likesInfo.likesCount).toBe(11)
+		})
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '3')?.likesInfo.dislikesCount).toBe(
+				1
+			)
+		})
+	})
+
+	it('should change the dislikes count when pressed dislike button', async () => {
+		renderWithRouter(
+			storeRef.wrapper({ children: <Comments items={items} /> }),
+			{}
+		)
+
+		const likeButtons = screen.getAllByLabelText('Dislike the comment')
+		await userEvent.click(likeButtons[0])
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '1')?.likesInfo.dislikesCount).toBe(
+				6
+			)
+		})
+	})
+
+	it('should remove one like and add one dislike when pressed like button after like', async () => {
+		renderWithRouter(
+			storeRef.wrapper({ children: <Comments items={items} /> }),
+			{}
+		)
+
+		const likeButtons = screen.getAllByLabelText('Dislike the comment')
+		await userEvent.click(likeButtons[2])
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '3')?.likesInfo.dislikesCount).toBe(
+				2
+			)
+		})
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '3')?.likesInfo.likesCount).toBe(11)
+		})
+	})
+
+	it('should remove one dislike and add one like when pressed like button after like', async () => {
+		renderWithRouter(
+			storeRef.wrapper({ children: <Comments items={items} /> }),
+			{}
+		)
+
+		const likeButtons = screen.getAllByLabelText('Like the comment')
+		await userEvent.click(likeButtons[1])
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '2')?.likesInfo.likesCount).toBe(21)
+		})
+
+		await waitFor(() => {
+			expect(items.find(item => item.id === '2')?.likesInfo.dislikesCount).toBe(
+				14
+			)
 		})
 	})
 
@@ -184,9 +331,10 @@ describe('Comments', () => {
 			{}
 		)
 
-		expect(screen.getByText('Comments(2)')).toBeInTheDocument()
+		expect(screen.getByText('Comments(3)')).toBeInTheDocument()
 		expect(screen.getByText('Comment 1')).toBeInTheDocument()
 		expect(screen.getByText('Comment 2')).toBeInTheDocument()
+		expect(screen.getByText('Comment 3')).toBeInTheDocument()
 	})
 
 	it('should not show add new comment form when user is not authorized', () => {
