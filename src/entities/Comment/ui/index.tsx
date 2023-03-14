@@ -2,11 +2,7 @@ import { useRateCommentMutation } from '../api'
 import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { IComment, useUpdateCommentMutation } from '@entities/Comment'
-import {
-	dropdownItems,
-	TCommentRateStatuses,
-	useSetHeight
-} from '@entities/Comment/model'
+import { dropdownItems, useSetHeight } from '@entities/Comment/model'
 import {
 	CommentBody,
 	CommentButtons,
@@ -14,21 +10,18 @@ import {
 	CommentHeader,
 	CommentImgPlaceholder,
 	CommentInfo,
-	CommentLikeButton,
-	CommentLikes,
-	CommentLikeText,
 	CommentTextField,
 	CommentWrapper
 } from '@entities/Comment/ui/StyledComment'
 import { useAuthMeQuery } from '@entities/User'
+import { TRateStatuses } from '@shared/api/api.interface'
 import { Button } from '@shared/ui/Button'
 import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
 import { formatData } from '@shared/utils/formatData'
+import { Rates } from '@widgets/Rates'
 import { ChangeEvent, FC, useRef, useState } from 'react'
-import { AiOutlineHeart } from 'react-icons/ai'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
-import { TbHeartOff } from 'react-icons/tb'
 
 export const Comment: FC<IComment> = ({
 	id,
@@ -76,7 +69,7 @@ export const Comment: FC<IComment> = ({
 		cancelEditing()
 	}
 
-	const rateCommentHandler = (likeStatus: TCommentRateStatuses) => {
+	const rateCommentHandler = (likeStatus: TRateStatuses) => {
 		console.log('in RATE COMMENT HANDLER', id, likeStatus)
 
 		const currentRate = myStatus === likeStatus ? 'None' : likeStatus
@@ -127,28 +120,13 @@ export const Comment: FC<IComment> = ({
 							<p ref={commentTextRef}>{content}</p>
 						)}
 					</>
-					<CommentLikes>
-						<CommentLikeButton
-							variant={'secondary'}
-							disabled={ratingComment}
-							selected={myStatus === 'Like'}
-							aria-label={'Like the comment'}
-							onClick={() => rateCommentHandler('Like')}
-						>
-							<AiOutlineHeart />
-							<CommentLikeText>{likesCount}</CommentLikeText>
-						</CommentLikeButton>
-						<CommentLikeButton
-							variant={'secondary'}
-							disabled={ratingComment}
-							selected={myStatus === 'Dislike'}
-							onClick={() => rateCommentHandler('Dislike')}
-							aria-label={'Dislike the comment'}
-						>
-							<TbHeartOff />
-							<CommentLikeText>{dislikesCount}</CommentLikeText>
-						</CommentLikeButton>
-					</CommentLikes>
+					<Rates
+						isLoading={ratingComment}
+						myStatus={myStatus}
+						likesCount={likesCount}
+						dislikesCount={dislikesCount}
+						handleRate={rateCommentHandler}
+					/>
 				</CommentBody>
 			</CommentContent>
 			{editMode && (
