@@ -20,6 +20,13 @@ export const commentApi = api.injectEndpoints({
 				method: 'DELETE'
 			}),
 			invalidatesTags: ['Comments']
+		}),
+		likeComment: build.mutation<IComment, string>({
+			query: id => ({
+				url: `comments/${id}/like-status`,
+				method: 'POST'
+			}),
+			invalidatesTags: ['Comments']
 		})
 	})
 })

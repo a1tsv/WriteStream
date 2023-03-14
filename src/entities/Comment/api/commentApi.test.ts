@@ -50,4 +50,14 @@ describe('CommentApi', () => {
 		expect(url).toBe(`${baseURL}/comments/1`)
 		expect(method).toBe('DELETE')
 	})
+
+	it('should like comment on successful POSt request', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({}))
+		await store.dispatch(api.endpoints.deleteComment.initiate('1'))
+		expect(fetchMock).toHaveBeenCalled()
+		const calls = fetchMock.mock.calls[0][0] as Request
+		const { url, method } = calls
+		expect(url).toBe(`${baseURL}/comments/1/like-status`)
+		expect(method).toBe('DELETE')
+	})
 })
