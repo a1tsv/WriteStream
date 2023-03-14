@@ -42,8 +42,6 @@ describe('ConfirmRegistration', () => {
 			rest.post(
 				`${baseURL}/auth/registration-confirmation`,
 				(req, res, ctx) => {
-					console.log('in interceptor')
-
 					return res(ctx.json({}))
 				}
 			)

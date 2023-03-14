@@ -100,12 +100,6 @@ describe('NewPassword', () => {
 		)
 
 		await enterValidData()
-		// const passwordText = 'testtesttest'
-		// const passwordInput = screen.getByLabelText('Password:')
-		// const repeatPasswordInput = screen.getByLabelText('Repeat password:')
-
-		// await userEvent.type(passwordInput, passwordText)
-		// await userEvent.type(repeatPasswordInput, passwordText)
 
 		await userEvent.click(
 			screen.getByRole('button', { name: 'Set new password' })

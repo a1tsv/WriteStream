@@ -16,7 +16,6 @@ describe('ForgotPassword', () => {
 	beforeEach(() => {
 		server.use(
 			rest.post(`${baseURL}/auth/password-recovery`, (req, res, ctx) => {
-				console.log('in registration interceptor')
 				return res(ctx.json({}))
 			})
 		)

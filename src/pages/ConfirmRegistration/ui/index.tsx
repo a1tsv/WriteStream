@@ -12,10 +12,8 @@ export const ConfgirmRegistration = () => {
 	const [searchParams] = useSearchParams()
 	const params = useMemo(() => Object.fromEntries(searchParams), [searchParams])
 	const code = params.code
-	console.log('CODE: ', code, 'EMAIL: ', email)
 
 	if (!code || !email) {
-		console.log('navigating to blogs')
 		return <Navigate to={'/blogs'} />
 	}
 	// API calls
@@ -30,7 +28,6 @@ export const ConfgirmRegistration = () => {
 	useEffect(() => {
 		const state = { email }
 		if (!isSuccess && !isLoading) {
-			console.log('redirecting to email resend', isSuccess, isLoading)
 			navigate('/email-resend', { state })
 			removeItemFromLC('email')
 			return

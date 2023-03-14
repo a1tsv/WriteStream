@@ -4,7 +4,6 @@ import { server } from '@app/tests/msw'
 import { LoginForm } from '@features/LoginForm'
 import { api } from '@shared/api'
 import { baseURL } from '@shared/utils/baseURL'
-import { getItemFromLC } from '@shared/utils/localStorage'
 import { renderWithRouter } from '@shared/utils/renderWithRouter'
 import { setupApiStore } from '@shared/utils/setupApiStore'
 import { screen } from '@testing-library/react'
@@ -18,8 +17,6 @@ describe('RegisterForm', () => {
 	beforeEach(() => {
 		server.use(
 			rest.post(`${baseURL}/auth/registration`, (req, res, ctx) => {
-				console.log('in registration interceptor')
-
 				return res(ctx.json({}))
 			})
 		)

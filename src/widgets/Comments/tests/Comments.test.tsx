@@ -52,8 +52,6 @@ describe('Comments', () => {
 				return res(ctx.json(mockServerResponse))
 			}),
 			rest.post(`${baseURL}/posts/1/comments`, (req, res, ctx) => {
-				console.log('in post interceptor')
-
 				items.push(req.body as IComment)
 				return res(ctx.json({}))
 			}),
@@ -63,14 +61,10 @@ describe('Comments', () => {
 			}),
 			rest.put(`${baseURL}/comments/1`, (req, res, ctx) => {
 				const body = req.body as IComment
-				console.log('in put interceptor', body.content)
 				items[0].content = body.content
-				console.log(items)
 				return res(ctx.json({}))
 			}),
 			rest.get(`${baseURL}/auth/me`, (req, res, ctx) => {
-				console.log('in auth me interceptor')
-
 				return res(ctx.status(200), ctx.json({ userId: '1', login: 'user1' }))
 			})
 		)
