@@ -1,7 +1,12 @@
+import { useRateCommentMutation } from '../api'
 import { useModalContext } from '@app/providers/ModalsProvider'
 import { ModalsEnum } from '@app/providers/ModalsProvider/model'
 import { IComment, useUpdateCommentMutation } from '@entities/Comment'
-import { dropdownItems, useSetHeight } from '@entities/Comment/model'
+import {
+	dropdownItems,
+	TCommentRateStatuses,
+	useSetHeight
+} from '@entities/Comment/model'
 import {
 	CommentBody,
 	CommentButtons,
@@ -9,6 +14,9 @@ import {
 	CommentHeader,
 	CommentImgPlaceholder,
 	CommentInfo,
+	CommentLikeButton,
+	CommentLikes,
+	CommentLikeText,
 	CommentTextField,
 	CommentWrapper
 } from '@entities/Comment/ui/StyledComment'
@@ -18,24 +26,29 @@ import { Dropdown } from '@shared/ui/Dropdown'
 import { Typography } from '@shared/ui/Typography'
 import { formatData } from '@shared/utils/formatData'
 import { ChangeEvent, FC, useRef, useState } from 'react'
+import { AiOutlineLike, AiOutlineDislike, AiOutlineHeart } from 'react-icons/ai'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
+import { TbHeartOff } from 'react-icons/tb'
 
 export const Comment: FC<IComment> = ({
 	id,
 	createdAt,
 	commentatorInfo,
-	content
+	content,
+	likesInfo
 }) => {
 	// Modals
 	const { showModal } = useModalContext()
 
 	// Api calls
 	const [updateComment] = useUpdateCommentMutation()
+	const [rateComment, { isLoading: ratingComment }] = useRateCommentMutation()
 
 	const { data } = useAuthMeQuery()
 
 	// Vars
 	const { userId, userLogin } = commentatorInfo
+	const { likesCount, dislikesCount, myStatus } = likesInfo
 	const commentTextRef = useRef<HTMLParagraphElement>(null)
 	const commentTextFieldRef = useRef<HTMLInputElement>(null)
 	const isCurrentUserOwner = data?.userId === userId
@@ -61,6 +74,12 @@ export const Comment: FC<IComment> = ({
 	const submitEditing = async () => {
 		await updateComment({ id, content: commentText })
 		cancelEditing()
+	}
+
+	const rateCommentHandler = (likeStatus: TCommentRateStatuses) => {
+		const currentRate = myStatus === likeStatus ? 'None' : likeStatus
+		const ratePayload = { id, likeStatus: currentRate }
+		rateComment(ratePayload)
 	}
 
 	const onDropdownChange = (value: ModalsEnum | string) => {
@@ -106,15 +125,35 @@ export const Comment: FC<IComment> = ({
 							<p ref={commentTextRef}>{content}</p>
 						)}
 					</>
+					<CommentLikes>
+						<CommentLikeButton
+							variant={'secondary'}
+							disabled={ratingComment}
+							selected={myStatus === 'Like'}
+							onClick={() => rateCommentHandler('Like')}
+						>
+							<AiOutlineHeart />
+							<CommentLikeText>{likesCount}</CommentLikeText>
+						</CommentLikeButton>
+						<CommentLikeButton
+							variant={'secondary'}
+							disabled={ratingComment}
+							selected={myStatus === 'Dislike'}
+							onClick={() => rateCommentHandler('Dislike')}
+						>
+							<TbHeartOff />
+							<CommentLikeText>{dislikesCount}</CommentLikeText>
+						</CommentLikeButton>
+					</CommentLikes>
 				</CommentBody>
 			</CommentContent>
 			{editMode && (
 				<CommentButtons>
-					<Button variant={'secondary'} onClick={cancelEditing}>
-						Cancel
+					<Button variant={'secondary'} onClick={submitEditing}>
+						Edit
 					</Button>
-					<Button variant={'primary'} onClick={submitEditing}>
-						Edit comment
+					<Button variant={'primary'} onClick={cancelEditing}>
+						Cancel
 					</Button>
 				</CommentButtons>
 			)}

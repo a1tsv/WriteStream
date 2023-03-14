@@ -23,16 +23,30 @@ const items: IComment[] = [
 	{
 		id: 'comment1',
 		content: 'This is the content of first comment',
-		userId: 'user1',
-		createdAt: '2021-01-01T00:00:00.000Z',
-		userLogin: 'user1'
+		commentatorInfo: {
+			userId: 'user1',
+			userLogin: 'user1'
+		},
+		likesInfo: {
+			likesCount: 10,
+			dislikesCount: 5,
+			myStatus: 'Like'
+		},
+		createdAt: '2021-01-01T00:00:00.000Z'
 	},
 	{
 		id: 'comment2',
 		content: 'This is the content of second comment',
-		userId: 'user2',
-		createdAt: '2021-01-01T00:00:00.000Z',
-		userLogin: 'user2'
+		commentatorInfo: {
+			userId: 'user2',
+			userLogin: 'user2'
+		},
+		likesInfo: {
+			likesCount: 10,
+			dislikesCount: 5,
+			myStatus: 'Like'
+		},
+		createdAt: '2021-01-01T00:00:00.000Z'
 	}
 ]
 

@@ -1,3 +1,4 @@
+import { IRatePayload } from '../model'
 import { IComment } from '@entities/Comment'
 import { api } from '@shared/api'
 
@@ -21,10 +22,11 @@ export const commentApi = api.injectEndpoints({
 			}),
 			invalidatesTags: ['Comments']
 		}),
-		likeComment: build.mutation<IComment, string>({
-			query: id => ({
+		rateComment: build.mutation<IComment, IRatePayload>({
+			query: ({ id, likeStatus }) => ({
 				url: `comments/${id}/like-status`,
-				method: 'POST'
+				method: 'PUT',
+				body: { likeStatus }
 			}),
 			invalidatesTags: ['Comments']
 		})
@@ -34,5 +36,6 @@ export const commentApi = api.injectEndpoints({
 export const {
 	useGetCommentQuery,
 	useUpdateCommentMutation,
-	useDeleteCommentMutation
+	useDeleteCommentMutation,
+	useRateCommentMutation
 } = commentApi

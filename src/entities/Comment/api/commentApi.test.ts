@@ -1,3 +1,4 @@
+import { IRatePayload } from '../model'
 import { commentApi } from '@entities/Comment/api/comment.api'
 import { baseURL } from '@shared/utils/baseURL'
 import { setupApiStore } from '@shared/utils/setupApiStore'
@@ -53,7 +54,8 @@ describe('CommentApi', () => {
 
 	it('should like comment on successful POSt request', async () => {
 		fetchMock.mockResponseOnce(JSON.stringify({}))
-		await store.dispatch(api.endpoints.deleteComment.initiate('1'))
+		const rateConfig: IRatePayload = { id: '1', likeStatus: 'None' }
+		await store.dispatch(api.endpoints.rateComment.initiate(rateConfig))
 		expect(fetchMock).toHaveBeenCalled()
 		const calls = fetchMock.mock.calls[0][0] as Request
 		const { url, method } = calls

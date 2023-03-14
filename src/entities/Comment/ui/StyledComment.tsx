@@ -1,6 +1,12 @@
 import { rem } from '@app/styles/mixins'
+import { Button } from '@shared/ui/Button'
 import { TextField } from '@shared/ui/Input'
+import { Typography } from '@shared/ui/Typography'
 import styled from 'styled-components'
+
+interface ICommentLikeButtonProps {
+	selected: boolean
+}
 
 export const CommentWrapper = styled.div`
 	display: flex;
@@ -28,6 +34,25 @@ export const CommentBody = styled.div`
 	flex: 1 1 auto;
 `
 
+export const CommentLikes = styled.div`
+	display: flex;
+	gap: ${rem(10)};
+`
+
+export const CommentLikeButton = styled(Button).attrs({
+	variant: 'second'
+})<ICommentLikeButtonProps>`
+	font-size: 20px;
+	color: var(--color-main);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+
+export const CommentLikeText = styled(Typography)`
+	font-size: ${rem(14)};
+	color: var(--color-main);
+`
 export const CommentHeader = styled.div`
 	display: flex;
 	gap: ${rem(10)};

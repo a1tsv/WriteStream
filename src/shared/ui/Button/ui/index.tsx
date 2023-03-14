@@ -7,14 +7,15 @@ interface IButtonProps {
 
 export const Button = styled.button<SxComponent<IButtonProps>>`
 	cursor: pointer;
-	padding: 0.5rem 1rem;
-	border-radius: var(--radius);
-	border: 1px solid transparent;
+
 	${({ variant }) =>
 		variant === 'primary'
 			? css`
 					color: #000;
 					background-color: var(--color-main);
+					padding: 0.5rem 1rem;
+					border-radius: var(--radius);
+					border: 1px solid transparent;
 
 					@media (any-hover: hover) {
 						&:hover {
